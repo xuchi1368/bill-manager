@@ -1,13 +1,65 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "sqlite"
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  icon        String    @default("📦")
+  type        String
+  parentId    String?
+  budgetLimit Float?
+  parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  transactions Transaction[]
+  rules       RecurringRule[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Channel {
+  id          String        @id @default(cuid())
+  name        String
+  type        String
+  transactions Transaction[]
+  rules       RecurringRule[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Transaction {
+  id         String    @id @default(cuid())
+  type       String
+  amount     Float
+  date       String
+  note       String?
+  categoryId String
+  channelId  String
+  projectId  String?
+  category   Category  @relation(fields: [categoryId], references: [id])
+  channel    Channel   @relation(fields: [channelId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model RecurringRule {
+  id          String   @id @default(cuid())
+  name        String
+  amount      Float
+  type        String
+  frequency   String
+  dayOfMonth  Int      @default(1)
+  nextDueDate String
+  isActive    Boolean  @default(true)
+  categoryId  String
+  channelId   String
+  category    Category @relation(fields: [categoryId], references: [id])
+  channel     Channel  @relation(fields: [channelId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
