@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import { register } from '@/lib/registry';
+
+register();
 
 export const metadata: Metadata = {
   title: '账单管理',
