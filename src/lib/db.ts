@@ -5,13 +5,29 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-const adapter = new PrismaLibSql({
-  url: process.env.DATABASE_URL!,
-  authToken: process.env.TURSO_AUTH_TOKEN,
-});
-
-export const db = globalForPrisma.prisma ?? new PrismaClient({ adapter });
-
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = db;
+function createPrismaClient() {
+  const adapter = new PrismaLibSql({
+    url: process.env.DATABASE_URL!,
+    authToken: process.env.TURSO_AUTH_TOKEN,
+  });
+  return new PrismaClient({ adapter });
 }
+
+let _db: PrismaClient;
+
+function getDb(): PrismaClient {
+  if (!_db) {
+    _db = globalForPrisma.prisma ?? createPrismaClient();
+    if (process.env.NODE_ENV !== 'production') {
+      globalForPrisma.prisma = _db;
+    }
+  }
+  return _db;
+}
+
+// Use Proxy so `db.model.findMany()` style still works
+export const db = new Proxy({} as PrismaClient, {
+  get(_, prop) {
+    return (getDb() as any)[prop];
+  },
+});
