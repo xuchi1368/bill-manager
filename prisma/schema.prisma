@@ -25,16 +25,17 @@ model Category {
 }
 
 model Channel {
-  id          String         @id @default(cuid())
+  id          String               @id @default(cuid())
   name        String
   type        String
-  balance     Float          @default(0)
+  balance     Float                @default(0)
   transactions Transaction[]
   rules       RecurringRule[]
-  transfersOut Transfer[]    @relation("TransferFrom")
-  transfersIn  Transfer[]    @relation("TransferTo")
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  catRules    CategorizationRule[]
+  transfersOut Transfer[]          @relation("TransferFrom")
+  transfersIn  Transfer[]          @relation("TransferTo")
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
 }
 
 model Transfer {
@@ -94,9 +95,13 @@ model CategorizationRule {
   id         String   @id @default(cuid())
   keyword    String
   categoryId String
+  channelId  String?
+  amountMin  Float?
+  amountMax  Float?
   isActive   Boolean  @default(true)
   priority   Int      @default(0)
   category   Category @relation(fields: [categoryId], references: [id])
+  channel    Channel? @relation(fields: [channelId], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }

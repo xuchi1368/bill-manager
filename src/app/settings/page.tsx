@@ -23,9 +23,13 @@ interface Rule {
   id: string;
   keyword: string;
   categoryId: string;
+  channelId: string | null;
+  amountMin: number | null;
+  amountMax: number | null;
   isActive: boolean;
   priority: number;
   category: { name: string; icon: string };
+  channel?: { name: string } | null;
 }
 
 const inputClass = 'bg-[#f5f2ed] border-0 rounded-[10px] px-3.5 py-2 text-sm text-[#3d342b] placeholder-[#6b5d52] focus:outline-none focus:ring-2 focus:ring-amber-500/30';
@@ -69,6 +73,9 @@ function SettingsContent() {
   const [rules, setRules] = useState<Rule[]>([]);
   const [ruleKeyword, setRuleKeyword] = useState('');
   const [ruleCategoryId, setRuleCategoryId] = useState('');
+  const [ruleChannelId, setRuleChannelId] = useState('');
+  const [ruleAmountMin, setRuleAmountMin] = useState('');
+  const [ruleAmountMax, setRuleAmountMax] = useState('');
   const [rulePriority, setRulePriority] = useState('0');
 
   const loadCategories = useCallback(() => {
@@ -106,9 +113,16 @@ function SettingsContent() {
     await fetch('/api/categorization-rules', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ keyword: ruleKeyword, categoryId: ruleCategoryId, priority: parseInt(rulePriority) || 0 }),
+      body: JSON.stringify({
+        keyword: ruleKeyword,
+        categoryId: ruleCategoryId,
+        channelId: ruleChannelId || null,
+        amountMin: ruleAmountMin ? parseFloat(ruleAmountMin) : null,
+        amountMax: ruleAmountMax ? parseFloat(ruleAmountMax) : null,
+        priority: parseInt(rulePriority) || 0,
+      }),
     });
-    setRuleKeyword(''); setRulePriority('0');
+    setRuleKeyword(''); setRuleChannelId(''); setRuleAmountMin(''); setRuleAmountMax(''); setRulePriority('0');
     loadRules();
   }
 
@@ -749,6 +763,21 @@ function SettingsContent() {
               </select>
             </div>
             <div>
+              <label className="text-xs text-[#6b5d52] block mb-1">渠道（可选）</label>
+              <select value={ruleChannelId} onChange={(e) => setRuleChannelId(e.target.value)} className={`${inputClass} w-24`}>
+                <option value="">不限</option>
+                {allChannels.map((c: any) => (<option key={c.id} value={c.id}>{c.name}</option>))}
+              </select>
+            </div>
+            <div>
+              <label className="text-xs text-[#6b5d52] block mb-1">金额范围</label>
+              <div className="flex items-center gap-1">
+                <input type="number" step="0.01" value={ruleAmountMin} onChange={(e) => setRuleAmountMin(e.target.value)} placeholder="最小值" className={`${inputClass} w-20`} />
+                <span className="text-xs text-[#6b5d52]">~</span>
+                <input type="number" step="0.01" value={ruleAmountMax} onChange={(e) => setRuleAmountMax(e.target.value)} placeholder="最大值" className={`${inputClass} w-20`} />
+              </div>
+            </div>
+            <div>
               <label className="text-xs text-[#6b5d52] block mb-1">优先级</label>
               <input type="number" value={rulePriority} onChange={(e) => setRulePriority(e.target.value)} className={`${inputClass} w-16`} />
             </div>
@@ -757,11 +786,17 @@ function SettingsContent() {
 
           <div className="space-y-1">
             {rules.map((rule) => (
-              <div key={rule.id} className="card p-3 flex items-center justify-between">
-                <div className="flex items-center gap-3">
+              <div key={rule.id} className="card p-3 flex items-center justify-between flex-wrap gap-y-1">
+                <div className="flex items-center gap-3 flex-wrap">
                   <span className="text-sm font-medium text-[#3d342b]">&ldquo;{rule.keyword}&rdquo;</span>
                   <span className="text-xs text-[#6b5d52]">→</span>
                   <span className="text-[#3d342b] text-sm">{rule.category.icon} {rule.category.name}</span>
+                  {rule.channel && <span className="text-xs text-[#6b5d52]">渠道: {rule.channel.name}</span>}
+                  {(rule.amountMin || rule.amountMax) && (
+                    <span className="text-xs text-[#6b5d52]">
+                      ¥{rule.amountMin ?? 0} ~ {rule.amountMax ? `¥${rule.amountMax}` : '不限'}
+                    </span>
+                  )}
                   <span className="text-xs text-[#6b5d52]">优先级 {rule.priority}</span>
                 </div>
                 <div className="flex items-center gap-3">

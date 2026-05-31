@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
     const channels = await db.channel.findMany();
     const userRules = await db.categorizationRule.findMany({
       where: { isActive: true },
-      include: { category: true },
+      include: { category: true, channel: true },
       orderBy: { priority: 'desc' },
     });
 
@@ -191,13 +191,21 @@ export async function POST(req: NextRequest) {
       let matched = matchCategory(searchText, '');
       let matchedRuleId: string | null = null;
 
-      // Check user-defined rules first (higher priority)
+      // Check user-defined rules first (higher priority) — keyword + amount + channel
       for (const rule of userRules) {
-        if (searchText.includes(rule.keyword)) {
-          matched = { name: rule.category.name, icon: rule.category.icon };
-          matchedRuleId = rule.id;
-          break;
+        // Keyword match
+        if (!searchText.includes(rule.keyword)) continue;
+        // Amount range check (if specified)
+        if (rule.amountMin != null && amount < rule.amountMin) continue;
+        if (rule.amountMax != null && amount > rule.amountMax) continue;
+        // Channel match (if specified)
+        if (rule.channelId) {
+          const ruleChannel = channels.find(c => c.id === rule.channelId);
+          if (ruleChannel && !method.includes(ruleChannel.name) && !ruleChannel.name.includes(method)) continue;
         }
+        matched = { name: rule.category.name, icon: rule.category.icon };
+        matchedRuleId = rule.id;
+        break;
       }
 
       let categoryId = '';

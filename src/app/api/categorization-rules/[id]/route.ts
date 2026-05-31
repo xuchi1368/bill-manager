@@ -6,13 +6,16 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   const data: Record<string, unknown> = {};
   if (body.keyword !== undefined) data.keyword = body.keyword;
   if (body.categoryId !== undefined) data.categoryId = body.categoryId;
+  if (body.channelId !== undefined) data.channelId = body.channelId;
+  if (body.amountMin !== undefined) data.amountMin = body.amountMin;
+  if (body.amountMax !== undefined) data.amountMax = body.amountMax;
   if (body.priority !== undefined) data.priority = body.priority;
   if (body.isActive !== undefined) data.isActive = body.isActive;
 
   const rule = await db.categorizationRule.update({
     where: { id: params.id },
     data,
-    include: { category: true },
+    include: { category: true, channel: true },
   });
   return NextResponse.json(rule);
 }
