@@ -113,3 +113,18 @@
     animation: shimmer 1.5s infinite;
   }
 }
+
+@layer components {
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .budget-banner {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  .ring-circle {
+    transition: stroke-dashoffset 0.5s ease, stroke 0.3s ease;
+  }
+}
