@@ -1,28 +1,17 @@
-import { NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  try {
-    await db.$queryRaw`SELECT 1`;
-    return NextResponse.json({
-      status: 'ok',
-      db: 'connected',
-      env: {
-        DATABASE_URL: process.env.DATABASE_URL ? 'SET' : 'MISSING',
-        TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN ? 'SET' : 'MISSING',
-        JWT_SECRET: process.env.JWT_SECRET ? 'SET' : 'MISSING',
-      }
-    });
-  } catch (e: any) {
-    return NextResponse.json({
-      status: 'error',
-      db: 'disconnected',
-      error: e.message?.slice(0, 200),
-      env: {
-        DATABASE_URL: process.env.DATABASE_URL ? 'SET' : 'MISSING',
-        TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN ? 'SET' : 'MISSING',
-        JWT_SECRET: process.env.JWT_SECRET ? 'SET' : 'MISSING',
-      }
-    }, { status: 500 });
+  // Check ALL env vars (safe)
+  const keys = Object.keys(process.env).filter(k =>
+    k.includes('DATABASE') || k.includes('TURSO') || k.includes('JWT') || k.includes('VERCEL')
+  );
+  const env: Record<string, string> = {};
+  for (const k of keys) {
+    env[k] = process.env[k] ? 'SET' : 'EMPTY';
   }
+
+  return Response.json({
+    totalEnvKeys: Object.keys(process.env).length,
+    matching: env,
+  });
 }
