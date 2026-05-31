@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { register } from '@/lib/registry';
 import AppShell from '@/components/AppShell';
+import { IconProvider } from '@/components/IconProvider';
 
 register();
 
@@ -14,7 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="zh-CN">
       <body className="bg-[#faf7f2] text-[#3d342b] antialiased">
-        <AppShell>{children}</AppShell>
+        <IconProvider>
+          <AppShell>{children}</AppShell>
+        </IconProvider>
       </body>
     </html>
   );

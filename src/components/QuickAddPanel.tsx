@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-import { getCategoryIcon } from '@/lib/icon-map';
+import { useCategoryIcon } from '@/lib/icon-map';
 
 interface Category { id: string; name: string; icon: string; type: string; }
 interface Channel { id: string; name: string; type: string; }
@@ -38,6 +38,7 @@ export default function QuickAddPanel({ onCreated, onClose }: { onCreated: () =>
 
   const amountRef = useRef<HTMLInputElement>(null);
   const noteRef = useRef<HTMLInputElement>(null);
+  const catIcon = useCategoryIcon();
 
   // Init defaults
   useEffect(() => {
@@ -177,7 +178,7 @@ export default function QuickAddPanel({ onCreated, onClose }: { onCreated: () =>
                     : 'bg-[#f5f2ed] hover:bg-[#ede6dd]'
                 }`}
               >
-                {(() => { const CatIcon = getCategoryIcon(c.icon); return <CatIcon size={22} strokeWidth={1.5} />; })()}
+                {catIcon(c.icon, c.name)}
                 <span className="text-[10px] text-[#3d342b] mt-1 leading-tight">{c.name}</span>
               </button>
             ))}
@@ -210,7 +211,7 @@ export default function QuickAddPanel({ onCreated, onClose }: { onCreated: () =>
                       : 'bg-[#f5f2ed] hover:bg-[#ede6dd]'
                   }`}
                 >
-                  {(() => { const CatIcon = getCategoryIcon(c.icon); return <CatIcon size={22} strokeWidth={1.5} />; })()}
+                  {catIcon(c.icon, c.name)}
                   <span className="text-[10px] text-[#3d342b] mt-1 leading-tight">{c.name}</span>
                 </button>
               ))}

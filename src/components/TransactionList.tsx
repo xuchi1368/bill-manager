@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { getCategoryIcon } from '@/lib/icon-map';
+import { useCategoryIcon } from '@/lib/icon-map';
 
 interface Transaction {
   id: string; type: string; amount: number; date: string;
@@ -22,6 +22,7 @@ export default function TransactionList({
 }) {
   const [deleting, setDeleting] = useState<string | null>(null);
   const [expandedSplits, setExpandedSplits] = useState<Set<string>>(new Set());
+  const catIcon = useCategoryIcon();
 
   async function handleDelete(id: string) {
     if (!onDelete) return;
@@ -82,10 +83,9 @@ export default function TransactionList({
                       </div>
                     )}
                   </div>
-                ) : (() => {
-                  const CatIcon = getCategoryIcon(t.category.icon);
-                  return <><CatIcon size={15} strokeWidth={1.5} className="inline text-[#6b5d52]" /> <span className="text-[#3d342b]">{t.category.name}</span></>;
-                })()}
+                ) : (
+                  <>{catIcon(t.category.icon, t.category.name)} <span className="text-[#3d342b]">{t.category.name}</span></>
+                )}
               </td>
               <td className={`${cell} text-[#3d342b]`}>{t.channel.name}</td>
               <td className={`${cell} text-[#6b5d52] max-w-[80px] truncate`}>{t.note || '—'}</td>
