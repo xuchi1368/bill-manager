@@ -14,7 +14,7 @@ export default function CategoryPieChart({ data, title }: Props) {
 
   return (
     <div className="card p-3">
-      <h3 className="section-title text-xs mb-1">{title}</h3>
+      {title && <h3 className="section-title text-xs mb-1">{title}</h3>}
       <ResponsiveContainer width="100%" height={180}>
         <PieChart>
           <Pie data={data} cx="50%" cy="50%" innerRadius={40} outerRadius={70} paddingAngle={1} dataKey="value">

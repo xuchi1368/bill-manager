@@ -90,10 +90,20 @@ export default function ReportsPage() {
         <StatCard title="结余" amount={data.balance} color="blue" />
       </div>
 
-      {/* Pie charts + MoM */}
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_1fr_1.2fr] gap-3 mb-4">
-        <CategoryPieChart data={expensePie} title="支出分类" />
-        <CategoryPieChart data={incomePie} title="收入分类" />
+      {/* Pie charts — expense + income combined in one card */}
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_1.2fr] gap-3 mb-4">
+        <div className="card p-3">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <h3 className="section-title text-xs mb-1">支出分类</h3>
+              <CategoryPieChart data={expensePie} title="" />
+            </div>
+            <div>
+              <h3 className="section-title text-xs mb-1">收入分类</h3>
+              <CategoryPieChart data={incomePie} title="" />
+            </div>
+          </div>
+        </div>
         {data.momComparison && data.momComparison.length > 0 && (
           <div className="card p-3">
             <h3 className="section-title text-xs mb-2">📅 环比（本月 vs 上月）</h3>
