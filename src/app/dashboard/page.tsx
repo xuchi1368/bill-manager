@@ -7,6 +7,7 @@ import TrendChart from '@/components/TrendChart';
 import CalendarView from '@/components/CalendarView';
 import TransactionList from '@/components/TransactionList';
 import QuickAddPanel from '@/components/QuickAddPanel';
+import BudgetOverview from '@/components/BudgetOverview';
 
 export default function DashboardPage() {
   const [data, setData] = useState<{
@@ -17,8 +18,9 @@ export default function DashboardPage() {
       categoryId: string; channelId: string;
       category: { name: string; icon: string }; channel: { name: string };
     }[];
-    budgets: { id: string; name: string; icon: string; budgetLimit: number; spent: number }[];
+    budgets: { id: string; name: string; icon: string; budgetLimit: number; spent: number; lastMonthSpent?: number }[];
     accounts: { id: string; name: string; type: string; balance: number }[];
+    allExpenseCategories: { id: string; name: string; icon: string; budgetLimit: number | null }[];
   } | null>(null);
   const [showQuickAdd, setShowQuickAdd] = useState(false);
 
@@ -96,6 +98,11 @@ export default function DashboardPage() {
           </p>
         </div>
       </div>
+
+      {/* Budget Overview */}
+      {data.budgets && data.allExpenseCategories && (
+        <BudgetOverview budgets={data.budgets} allExpenseCategories={data.allExpenseCategories} />
+      )}
 
       {/* Calendar + Accounts */}
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-3 mb-4">
