@@ -890,14 +890,14 @@ function SettingsContent() {
       {tab === 'backup' && (
         <div>
           <div className="card p-4 mb-4">
-            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">数据备份</h3>
-            <p className="text-xs text-[#6b5d52] mb-3">下载完整数据库文件，可用于迁移到新电脑或恢复数据。</p>
+            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">数据库备份与恢复</h3>
+            <p className="text-xs text-[#6b5d52] mb-3">下载完整数据库文件 (.db)，可用于迁移数据或恢复。如需可读的账单文件，请在记账页使用导出 CSV 功能。</p>
             <a
               href="/api/backup/download"
               download
-              className="inline-block px-5 py-2 bg-[#2ea87a] hover:bg-emerald-500/90 text-white font-medium rounded-[10px] text-sm transition-colors"
+              className="inline-block px-5 py-2 bg-[#f59e0b] hover:bg-amber-500/90 text-white font-medium rounded-[10px] text-sm transition-colors"
             >
-              下载备份
+              下载数据库备份 (.db)
             </a>
           </div>
 
