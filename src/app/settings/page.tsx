@@ -873,7 +873,7 @@ function SettingsContent() {
             {(['lucide', 'emoji', 'colored'] as const).map(t => (
               <button
                 key={t}
-                onClick={() => { console.log('icon theme switch to:', t); setTheme(t); alert('图标已切换为: ' + t); }}
+                onClick={() => setTheme(t)}
                 className={`px-3 py-1.5 mr-2 text-xs rounded-[8px] font-medium transition-all cursor-pointer ${
                   theme === t
                     ? 'bg-[#f59e0b] text-white shadow-sm'
