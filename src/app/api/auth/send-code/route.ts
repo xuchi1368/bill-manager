@@ -23,7 +23,11 @@ export async function POST(req: Request) {
     });
 
     await sendSMS(phone, code);
-    return NextResponse.json({ ok: true });
+    // TODO: 接入短信后删除此行，改为不返回 code
+    return NextResponse.json({
+      ok: true,
+      code,  // 临时：直接返回验证码方便测试
+    });
   } catch (err: any) {
     console.error('[send-code]', err);
     return NextResponse.json({ error: '服务器错误: ' + (err.message || '未知') }, { status: 500 });

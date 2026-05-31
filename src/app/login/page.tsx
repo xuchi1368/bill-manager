@@ -7,6 +7,7 @@ export default function LoginPage() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [devCode, setDevCode] = useState('');
 
   async function sendCode() {
     if (!phone) return;
@@ -18,7 +19,7 @@ export default function LoginPage() {
       body: JSON.stringify({ phone }),
     });
     const data = await res.json();
-    if (res.ok) setSent(true);
+    if (res.ok) { setSent(true); setDevCode(data.code || ''); }
     else setError(data.error);
     setLoading(false);
   }
@@ -63,9 +64,14 @@ export default function LoginPage() {
           </>
         ) : (
           <>
-            <p className="text-xs text-[#6b5d52] mb-3 text-center">
+            <p className="text-xs text-[#6b5d52] mb-1 text-center">
               验证码已发送至 {phone}
             </p>
+            {devCode && (
+              <p className="text-xs text-[#f59e0b] mb-2 text-center font-mono font-bold tracking-[2px]">
+                验证码：{devCode}
+              </p>
+            )}
             <input
               type="text"
               value={code}
