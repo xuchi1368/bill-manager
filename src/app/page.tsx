@@ -55,7 +55,15 @@ export default function HomePage() {
 
   const handleClick = useCallback((href: string) => {
     setZooming(href);
-    setTimeout(() => router.push(href), 400);
+    setTimeout(() => {
+      // Use native View Transition for smooth crossfade between pages
+      const nav = () => router.push(href);
+      if (typeof document !== 'undefined' && 'startViewTransition' in document) {
+        (document as any).startViewTransition(nav);
+      } else {
+        nav();
+      }
+    }, 300);
   }, [router]);
 
   return (

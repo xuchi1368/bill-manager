@@ -6,16 +6,17 @@ export default function PageTransition({ children }: { children: React.ReactNode
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const t = requestAnimationFrame(() => setVisible(true));
-    return () => cancelAnimationFrame(t);
+    // Small delay so the View Transition crossfade has time to start before content reveals
+    const t = setTimeout(() => setVisible(true), 80);
+    return () => clearTimeout(t);
   }, []);
 
   return (
     <div
-      className="transition-all duration-500 ease-out"
+      className="transition-all duration-400 ease-out"
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? 'scale(1)' : 'scale(1.12)',
+        transform: visible ? 'translateY(0)' : 'translateY(12px)',
       }}
     >
       {children}
