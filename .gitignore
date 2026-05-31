@@ -43,3 +43,4 @@ next-env.d.ts
 
 # next.js build in src
 /src/.next
+.next/
