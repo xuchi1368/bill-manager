@@ -161,7 +161,38 @@
 .dark .bg-\[\#faf7f2\] { background: var(--bg) !important; }
 .dark .bg-white { background: var(--card) !important; }
 .dark .border-\[\#ede6dd\] { border-color: var(--border) !important; }
+.dark .border-\[\#f5f2ed\] { border-color: var(--border) !important; }
 .dark .text-\[\#3d342b\] { color: var(--text) !important; }
 .dark .text-\[\#6b5d52\] { color: var(--muted) !important; }
 .dark .bg-\[\#f5f2ed\] { background: var(--input) !important; }
 .dark input, .dark select { background: var(--input); color: var(--text); }
+.dark input::placeholder, .dark select::placeholder { color: var(--muted); }
+
+/* Home page cards */
+.dark .bg-gradient-to-br { background-image: none !important; background: var(--card) !important; }
+.dark .border-amber-200\\/60 { border-color: var(--border) !important; }
+.dark .border-rose-200\\/60 { border-color: var(--border) !important; }
+.dark .border-emerald-200\\/60 { border-color: var(--border) !important; }
+.dark .border-sky-200\\/60 { border-color: var(--border) !important; }
+.dark .border-violet-200\\/60 { border-color: var(--border) !important; }
+.dark .border-stone-200\\/60 { border-color: var(--border) !important; }
+.dark .from-amber-50, .dark .from-rose-50, .dark .from-emerald-50,
+.dark .from-sky-50, .dark .from-violet-50, .dark .from-stone-50 { --tw-gradient-from: var(--card); }
+.dark .to-orange-50, .dark .to-pink-50, .dark .to-teal-50,
+.dark .to-blue-50, .dark .to-purple-50, .dark .to-neutral-50 { --tw-gradient-to: var(--card); }
+
+/* Budget rings + alerts */
+.dark .bg-rose-50 { background: #2d1f1f !important; }
+.dark .border-rose-200 { border-color: #4a3030 !important; }
+.dark .text-\[\#e25c3b\] { color: #f87171 !important; }
+.dark .bg-amber-50 { background: #2d2518 !important; }
+.dark .border-amber-200 { border-color: #4a3d20 !important; }
+.dark .bg-emerald-50 { background: #1a2820 !important; }
+.dark .border-emerald-200 { border-color: #254530 !important; }
+.dark .text-\[\#2ea87a\] { color: #4ade80 !important; }
+
+/* Table headers + dividers */
+.dark .border-b { border-color: var(--border) !important; }
+.dark .hover\\:bg-\[\#faf7f2\]:hover { background: var(--input) !important; }
+.dark .bg-\[\#fffbeb\] { background: #2d2518 !important; }
+.dark .bg-\[\#fffdf5\] { background: #2a2520 !important; }
