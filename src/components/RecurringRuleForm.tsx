@@ -82,7 +82,7 @@ export default function RecurringRuleForm({ onCreated }: { onCreated: () => void
           <option value="monthly">每月</option>
           <option value="yearly">每年</option>
         </select>
-        <input type="date" placeholder="下次到期日" value={nextDueDate} onChange={(e) => setNextDueDate(e.target.value)} required className={inputClass} />
+        <input type="date" placeholder="下次到期日" value={nextDueDate} onChange={(e) => setNextDueDate(e.target.value)} required className={inputClass} onClick={(e) => (e.target as HTMLInputElement).showPicker?.()} />
       </div>
 
       {frequency === 'monthly' && (

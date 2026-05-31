@@ -213,13 +213,13 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
 
         {!isSplit && (
           <div className="grid grid-cols-2 gap-2">
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputClass} />
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputClass} onClick={(e) => (e.target as HTMLInputElement).showPicker?.()} />
             <input type="text" placeholder="备注（选填）" value={note} onChange={(e) => setNote(e.target.value)} className={inputClass} />
           </div>
         )}
         {isSplit && (
           <div className="grid grid-cols-2 gap-2">
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputClass} />
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputClass} onClick={(e) => (e.target as HTMLInputElement).showPicker?.()} />
             <input type="text" placeholder="备注（选填）" value={note} onChange={(e) => setNote(e.target.value)} className={inputClass} />
           </div>
         )}

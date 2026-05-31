@@ -75,6 +75,7 @@ function TransactionsContent() {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
           className={inputClass}
+          onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
         />
         <span className="text-xs text-[#6b5d52]">至</span>
         <input
@@ -82,6 +83,7 @@ function TransactionsContent() {
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
           className={inputClass}
+          onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
         />
         {(search || startDate || endDate) && (
           <button
