@@ -37,7 +37,7 @@ const inputClass = 'bg-[#f5f2ed] border-0 rounded-[10px] px-3.5 py-2 text-sm tex
 import PageTransition from '@/components/PageTransition';
 import { useIconTheme } from '@/components/IconProvider';
 import { useAppTheme, THEMES, type ThemeName } from '@/components/ThemeProvider';
-import { useAppEmoji, type IconName } from '@/components/AppIcon';
+import AppIcon, { type IconName } from '@/components/AppIcon';
 import { useCategoryIcon } from '@/lib/icon-map';
 import { getTitlebarStyle, setTitlebarStyle, type TitlebarStyle } from '@/lib/titlebar-store';
 
@@ -47,7 +47,6 @@ function SettingsContent() {
   const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance'>(initialTab);
   const { theme, setTheme } = useIconTheme();
   const { theme: appTheme, setTheme: setAppTheme } = useAppTheme();
-  const getEmoji = useAppEmoji();
   const renderIcon = useCategoryIcon();
   const [categories, setCategories] = useState<Category[]>([]);
   const [channels, setChannels] = useState<Channel[]>([]);
@@ -318,7 +317,7 @@ function SettingsContent() {
       className={`px-4 py-2.5 text-sm font-medium transition-colors ${tab === t ? 'border-b-2 border-[#f59e0b] text-[#3d342b]' : 'text-[#6b5d52] hover:text-[#3d342b]'}`}
       onClick={() => setTab(t)}
     >
-      {getEmoji(icon)}{label}
+      <AppIcon name={icon} size={16} /> {label}
     </button>
   );
 

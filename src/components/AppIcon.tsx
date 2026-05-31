@@ -53,7 +53,6 @@ export default function AppIcon({ name, size = 20, strokeWidth = 1.5 }: Props) {
 export function useAppEmoji() {
   const { theme } = useIconTheme();
   return (name: IconName): string => {
-    if (theme === 'emoji' || theme === 'colored') return EMOJI_MAP[name];
-    return ''; // No prefix in Lucide mode
+    return EMOJI_MAP[name] || '';
   };
 }
