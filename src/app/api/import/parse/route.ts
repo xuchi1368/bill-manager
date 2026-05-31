@@ -151,13 +151,13 @@ export async function POST(req: NextRequest) {
       amountIdx = useHeaders.findIndex((h) => h.includes('金额'));
       methodIdx = useHeaders.findIndex((h) => h.includes('支付方式'));
     } else {
-      timeIdx = headers.findIndex((h) => h.includes('交易时间'));
-      typeIdx = headers.findIndex((h) => h.includes('交易分类'));
-      counterpartyIdx = headers.findIndex((h) => h.includes('交易对方'));
-      descIdx = headers.findIndex((h) => h.includes('商品说明'));
-      inoutIdx = headers.findIndex((h) => h.includes('收/支'));
-      amountIdx = headers.findIndex((h) => h.includes('金额'));
-      methodIdx = headers.findIndex((h) => h.includes('收/付款方式'));
+      timeIdx = useHeaders.findIndex((h) => h.includes('交易时间'));
+      typeIdx = useHeaders.findIndex((h) => h.includes('交易分类'));
+      counterpartyIdx = useHeaders.findIndex((h) => h.includes('交易对方'));
+      descIdx = useHeaders.findIndex((h) => h.includes('商品说明'));
+      inoutIdx = useHeaders.findIndex((h) => h.includes('收/支'));
+      amountIdx = useHeaders.findIndex((h) => h.includes('金额'));
+      methodIdx = useHeaders.findIndex((h) => h.includes('收/付款方式'));
     }
 
     // Get all categories, channels, and user rules for matching
