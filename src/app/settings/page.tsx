@@ -363,12 +363,12 @@ function SettingsContent() {
       <h2 className="text-lg font-bold text-[#3d342b] mb-4">设置</h2>
 
       <div className="flex gap-0 mb-4 border-b border-[#ede6dd] overflow-x-auto">
-        {tabBtn('categories', '📂 收支分类')}
-        {tabBtn('channels', '💳 渠道管理')}
-        {tabBtn('import', '📥 数据导入')}
-        {tabBtn('rules', '📏 自动分类')}
-        {tabBtn('backup', '💾 数据备份')}
-        {tabBtn('appearance', '🎨 外观')}
+        {tabBtn('categories', '收支分类')}
+        {tabBtn('channels', '渠道管理')}
+        {tabBtn('import', '数据导入')}
+        {tabBtn('rules', '自动分类')}
+        {tabBtn('backup', '数据备份')}
+        {tabBtn('appearance', '外观')}
       </div>
 
       {tab === 'categories' && (
@@ -600,7 +600,7 @@ function SettingsContent() {
                     className="hidden"
                   />
                   <span className="text-[#6b5d52] text-sm">
-                    {importParsing ? '解析中...' : `📂 选择${importPlatform === 'wechat' ? '微信' : '支付宝'}账单${importPlatform === 'wechat' ? ' XLSX' : ' CSV'}文件`}
+                    {importParsing ? '解析中...' : `选择${importPlatform === 'wechat' ? '微信' : '支付宝'}账单${importPlatform === 'wechat' ? ' XLSX' : ' CSV'}文件`}
                   </span>
                 </label>
               </div>
@@ -816,7 +816,7 @@ function SettingsContent() {
       {tab === 'appearance' && (
         <div>
           <div className="card p-4 mb-4">
-            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">🪟 标题栏风格</h3>
+            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">标题栏风格</h3>
             <p className="text-xs text-[#6b5d52] mb-3">
               仅 Electron 桌面版生效。切换后立即应用。
             </p>
@@ -831,7 +831,7 @@ function SettingsContent() {
                       : 'bg-[#f5f2ed] text-[#6b5d52] hover:bg-[#ede6dd]'
                   }`}
                 >
-                  {s === 'auto' ? '💻 跟随系统' : s === 'windows' ? '🪟 Windows 风格' : '🍎 Mac 风格'}
+                  {s === 'auto' ? '跟随系统' : s === 'windows' ? 'Windows 风格' : 'Mac 风格'}
                 </button>
               ))}
             </div>
@@ -869,7 +869,7 @@ function SettingsContent() {
           </div>
 
           <div className="card p-4">
-            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">😀 图标风格</h3>
+            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">图标风格</h3>
             {(['lucide', 'emoji', 'colored'] as const).map(t => (
               <button
                 key={t}
@@ -880,7 +880,7 @@ function SettingsContent() {
                     : 'bg-[#f5f2ed] text-[#6b5d52] hover:bg-[#ede6dd]'
                 }`}
               >
-                {t === 'lucide' ? '🔲 Lucide 线性' : t === 'emoji' ? '😀 Emoji' : '🎨 色块图标'}
+                {t === 'lucide' ? 'Lucide 线性' : t === 'emoji' ? 'Emoji' : '色块图标'}
               </button>
             ))}
           </div>
@@ -890,14 +890,14 @@ function SettingsContent() {
       {tab === 'backup' && (
         <div>
           <div className="card p-4 mb-4">
-            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">💾 数据备份</h3>
+            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">数据备份</h3>
             <p className="text-xs text-[#6b5d52] mb-3">下载完整数据库文件，可用于迁移到新电脑或恢复数据。</p>
             <a
               href="/api/backup/download"
               download
               className="inline-block px-5 py-2 bg-[#2ea87a] hover:bg-emerald-500/90 text-white font-medium rounded-[10px] text-sm transition-colors"
             >
-              📥 下载备份
+              下载备份
             </a>
           </div>
 
@@ -905,7 +905,7 @@ function SettingsContent() {
             <h3 className="text-sm font-semibold text-[#3d342b] mb-3">🔄 恢复数据</h3>
             <p className="text-xs text-[#6b5d52] mb-3">上传之前下载的 .db 备份文件。恢复前会自动保存当前数据到 backups/ 目录。</p>
             <label className="inline-block bg-[#faf7f2] border border-dashed border-[#d6cec4] rounded-xl p-4 text-center cursor-pointer hover:border-[#f59e0b] transition-colors">
-              <span className="text-[#6b5d52] text-sm">📂 选择备份文件 (.db)</span>
+              <span className="text-[#6b5d52] text-sm">选择备份文件 (.db)</span>
               <input
                 type="file"
                 accept=".db"
