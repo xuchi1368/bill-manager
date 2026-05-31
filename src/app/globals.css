@@ -169,14 +169,13 @@
 /* Force all light borders to dark */
 .dark .border-\[\#ede6dd\],
 .dark .border-\[\#f5f2ed\],
-.dark .border-amber-200\\/60,
-.dark .border-rose-200\\/60,
-.dark .border-emerald-200\\/60,
-.dark .border-sky-200\\/60,
-.dark .border-violet-200\\/60,
-.dark .border-stone-200\\/60,
-.dark [class*="border-[#ede"],
-.dark [class*="border-[#f5f"] { border-color: var(--border) !important; }
+/* border with opacity — use generic match */
+.dark [class*="border-amber-"],
+.dark [class*="border-rose-"],
+.dark [class*="border-emerald-"],
+.dark [class*="border-sky-"],
+.dark [class*="border-violet-"],
+.dark [class*="border-stone-"] { border-color: var(--border) !important; }
 
 /* All main text to light */
 .dark .text-\[\#3d342b\] { color: var(--text) !important; }
