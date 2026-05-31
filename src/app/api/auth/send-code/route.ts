@@ -10,17 +10,22 @@ export async function POST(req: Request) {
   }
 
   // 删除旧验证码
-  await db.verificationCode.deleteMany({ where: { phone } });
+  try {
+    await db.verificationCode.deleteMany({ where: { phone } });
 
-  const code = generateCode();
-  await db.verificationCode.create({
-    data: {
-      phone,
-      code,
-      expiresAt: new Date(Date.now() + 5 * 60 * 1000),
-    },
-  });
+    const code = generateCode();
+    await db.verificationCode.create({
+      data: {
+        phone,
+        code,
+        expiresAt: new Date(Date.now() + 5 * 60 * 1000),
+      },
+    });
 
-  await sendSMS(phone, code);
-  return NextResponse.json({ ok: true });
+    await sendSMS(phone, code);
+    return NextResponse.json({ ok: true });
+  } catch (err: any) {
+    console.error('[send-code]', err);
+    return NextResponse.json({ error: '服务器错误: ' + (err.message || '未知') }, { status: 500 });
+  }
 }
