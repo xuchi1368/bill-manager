@@ -70,7 +70,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-6">
-      <div className={`text-center mb-5 transition-all duration-400 ${zooming ? 'opacity-0 scale-90' : 'animate-slide-down'}`}>
+      <div className={`text-center mb-5 transition-all duration-300 ${zooming ? 'opacity-0 scale-90' : 'animate-slide-down'}`}>
         <h1 className="text-2xl font-bold text-[#3d342b] mb-0.5">账单管理</h1>
         <p className="text-[11px] text-[#6b5d52]">
           个人财务助手 · {new Date().getFullYear()}年{new Date().getMonth() + 1}月
@@ -90,7 +90,7 @@ export default function HomePage() {
               onClick={() => handleClick(e.href)}
               disabled={!!zooming}
               className={`bg-gradient-to-br ${e.color} border rounded-2xl p-4 flex flex-col items-center text-center gap-1.5
-                transition-all duration-400 ease-out cursor-pointer
+                transition-all duration-300 ease-out cursor-pointer
                 ${active ? 'scale-[1.8] opacity-0 z-10 relative' : ''}
                 ${dimmed ? 'opacity-0 scale-75' : ''}
                 ${!zooming ? 'animate-scale-in hover:scale-[1.04] hover:shadow-lg hover:-translate-y-1' : 'cursor-default'}
