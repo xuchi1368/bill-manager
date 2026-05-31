@@ -21,8 +21,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return (
       <div className="h-screen flex flex-col overflow-hidden">
         <TitleBar />
-        <main className="flex-1 overflow-auto p-4">
-          <div className="max-w-2xl mx-auto">{children}</div>
+        <main className="flex-1 overflow-auto p-4 flex flex-col">
+          <div className="max-w-2xl mx-auto flex flex-col flex-1">{children}</div>
         </main>
       </div>
     );

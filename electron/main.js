@@ -86,19 +86,25 @@ ipcMain.on('window-maximize', () => {
 ipcMain.on('window-close', () => mainWindow?.close());
 ipcMain.handle('window-is-maximized', () => mainWindow?.isMaximized() ?? false);
 
+// For development: skip built-in server, connect to externally-managed server
+const SKIP_SERVER = process.env.ELECTRON_SKIP_SERVER === '1';
+
 app.whenReady().then(async () => {
-  try {
-    await startNextServer();
-  } catch (e) {
-    console.error('Failed to start server, retrying in dev mode...', e.message);
-    // Fallback: try dev mode
-    const serverPath = path.join(__dirname, 'server.js');
-    serverProcess = fork(serverPath, [], {
-      cwd: path.join(__dirname, '..'),
-      stdio: 'pipe',
-      env: { ...process.env, NODE_ENV: 'development' },
-    });
-    await new Promise((resolve) => setTimeout(resolve, 8000));
+  if (!SKIP_SERVER) {
+    try {
+      await startNextServer();
+    } catch (e) {
+      console.error('Failed to start server, retrying in dev mode...', e.message);
+      const serverPath = path.join(__dirname, 'server.js');
+      serverProcess = fork(serverPath, [], {
+        cwd: path.join(__dirname, '..'),
+        stdio: 'pipe',
+        env: { ...process.env, NODE_ENV: 'development' },
+      });
+      await new Promise((resolve) => setTimeout(resolve, 8000));
+    }
+  } else {
+    console.log('Skipping built-in server (ELECTRON_SKIP_SERVER=1)');
   }
 
   createWindow();

@@ -1,0 +1,125 @@
+<h2>问题：窗口框和内容不搭</h2>
+<p class="subtitle">你的 app 是暖色调（纸白 + 琥珀），但 Windows 窗口框是冷白/灰色。两种做法可以修：</p>
+
+<div class="split">
+  <!-- Before -->
+  <div class="mockup">
+    <div class="mockup-header">❌ 现在：冷框 + 暖内容</div>
+    <div class="mockup-body">
+      <div style="border:4px solid #e0e0e0;border-radius:0;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.1);">
+        <!-- Windows title bar -->
+        <div style="background:#f3f3f3;padding:6px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ddd;">
+          <span style="font-size:12px;color:#666;font-family:Segoe UI,sans-serif;">账单管理</span>
+          <div style="display:flex;gap:8px;">
+            <svg width="10" height="10"><line x1="2" y1="5" x2="8" y2="5" stroke="#666" stroke-width="1"/></svg>
+            <svg width="10" height="10"><rect x="2" y="2" width="6" height="6" fill="none" stroke="#666" stroke-width="1"/></svg>
+            <svg width="10" height="10"><line x1="2" y1="2" x2="8" y2="8" stroke="#666" stroke-width="1"/><line x1="8" y1="2" x2="2" y2="8" stroke="#666" stroke-width="1"/></svg>
+          </div>
+        </div>
+        <!-- App content -->
+        <div style="background:#faf7f2;padding:16px;min-height:200px;">
+          <div style="background:#fff;border:1px solid #ede6dd;border-radius:12px;padding:16px;margin-bottom:10px;">
+            <p style="color:#6b5d52;font-size:11px;margin:0 0 4px;">本月支出</p>
+            <p style="color:#f59e0b;font-size:22px;font-weight:700;margin:0;">¥2,591</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:10px;padding:12px;text-align:center;font-size:12px;color:#3d342b;">🏠 首页</div>
+            <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:10px;padding:12px;text-align:center;font-size:12px;color:#3d342b;">📊 仪表</div>
+            <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:10px;padding:12px;text-align:center;font-size:12px;color:#3d342b;">💳 流水</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:8px;background:#fff3cd;border-radius:6px;font-size:11px;color:#856404;">
+        ⚠️ 灰白框 + 暖色内容 = 穿西装打花领带
+      </div>
+    </div>
+  </div>
+
+  <!-- After: Custom title bar -->
+  <div class="mockup">
+    <div class="mockup-header">✅ 方案 A：自绘暖色标题栏（推荐）</div>
+    <div class="mockup-body">
+      <div style="border-radius:8px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.15);">
+        <!-- Custom title bar in app color -->
+        <div style="background:#faf7f2;padding:7px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ede6dd;">
+          <span style="font-size:12px;color:#3d342b;font-weight:600;">📋 账单管理</span>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#d6cec4;cursor:pointer;" title="最小化"></div>
+            <div style="width:11px;height:11px;border-radius:50%;background:#d6cec4;cursor:pointer;" title="最大化"></div>
+            <div style="width:11px;height:11px;border-radius:50%;background:#e88b6e;cursor:pointer;" title="关闭"></div>
+          </div>
+        </div>
+        <!-- Same app content -->
+        <div style="background:#faf7f2;padding:16px;min-height:200px;">
+          <div style="background:#fff;border:1px solid #ede6dd;border-radius:12px;padding:16px;margin-bottom:10px;">
+            <p style="color:#6b5d52;font-size:11px;margin:0 0 4px;">本月支出</p>
+            <p style="color:#f59e0b;font-size:22px;font-weight:700;margin:0;">¥2,591</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:10px;padding:12px;text-align:center;font-size:12px;color:#3d342b;">🏠 首页</div>
+            <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:10px;padding:12px;text-align:center;font-size:12px;color:#3d342b;">📊 仪表</div>
+            <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:10px;padding:12px;text-align:center;font-size:12px;color:#3d342b;">💳 流水</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:8px;background:#d4edda;border-radius:6px;font-size:11px;color:#155724;">
+        ✅ 标题栏和内容统一暖色调<br>
+        ✅ 自绘窗口按钮，风格自由控制
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr style="margin:32px 0;border-color:#ede6dd;">
+
+<h2>方案 B：另一条路 — 保留原生框，只换颜色</h2>
+
+<div class="mockup">
+  <div class="mockup-header">方案 B：Windows 原生标题栏 + 暖色背景</div>
+  <div class="mockup-body">
+    <div style="border:4px solid #f59e0b;border-radius:0;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.1);">
+      <!-- Colored Windows title bar -->
+      <div style="background:#f59e0b;padding:6px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:12px;color:#fff;font-family:Segoe UI,sans-serif;">账单管理</span>
+        <div style="display:flex;gap:8px;">
+          <svg width="10" height="10"><line x1="2" y1="5" x2="8" y2="5" stroke="#fff" stroke-width="1.5"/></svg>
+          <svg width="10" height="10"><rect x="2" y="2" width="6" height="6" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
+          <svg width="10" height="10"><line x1="2" y1="2" x2="8" y2="8" stroke="#fff" stroke-width="1.5"/><line x1="8" y1="2" x2="2" y2="8" stroke="#fff" stroke-width="1.5"/></svg>
+        </div>
+      </div>
+      <div style="background:#faf7f2;padding:16px;min-height:200px;">
+        <div style="background:#fff;border:1px solid #ede6dd;border-radius:12px;padding:16px;">
+          <p style="color:#6b5d52;font-size:11px;margin:0 0 4px;">本月支出</p>
+          <p style="color:#f59e0b;font-size:22px;font-weight:700;margin:0;">¥2,591</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:8px;background:#fff3cd;border-radius:6px;font-size:11px;color:#856404;">
+      ⚠️ 标题栏只能是纯色块，无法自定义按钮样式<br>
+      ⚠️ 窗口仍然是直角矩形，和内部圆角卡片不统一<br>
+      ✅ 实现简单，改动最小
+    </div>
+  </div>
+</div>
+
+<hr style="margin:32px 0;border-color:#ede6dd;">
+
+<h2>你的选择</h2>
+<p class="subtitle">方案 A 改动大但效果好，方案 B 简单但提升有限。你倾向哪个？</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>自绘暖色标题栏</h3>
+      <p>隐藏 Windows 框，用 HTML/CSS 画一个和 app 风格统一的标题栏。窗口按钮也自定义。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>保留原生框 + 换色</h3>
+      <p>保留 Windows 标题栏，只把背景色从灰白改成琥珀色。简单但效果有限。</p>
+    </div>
+  </div>
+</div>

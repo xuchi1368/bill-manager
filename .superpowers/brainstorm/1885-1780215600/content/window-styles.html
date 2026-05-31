@@ -1,0 +1,132 @@
+<h2>你的应用现在长什么样？</h2>
+<p class="subtitle">左边：当前默认 Windows 窗口。右边：三种桌面应用常见做法</p>
+
+<div class="split">
+  <!-- Current state -->
+  <div class="mockup">
+    <div class="mockup-header">❌ 现在：默认 Windows 窗口</div>
+    <div class="mockup-body">
+      <div style="background:#fff;border:1px solid #ccc;border-radius:6px;overflow:hidden;">
+        <!-- Windows title bar -->
+        <div style="background:#f0f0f0;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ddd;">
+          <span style="font-size:12px;color:#333;">账单管理</span>
+          <div style="display:flex;gap:4px;">
+            <div style="width:12px;height:12px;border:1px solid #999;border-radius:0;"></div>
+            <div style="width:12px;height:12px;border:1px solid #999;border-radius:0;"></div>
+            <div style="width:12px;height:12px;background:#e74c3c;border:1px solid #c0392b;border-radius:0;"></div>
+          </div>
+        </div>
+        <!-- App content -->
+        <div style="background:#faf7f2;padding:24px;min-height:200px;">
+          <div style="display:flex;gap:8px;margin-bottom:16px;">
+            <div class="mock-nav" style="background:#fff;flex:1;text-align:center;">🏠 首页</div>
+            <div class="mock-nav" style="background:#fff;flex:1;text-align:center;">📊 仪表盘</div>
+            <div class="mock-nav" style="background:#fff;flex:1;text-align:center;">💳 流水</div>
+            <div class="mock-nav" style="background:#fff;flex:1;text-align:center;">⚙️ 设置</div>
+          </div>
+          <div style="background:#fff;padding:20px;border-radius:12px;border:1px solid #ede6dd;">
+            <p style="color:#3d342b;font-size:14px;margin:0;">本月支出 <b style="color:#f59e0b;">¥2,591</b></p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:8px;background:#fff3cd;border-radius:6px;font-size:12px;color:#856404;">
+        ⚠️ 白色标题栏与暖色主题冲突<br>
+        ⚠️ 窗口控件（最小化/关闭）是系统默认样式<br>
+        ⚠️ 看起来像"浏览器里打开的网页"
+      </div>
+    </div>
+  </div>
+
+  <!-- Reference apps -->
+  <div class="mockup">
+    <div class="mockup-header">✅ 市面上优秀的桌面应用怎么做？</div>
+    <div class="mockup-body" style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- Example 1: VS Code style -->
+      <div style="background:#1e1e1e;border-radius:8px;overflow:hidden;">
+        <div style="padding:6px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #333;">
+          <span style="font-size:11px;color:#ccc;">📁 文件 &nbsp; ✏️ 编辑 &nbsp; 👁️ 查看</span>
+          <div style="display:flex;gap:8px;">
+            <span style="color:#999;font-size:14px;">─</span>
+            <span style="color:#999;font-size:14px;">□</span>
+            <span style="color:#e74c3c;font-size:14px;">✕</span>
+          </div>
+        </div>
+        <div style="background:#252526;padding:24px;min-height:120px;color:#d4d4d4;font-size:12px;">
+          VS Code — 自绘标题栏 + 菜单集成
+        </div>
+      </div>
+
+      <!-- Example 2: Notion style -->
+      <div style="background:#191919;border-radius:8px;overflow:hidden;">
+        <div style="padding:8px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #333;">
+          <span style="font-size:13px;color:#fff;font-weight:600;">Notion</span>
+          <div style="margin-left:auto;display:flex;gap:8px;">
+            <span style="color:#888;">─</span>
+            <span style="color:#888;">□</span>
+            <span style="color:#e74c3c;">✕</span>
+          </div>
+        </div>
+        <div style="background:#191919;padding:24px;min-height:120px;color:#999;font-size:12px;">
+          Notion — 极简标题栏，只保留名字和窗口按钮
+        </div>
+      </div>
+
+      <!-- Example 3: Figma style -->
+      <div style="background:#2c2c2c;border-radius:8px;overflow:hidden;">
+        <div style="padding:6px 12px;display:flex;align-items:center;gap:16px;border-bottom:1px solid #444;">
+          <div style="width:20px;height:20px;background:#a259ff;border-radius:4px;"></div>
+          <span style="font-size:12px;color:#fff;">Figma</span>
+          <span style="font-size:11px;color:#999;">无标题</span>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:6px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:#34c759;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#ffcc00;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#ff3b30;"></div>
+          </div>
+        </div>
+        <div style="background:#2c2c2c;padding:24px;min-height:120px;color:#999;font-size:12px;">
+          Figma — 自绘标题栏 + Mac 风格圆点按钮
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr style="margin:32px 0;border-color:#ede6dd;">
+
+<h2>三种改进方案，你更喜欢哪个方向？</h2>
+<p class="subtitle">点击卡片选择你喜欢的风格方向（可以多选）</p>
+
+<div class="options" data-multiselect>
+  <div class="option" data-choice="frameless-dark" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>深色自绘标题栏</h3>
+      <p>隐藏 Windows 原生标题栏，自己画一个深色顶栏。像 VS Code / Notion 那样，窗口控件和 app 融为一体。</p>
+      <div style="margin-top:8px;">
+        <span class="label" style="background:#1e1e1e;color:#d4d4d4;padding:2px 8px;border-radius:3px;">参考: VS Code, Figma</span>
+      </div>
+    </div>
+  </div>
+  <div class="option" data-choice="frameless-warm" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>暖色自绘标题栏</h3>
+      <p>同样隐藏原生标题栏，但用你的 app 暖色调（#faf7f2 纸色 / #f59e0b 琥珀），和内容区无缝衔接。</p>
+      <div style="margin-top:8px;">
+        <span class="label" style="background:#faf7f2;color:#3d342b;padding:2px 8px;border-radius:3px;border:1px solid #ede6dd;">参考: 梧桐记账、随手记</span>
+      </div>
+    </div>
+  </div>
+  <div class="option" data-choice="colored-frame" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>保留原生框架 + 换颜色</h3>
+      <p>保留 Windows 原生标题栏（拖拽、对齐、贴靠都正常），只把标题栏背景色换成琥珀色，低成本改善。</p>
+      <div style="margin-top:8px;">
+        <span class="label" style="background:#fff;color:#333;padding:2px 8px;border-radius:3px;border:1px solid #ccc;">参考: Windows 11 设置、计算器</span>
+      </div>
+    </div>
+  </div>
+</div>

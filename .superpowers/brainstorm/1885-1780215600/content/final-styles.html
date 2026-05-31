@@ -1,0 +1,182 @@
+<h2>最终方案：琥珀点缀 · 双风格</h2>
+<p class="subtitle">同一套视觉语言（纸色底 + 琥珀点缀），两种窗口控件风格。左边 Windows，右边 Mac。</p>
+
+<style>
+  .app-frame {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 24px rgba(0,0,0,0.13);
+    margin-bottom: 8px;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .win-btn {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px; cursor: pointer;
+  }
+  .win-btn:hover { background: rgba(0,0,0,0.06); }
+  .win-btn-close:hover { background: #e88b6e; color: #fff; }
+</style>
+
+<div class="split">
+  <!-- Windows Style -->
+  <div class="mockup">
+    <div class="mockup-header">🪟 Windows 风格</div>
+    <div class="mockup-body">
+      <div class="app-frame">
+        <!-- Title bar -->
+        <div style="background:#faf7f2;padding:7px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #f59e0b;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:7px;height:7px;background:#f59e0b;border-radius:50%;"></div>
+            <span style="font-size:13px;font-weight:600;color:#3d342b;">账单管理</span>
+          </div>
+          <!-- Windows-style buttons -->
+          <div style="display:flex;gap:2px;align-items:center;">
+            <div class="win-btn" title="最小化">
+              <svg width="10" height="10" viewBox="0 0 10 10"><line x1="1" y1="5" x2="9" y2="5" stroke="#6b5d52" stroke-width="1.2"/></svg>
+            </div>
+            <div class="win-btn" title="最大化">
+              <svg width="10" height="10" viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="#6b5d52" stroke-width="1.2"/></svg>
+            </div>
+            <div class="win-btn win-btn-close" title="关闭" style="margin-left:4px;">
+              <svg width="10" height="10" viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8" stroke="#c97d60" stroke-width="1.3"/><line x1="8" y1="2" x2="2" y2="8" stroke="#c97d60" stroke-width="1.3"/></svg>
+            </div>
+          </div>
+        </div>
+        <!-- App body -->
+        <div style="background:#faf7f2;padding:18px;min-height:180px;">
+          <div style="display:flex;gap:16px;height:100%;">
+            <!-- Left rail -->
+            <div style="width:52px;background:#fff;border-radius:12px;border:1px solid #ede6dd;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+              <div style="width:28px;height:28px;background:#fef3c7;border-radius:8px;"></div>
+              <div style="width:28px;height:28px;border-radius:8px;"></div>
+              <div style="width:28px;height:28px;border-radius:8px;"></div>
+              <div style="width:28px;height:28px;border-radius:8px;"></div>
+            </div>
+            <!-- Content -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+              <div style="background:#fff;border:1px solid #ede6dd;border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:11px;color:#6b5d52;">本月支出</div>
+                  <div style="font-size:22px;font-weight:700;color:#f59e0b;">¥2,591</div>
+                </div>
+                <div style="font-size:13px;color:#34c759;">+12% ↑</div>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:8px;padding:10px;text-align:center;font-size:11px;color:#3d342b;">🍜 餐饮<br><b>¥2,576</b></div>
+                <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:8px;padding:10px;text-align:center;font-size:11px;color:#3d342b;">🚗 交通<br><b>¥15</b></div>
+                <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:8px;padding:10px;text-align:center;font-size:11px;color:#3d342b;">🛒 购物<br><b>¥0</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">
+        <span style="background:#faf7f2;border:1px solid #ede6dd;padding:2px 8px;border-radius:10px;font-size:10px;color:#6b5d52;">Windows 线框图标</span>
+        <span style="background:#faf7f2;border:1px solid #ede6dd;padding:2px 8px;border-radius:10px;font-size:10px;color:#6b5d52;">按钮在右上角</span>
+        <span style="background:#faf7f2;border:1px solid #ede6dd;padding:2px 8px;border-radius:10px;font-size:10px;color:#6b5d52;">关闭按钮偏暖色</span>
+        <span style="background:#fef3c7;padding:2px 8px;border-radius:10px;font-size:10px;color:#92400e;">琥珀底线 + 圆点</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mac Style -->
+  <div class="mockup">
+    <div class="mockup-header">🍎 Mac 风格</div>
+    <div class="mockup-body">
+      <div class="app-frame">
+        <!-- Title bar -->
+        <div style="background:#faf7f2;padding:7px 14px;display:flex;align-items:center;border-bottom:2px solid #f59e0b;">
+          <!-- Mac dots on LEFT -->
+          <div style="display:flex;gap:7px;align-items:center;margin-right:14px;">
+            <div class="dot" style="background:#ee6b5b;" title="关闭"></div>
+            <div class="dot" style="background:#f0c14b;" title="最小化"></div>
+            <div class="dot" style="background:#63c556;" title="全屏"></div>
+          </div>
+          <!-- App name centered-ish -->
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:7px;height:7px;background:#f59e0b;border-radius:50%;"></div>
+            <span style="font-size:13px;font-weight:500;color:#6b5d52;">账单管理</span>
+          </div>
+        </div>
+        <!-- App body (same content) -->
+        <div style="background:#faf7f2;padding:18px;min-height:180px;">
+          <div style="display:flex;gap:16px;height:100%;">
+            <div style="width:52px;background:#fff;border-radius:12px;border:1px solid #ede6dd;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+              <div style="width:28px;height:28px;background:#fef3c7;border-radius:8px;"></div>
+              <div style="width:28px;height:28px;border-radius:8px;"></div>
+              <div style="width:28px;height:28px;border-radius:8px;"></div>
+              <div style="width:28px;height:28px;border-radius:8px;"></div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+              <div style="background:#fff;border:1px solid #ede6dd;border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:11px;color:#6b5d52;">本月支出</div>
+                  <div style="font-size:22px;font-weight:700;color:#f59e0b;">¥2,591</div>
+                </div>
+                <div style="font-size:13px;color:#34c759;">+12% ↑</div>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:8px;padding:10px;text-align:center;font-size:11px;color:#3d342b;">🍜 餐饮<br><b>¥2,576</b></div>
+                <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:8px;padding:10px;text-align:center;font-size:11px;color:#3d342b;">🚗 交通<br><b>¥15</b></div>
+                <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:8px;padding:10px;text-align:center;font-size:11px;color:#3d342b;">🛒 购物<br><b>¥0</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">
+        <span style="background:#faf7f2;border:1px solid #ede6dd;padding:2px 8px;border-radius:10px;font-size:10px;color:#6b5d52;">红黄绿三色圆点</span>
+        <span style="background:#faf7f2;border:1px solid #ede6dd;padding:2px 8px;border-radius:10px;font-size:10px;color:#6b5d52;">按钮在左上角</span>
+        <span style="background:#faf7f2;border:1px solid #ede6dd;padding:2px 8px;border-radius:10px;font-size:10px;color:#6b5d52;">app 名居中</span>
+        <span style="background:#fef3c7;padding:2px 8px;border-radius:10px;font-size:10px;color:#92400e;">琥珀底线 + 圆点</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr style="margin:28px 0;border-color:#ede6dd;">
+
+<h2>两套共有的"琥珀点缀"设计语言</h2>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+  <div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:14px;">
+    <div style="font-size:20px;margin-bottom:4px;">━━</div>
+    <p style="font-size:12px;color:#92400e;margin:0;"><b>琥珀底线</b><br>标题栏底部 2px 实线，颜色 #f59e0b，把标题栏和内容区分开</p>
+  </div>
+  <div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:14px;">
+    <div style="font-size:20px;margin-bottom:4px;">●</div>
+    <p style="font-size:12px;color:#92400e;margin:0;"><b>琥珀小圆点</b><br>app 名前放置 7px 圆点，和导航栏当前页指示器呼应</p>
+  </div>
+  <div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:14px;">
+    <div style="font-size:20px;margin-bottom:4px;">◉</div>
+    <p style="font-size:12px;color:#92400e;margin:0;"><b>关闭按钮差异化</b><br>关闭按钮用偏暖色（土红/红色），其余窗口按钮用素色，降低误触</p>
+  </div>
+</div>
+
+<h2 style="margin-top:32px;">选择你的方案</h2>
+<p class="subtitle">两套可以都保留——反正 Electron 可以自动检测平台，Windows 用户看到 🪟，Mac 用户看到 🍎</p>
+
+<div class="options">
+  <div class="option" data-choice="win-only" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>只用 Windows 风格</h3>
+      <p>统一一套 Windows 线框按钮风格，简单省事。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="mac-only" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>只用 Mac 风格</h3>
+      <p>红黄绿圆点，不管什么平台一律 Mac 味。很多国产应用也这么做。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="auto-detect" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>自动适配平台（推荐）</h3>
+      <p>Windows 上显示线框按钮，Mac 上显示圆点按钮。自动检测，各自原生体验。</p>
+    </div>
+  </div>
+</div>

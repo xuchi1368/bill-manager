@@ -128,7 +128,7 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
 
   return (
     <form onSubmit={handleSubmit} className="card p-4 mb-4">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-3">
         <h3 className="text-sm font-semibold text-[#3d342b]">
           {edit ? '编辑记录' : '记一笔'}
         </h3>
@@ -139,18 +139,18 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
         )}
       </div>
 
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-3">
         <button type="button" onClick={() => setType('expense')}
           className={`flex-1 py-2 rounded-[10px] text-sm font-medium transition-colors ${type === 'expense' ? 'bg-rose-50 text-[#e25c3b]' : 'bg-[#f5f2ed] text-[#6b5d52]'}`}>支出</button>
         <button type="button" onClick={() => setType('income')}
           className={`flex-1 py-2 rounded-[10px] text-sm font-medium transition-colors ${type === 'income' ? 'bg-emerald-50 text-[#2ea87a]' : 'bg-[#f5f2ed] text-[#6b5d52]'}`}>收入</button>
       </div>
 
-      <div className="space-y-3 mb-3">
+      <div className="space-y-2 mb-2">
         <input type="number" step="0.01" placeholder="金额" value={amount} onChange={(e) => setAmount(e.target.value)} required className={inputClass} />
 
         {!isSplit && (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2">
             <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} required className={inputClass}>
               <option value="">选择分类</option>
               {categories.map((c) => (<option key={c.id} value={c.id}>{c.icon} {c.name}</option>))}
@@ -202,7 +202,7 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
                 </div>
               );
             })()}
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 gap-2">
               <select value={channelId} onChange={(e) => setChannelId(e.target.value)} required className={inputClass}>
                 <option value="">选择渠道</option>
                 {channels.map((c) => (<option key={c.id} value={c.id}>{c.name}</option>))}
@@ -212,13 +212,13 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
         )}
 
         {!isSplit && (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2">
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputClass} />
             <input type="text" placeholder="备注（选填）" value={note} onChange={(e) => setNote(e.target.value)} className={inputClass} />
           </div>
         )}
         {isSplit && (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2">
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputClass} />
             <input type="text" placeholder="备注（选填）" value={note} onChange={(e) => setNote(e.target.value)} className={inputClass} />
           </div>

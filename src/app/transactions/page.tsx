@@ -105,7 +105,7 @@ function TransactionsContent() {
         <span className="text-xs text-[#6b5d52]">{transactions.length} 条</span>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-4">
         <TransactionForm
           onCreated={() => { load(); setEditing(null); }}
           edit={editing ? {
