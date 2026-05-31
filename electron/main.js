@@ -3,6 +3,12 @@ const path = require('path');
 const { fork, spawn } = require('child_process');
 const fs = require('fs');
 
+// Fix GPU disk cache permission errors
+app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
+const cachePath = path.join(app.getPath('userData'), 'Cache');
+try { fs.mkdirSync(cachePath, { recursive: true }); } catch (_) {}
+app.setPath('cache', cachePath);
+
 let mainWindow;
 let tray;
 let serverProcess;
