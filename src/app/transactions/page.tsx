@@ -44,6 +44,7 @@ export default function TransactionsPage() {
   useEffect(() => { load(); }, [load]);
 
   async function handleDelete(id: string) {
+    if (!confirm('确定删除这笔交易吗？')) return;
     await fetch(`/api/transactions/${id}`, { method: 'DELETE' });
     if (editing?.id === id) setEditing(null);
     load();

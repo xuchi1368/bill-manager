@@ -136,6 +136,7 @@ function SettingsContent() {
   }
 
   async function deleteRule(id: string) {
+    if (!confirm('确定删除这条规则吗？')) return;
     await fetch(`/api/categorization-rules/${id}`, { method: 'DELETE' });
     loadRules();
   }
@@ -161,6 +162,7 @@ function SettingsContent() {
   }
 
   async function deleteCategory(id: string) {
+    if (!confirm('确定删除这个分类吗？相关交易不会被删除。')) return;
     await fetch(`/api/categories?id=${id}`, { method: 'DELETE' });
     loadCategories();
   }
@@ -177,6 +179,7 @@ function SettingsContent() {
   }
 
   async function deleteChannel(id: string) {
+    if (!confirm('确定删除这个渠道吗？相关交易不会被删除。')) return;
     await fetch(`/api/channels?id=${id}`, { method: 'DELETE' });
     loadChannels();
   }

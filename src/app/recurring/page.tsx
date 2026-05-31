@@ -46,6 +46,7 @@ export default function RecurringPage() {
   }
 
   async function remove(id: string) {
+    if (!confirm('确定删除这条周期账单吗？')) return;
     await fetch(`/api/recurring-rules/${id}`, { method: 'DELETE' });
     load();
   }
