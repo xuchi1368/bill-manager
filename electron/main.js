@@ -86,8 +86,8 @@ ipcMain.on('window-maximize', () => {
 ipcMain.on('window-close', () => mainWindow?.close());
 ipcMain.handle('window-is-maximized', () => mainWindow?.isMaximized() ?? false);
 
-// For development: skip built-in server, connect to externally-managed server
-const SKIP_SERVER = process.env.ELECTRON_SKIP_SERVER === '1';
+// In dev mode (no production build), skip built-in server and connect to next dev
+const SKIP_SERVER = process.env.ELECTRON_SKIP_SERVER === '1' || process.env.NODE_ENV !== 'production';
 
 app.whenReady().then(async () => {
   if (!SKIP_SERVER) {
