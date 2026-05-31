@@ -126,23 +126,21 @@ export async function POST(req: NextRequest) {
 
     if (allRows.length < 2) return NextResponse.json({ error: '无法解析文件，请确认是微信或支付宝账单' }, { status: 400 });
 
-    const headers = allRows[0];
-    const format = isXLSX ? 'wechat' : detectFormat(headers);
-
-    if (!format) {
-      // Retry with GBK for Alipay CSV
-      if (!isXLSX) {
-        const text = iconv.decode(buffer, 'gbk');
-        allRows = parseCSV(text);
-        if (allRows.length < 2) return NextResponse.json({ error: '无法解析文件，请确认是微信或支付宝账单' }, { status: 400 });
+    // Find the actual header row (skip metadata rows)
+    let headerRowIdx = -1;
+    for (let i = 0; i < allRows.length; i++) {
+      const r = allRows[i].join(',');
+      if (r.includes('交易时间') && (r.includes('金额') || r.includes('收/支'))) {
+        headerRowIdx = i;
+        break;
       }
     }
 
-    const finalFormat = isXLSX ? 'wechat' : detectFormat(allRows[0]);
-    if (!finalFormat) return NextResponse.json({ error: '无法识别账单格式，请使用微信或支付宝导出的原始账单' }, { status: 400 });
+    if (headerRowIdx < 0) return NextResponse.json({ error: '无法识别账单格式，请使用微信或支付宝导出的原始账单' }, { status: 400 });
 
-    // Map column indices
-    const useHeaders = allRows[0];
+    const useHeaders = allRows[headerRowIdx];
+    const finalFormat = isXLSX ? 'wechat' : detectFormat(useHeaders);
+    if (!finalFormat) return NextResponse.json({ error: '无法识别账单格式，请使用微信或支付宝导出的原始账单' }, { status: 400 });
     let timeIdx: number, typeIdx: number, counterpartyIdx: number, descIdx: number, inoutIdx: number, amountIdx: number, methodIdx: number;
     if (finalFormat === 'wechat') {
       timeIdx = useHeaders.findIndex((h) => h.includes('交易时间'));
@@ -185,12 +183,16 @@ export async function POST(req: NextRequest) {
       channelId: string;
     }[] = [];
 
-    for (let i = 1; i < allRows.length; i++) {
+    for (let i = headerRowIdx + 1; i < allRows.length; i++) {
       const row = allRows[i];
       if (row.length < 3) continue;
 
       const rawType = inoutIdx >= 0 ? row[inoutIdx] : '';
+      // Skip Alipay "不计收支" (neutral) transactions
+      if (rawType.includes('不计收支') || rawType.includes('不计')) continue;
       const type = normalizeType(rawType);
+      if (!type) continue;
+
       const amountStr = row[amountIdx]?.replace(/[¥￥,]/g, '').replace('�', '') || '0';
       const amount = parseFloat(amountStr);
       if (isNaN(amount) || amount === 0) continue;
@@ -198,16 +200,23 @@ export async function POST(req: NextRequest) {
       const counterparty = counterpartyIdx >= 0 ? row[counterpartyIdx] : '';
       const description = descIdx >= 0 ? row[descIdx] : '';
       const method = methodIdx >= 0 ? row[methodIdx] : '';
-      const dateRaw = timeIdx >= 0 ? row[timeIdx] : '';
+      const dateRaw = timeIdx >= 0 ? String(row[timeIdx]) : '';
 
       // Normalize date
       let date = '';
-      const dateMatch = dateRaw.match(/(\d{4})[-./年](\d{1,2})[-./月](\d{1,2})/);
-      if (dateMatch) {
-        date = `${dateMatch[1]}-${dateMatch[2].padStart(2, '0')}-${dateMatch[3].padStart(2, '0')}`;
+      // Try Excel serial number (WeChat XLSX)
+      const excelNum = parseFloat(dateRaw);
+      if (!isNaN(excelNum) && excelNum > 40000 && excelNum < 60000) {
+        // Excel date serial: days since 1900-01-01 (with the 1900 leap year bug)
+        const d = new Date(Math.round((excelNum - 25569) * 86400 * 1000));
+        date = d.toISOString().split('T')[0];
       } else {
-        date = new Date().toISOString().split('T')[0];
+        const dateMatch = dateRaw.match(/(\d{4})[-./年](\d{1,2})[-./月](\d{1,2})/);
+        if (dateMatch) {
+          date = `${dateMatch[1]}-${dateMatch[2].padStart(2, '0')}-${dateMatch[3].padStart(2, '0')}`;
+        }
       }
+      if (!date) continue;
 
       // Match category — user rules take priority over hardcoded keywords
       const searchText = `${counterparty} ${description} ${rawType}`;
