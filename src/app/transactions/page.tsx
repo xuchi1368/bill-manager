@@ -105,7 +105,8 @@ function TransactionsContent() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-4 flex-1 min-h-0">
-        <TransactionForm
+        <div className="flex flex-col min-h-0 flex-1">
+          <TransactionForm
           onCreated={() => { load(); setEditing(null); }}
           edit={editing ? {
             id: editing.id,
@@ -118,6 +119,7 @@ function TransactionsContent() {
           } : null}
           onCancelEdit={() => setEditing(null)}
         />
+        </div>
         <div className="overflow-y-auto min-h-0 flex flex-col">
           <div className="card overflow-hidden flex flex-col flex-1">
             <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-[#ede6dd] shrink-0">
