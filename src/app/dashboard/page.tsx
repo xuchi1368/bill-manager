@@ -149,7 +149,7 @@ export default function DashboardPage() {
             <h3 className="flex items-center gap-1.5 text-sm font-semibold text-[#3d342b]">
               <ClipboardList size={16} strokeWidth={1.5} />最近流水
             </h3>
-            <span className="text-[12px] text-[#f59e0b] font-medium cursor-pointer hover:underline">查看全部 →</span>
+            <a href="/transactions" className="text-[12px] text-[#f59e0b] font-medium cursor-pointer hover:underline no-underline">查看全部 →</a>
           </div>
           <TransactionList transactions={data.recent.slice(0, 5)} compact />
         </div>
