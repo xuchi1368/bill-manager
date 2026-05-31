@@ -90,16 +90,16 @@ function TotalBudgetRing({ totalSpent, totalLimit }: { totalSpent: number; total
   const color = pct >= 1 ? '#e25c3b' : pct >= 0.8 ? '#f59e0b' : '#2ea87a';
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: 18, paddingBottom: 16, borderBottom: '1px solid #ede6dd' }}>
-      <Ring size={64} strokeWidth={6} percentage={pct} color={color}>
-        <span style={{ fontSize: 14, fontWeight: 700, color: '#3d342b', zIndex: 1 }}>{Math.round(pct * 100)}%</span>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginBottom: 18, paddingBottom: 16, borderBottom: '1px solid #ede6dd' }}>
+      <Ring size={80} strokeWidth={6} percentage={pct} color={color}>
+        <span style={{ fontSize: 16, fontWeight: 700, color: '#3d342b', zIndex: 1 }}>{Math.round(pct * 100)}%</span>
       </Ring>
       <div>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#3d342b' }}>本月总预算</div>
-        <div style={{ fontSize: 18, fontWeight: 700, color: '#3d342b' }}>
-          ¥{totalSpent.toLocaleString()} <span style={{ fontSize: 12, fontWeight: 400, color: '#6b5d52' }}>/ ¥{totalLimit.toLocaleString()}</span>
+        <div style={{ fontSize: 14, fontWeight: 600, color: '#3d342b' }}>本月总预算</div>
+        <div style={{ fontSize: 22, fontWeight: 700, color: '#3d342b' }}>
+          ¥{totalSpent.toLocaleString()} <span style={{ fontSize: 13, fontWeight: 400, color: '#6b5d52' }}>/ ¥{totalLimit.toLocaleString()}</span>
         </div>
-        <div style={{ fontSize: 12, color }}>
+        <div style={{ fontSize: 13, color }}>
           {pct >= 1 ? `超支 ¥${Math.abs(remaining).toLocaleString()}` : `剩 ¥${remaining.toLocaleString()}`} · 还剩 {daysLeft} 天
         </div>
       </div>
@@ -127,20 +127,20 @@ function CategoryRingCard({ budget }: { budget: Budget }) {
 
   return (
     <div style={{
-      background: 'white', borderRadius: 10, padding: '12px 8px', textAlign: 'center',
+      background: 'white', borderRadius: 10, padding: '14px 10px', textAlign: 'center',
       border: `1px solid ${borderColor}`, position: 'relative',
     }}>
       {pct >= 1 && (
-        <div style={{ position: 'absolute', top: -1, right: -1, background: '#e25c3b', color: 'white', fontSize: 9, fontWeight: 700, padding: '2px 6px', borderRadius: '0 10px' }}>超支</div>
+        <div style={{ position: 'absolute', top: -1, right: -1, background: '#e25c3b', color: 'white', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: '0 10px' }}>超支</div>
       )}
-      <Ring size={40} strokeWidth={3} percentage={pct} color={ringColor}>
-        <div style={{ zIndex: 1 }}>{getIcon(key, 14)}</div>
+      <Ring size={48} strokeWidth={4} percentage={pct} color={ringColor}>
+        <div style={{ zIndex: 1 }}>{getIcon(key, 18)}</div>
       </Ring>
-      <div style={{ fontSize: 12, fontWeight: 600, color: '#3d342b', marginTop: 4 }}>{budget.name}</div>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#3d342b' }}>¥{budget.spent.toLocaleString()}</div>
-      <div style={{ fontSize: 10, fontWeight: 500, color: hintColor }}>{hintText}</div>
+      <div style={{ fontSize: 13, fontWeight: 600, color: '#3d342b', marginTop: 6 }}>{budget.name}</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#3d342b' }}>¥{budget.spent.toLocaleString()}</div>
+      <div style={{ fontSize: 11, fontWeight: 500, color: hintColor }}>{hintText}</div>
       {monthDiff !== null && monthDiff !== 0 && (
-        <div style={{ fontSize: 10, color: monthDiff > 0 ? '#f59e0b' : '#2ea87a', marginTop: 2 }}>
+        <div style={{ fontSize: 11, color: monthDiff > 0 ? '#f59e0b' : '#2ea87a', marginTop: 2 }}>
           {monthDiff > 0 ? '↑' : '↓'} ¥{Math.abs(monthDiff).toFixed(0)} 较上月
         </div>
       )}
@@ -154,13 +154,13 @@ function NoBudgetCard({ cat, onClick }: { cat: ExpenseCategory; onClick: () => v
   const key = getIconKey(cat.name, cat.icon);
   return (
     <div onClick={onClick} style={{
-      background: 'white', borderRadius: 10, padding: '12px 8px', textAlign: 'center',
+      background: 'white', borderRadius: 10, padding: '14px 10px', textAlign: 'center',
       border: '1px solid #ede6dd', cursor: 'pointer', opacity: 0.7,
     }}>
-      <Ring size={40} strokeWidth={3} percentage={0} color="#d6cec4">
-        <div style={{ zIndex: 1 }}>{getIcon(key, 14)}</div>
+      <Ring size={48} strokeWidth={4} percentage={0} color="#d6cec4">
+        <div style={{ zIndex: 1 }}>{getIcon(key, 18)}</div>
       </Ring>
-      <div style={{ fontSize: 12, fontWeight: 600, color: '#3d342b', marginTop: 4 }}>{cat.name}</div>
+      <div style={{ fontSize: 13, fontWeight: 600, color: '#3d342b', marginTop: 6 }}>{cat.name}</div>
       <div style={{ fontSize: 11, color: '#6b5d52', marginTop: 2 }}>未设预算</div>
     </div>
   );
@@ -182,10 +182,10 @@ export default function BudgetOverview({ budgets, allExpenseCategories }: Props)
   if (budgets.length === 0 && noBudgetCategories.length === 0) return null;
 
   return (
-    <div style={{ background: '#faf7f2', borderRadius: 16, padding: 18, marginBottom: 16 }}>
+    <div style={{ background: '#faf7f2', borderRadius: 16, padding: 16, marginBottom: 16 }}>
       <BudgetAlertBanner alerts={alerts} />
       {totalLimit > 0 && <TotalBudgetRing totalSpent={totalSpent} totalLimit={totalLimit} />}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
         {budgets.map(b => (
           <CategoryRingCard key={b.id} budget={b} />
         ))}
