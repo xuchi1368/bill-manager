@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import iconv from 'iconv-lite';
 import { db } from '@/lib/db';
+import { getUserId } from '@/lib/auth';
 import { matchCategory as matchCategoryByRule } from '@/lib/categorization';
 
 function parseCSV(text: string): string[][] {
@@ -83,6 +84,9 @@ function normalizeType(raw: string): 'expense' | 'income' {
 }
 
 export async function POST(req: NextRequest) {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   try {
     const formData = await req.formData();
     const file = formData.get('file') as File | null;
@@ -140,10 +144,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Get all categories, channels, and user rules for matching
-    const categories = await db.category.findMany();
-    const channels = await db.channel.findMany();
+    const categories = await db.category.findMany({ where: { userId } });
+    const channels = await db.channel.findMany({ where: { userId } });
     const userRules = await db.categorizationRule.findMany({
-      where: { isActive: true },
+      where: { isActive: true, userId },
       include: { category: true, channel: true },
       orderBy: { priority: 'desc' },
     });

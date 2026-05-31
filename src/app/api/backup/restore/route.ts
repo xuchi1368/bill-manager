@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getUserId } from '@/lib/auth';
 import { writeFileSync, copyFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 export async function POST(req: NextRequest) {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   try {
     const formData = await req.formData();
     const file = formData.get('file') as File | null;

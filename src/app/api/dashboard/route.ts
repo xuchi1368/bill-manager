@@ -1,16 +1,20 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getUserId } from '@/lib/auth';
 import { getCurrentMonth } from '@/lib/utils';
 
 export async function GET() {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   const [monthStart, monthEnd] = getCurrentMonth();
 
   // Use findMany + manual sum — Prisma 7.x aggregate() is broken with SQLite
   const sums = (rows: { amount: number }[]) => rows.reduce((s, r) => s + r.amount, 0);
 
   const [incomeRows, expenseRows] = await Promise.all([
-    db.transaction.findMany({ where: { type: 'income', date: { gte: monthStart, lte: monthEnd } }, select: { amount: true } }),
-    db.transaction.findMany({ where: { type: 'expense', date: { gte: monthStart, lte: monthEnd } }, select: { amount: true } }),
+    db.transaction.findMany({ where: { type: 'income', date: { gte: monthStart, lte: monthEnd }, userId }, select: { amount: true } }),
+    db.transaction.findMany({ where: { type: 'expense', date: { gte: monthStart, lte: monthEnd }, userId }, select: { amount: true } }),
   ]);
   const totalIncome = sums(incomeRows);
   const totalExpense = sums(expenseRows);
@@ -20,7 +24,7 @@ export async function GET() {
   const startStr = thirtyDaysAgo.toISOString().split('T')[0];
 
   const recentTransactions = await db.transaction.findMany({
-    where: { date: { gte: startStr } },
+    where: { date: { gte: startStr }, userId },
     orderBy: { date: 'asc' },
   });
 
@@ -35,6 +39,7 @@ export async function GET() {
   const trend = Array.from(trendMap.entries()).map(([date, val]) => ({ date, ...val }));
 
   const recent = await db.transaction.findMany({
+    where: { userId },
     include: { category: true, channel: true },
     orderBy: [{ date: 'desc' }, { createdAt: 'desc' }],
     take: 10,
@@ -42,7 +47,7 @@ export async function GET() {
 
   // Budget tracking: each expense category with budgetLimit + actual spending this month
   const expenseCategories = await db.category.findMany({
-    where: { type: 'expense', budgetLimit: { not: null } },
+    where: { type: 'expense', budgetLimit: { not: null }, userId },
   });
 
   // Last month range
@@ -54,8 +59,8 @@ export async function GET() {
   const budgets = await Promise.all(
     expenseCategories.map(async (cat) => {
       const [rows, lastRows] = await Promise.all([
-        db.transaction.findMany({ where: { categoryId: cat.id, type: 'expense', date: { gte: monthStart, lte: monthEnd } }, select: { amount: true } }),
-        db.transaction.findMany({ where: { categoryId: cat.id, type: 'expense', date: { gte: lastMonthStart, lte: lastMonthEnd } }, select: { amount: true } }),
+        db.transaction.findMany({ where: { categoryId: cat.id, type: 'expense', date: { gte: monthStart, lte: monthEnd }, userId }, select: { amount: true } }),
+        db.transaction.findMany({ where: { categoryId: cat.id, type: 'expense', date: { gte: lastMonthStart, lte: lastMonthEnd }, userId }, select: { amount: true } }),
       ]);
       const spent = sums(rows);
       const lastMonthSpent = sums(lastRows);
@@ -71,11 +76,11 @@ export async function GET() {
   );
 
   // Channel balances
-  const channels = await db.channel.findMany({ orderBy: { createdAt: 'asc' } });
+  const channels = await db.channel.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } });
   const accounts = channels.map((c) => ({ id: c.id, name: c.name, type: c.type, balance: c.balance }));
 
   const allExpenseCategories = await db.category.findMany({
-    where: { type: 'expense' },
+    where: { type: 'expense', userId },
     select: { id: true, name: true, icon: true, budgetLimit: true },
   });
 

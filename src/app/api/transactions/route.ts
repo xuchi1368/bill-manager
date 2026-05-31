@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getUserId } from '@/lib/auth';
 import { matchCategory } from '@/lib/categorization';
 
 export async function GET(req: NextRequest) {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   const { searchParams } = new URL(req.url);
   const type = searchParams.get('type');
   const categoryId = searchParams.get('categoryId');
@@ -13,7 +17,7 @@ export async function GET(req: NextRequest) {
 
   const search = searchParams.get('search');
 
-  const where: Record<string, unknown> = {};
+  const where: Record<string, unknown> = { userId };
   if (type) where.type = type;
   if (categoryId) where.categoryId = categoryId;
   if (channelId) where.channelId = channelId;
@@ -37,6 +41,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   const body = await req.json();
   const { type, amount, date, note, categoryId: userCategoryId, channelId, splits } = body;
 
@@ -69,15 +76,15 @@ export async function POST(req: NextRequest) {
 
   const transaction = await db.transaction.create({
     data: {
-      type, amount: amt, date, note: note || '', categoryId, channelId,
-      ...(splits && splits.length > 0 ? { splits: { create: splits.map((s: { categoryId: string; amount: number }) => ({ categoryId: s.categoryId, amount: s.amount })) } } : {}),
+      type, amount: amt, date, note: note || '', categoryId, channelId, userId,
+      ...(splits && splits.length > 0 ? { splits: { create: splits.map((s: { categoryId: string; amount: number }) => ({ categoryId: s.categoryId, amount: s.amount, userId })) } } : {}),
     },
     include: { category: true, channel: true, splits: { include: { category: true } } },
   });
 
   // Auto-update channel balance
   const delta = type === 'expense' ? -amt : amt;
-  await db.channel.update({ where: { id: channelId }, data: { balance: { increment: delta } } });
+  await db.channel.update({ where: { id: channelId, userId }, data: { balance: { increment: delta } } });
 
   return NextResponse.json({ ...transaction, matchedRuleName }, { status: 201 });
 }

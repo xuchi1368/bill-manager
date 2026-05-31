@@ -47,6 +47,7 @@ export function startCronJob() {
           note: `[周期] ${rule.name}`,
           categoryId: rule.categoryId,
           channelId: rule.channelId,
+          userId: rule.userId,
         },
       });
 

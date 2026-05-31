@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
+import { getUserId } from '@/lib/auth';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
 export async function GET() {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   try {
     const dbPath = join(process.cwd(), 'dev.db');
     const buffer = readFileSync(dbPath);

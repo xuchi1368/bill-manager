@@ -1,15 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getUserId } from '@/lib/auth';
 import { getCurrentMonth } from '@/lib/utils';
 
 export async function GET(req: NextRequest) {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   const { searchParams } = new URL(req.url);
   const startDate = searchParams.get('startDate');
   const endDate = searchParams.get('endDate');
   const [s, e] = startDate && endDate ? [startDate, endDate] : getCurrentMonth();
 
   const transactions = await db.transaction.findMany({
-    where: { date: { gte: s, lte: e } },
+    where: { date: { gte: s, lte: e }, userId },
     include: { category: true, channel: true, splits: { include: { category: true } } },
     orderBy: { date: 'asc' },
   });
@@ -68,7 +72,7 @@ export async function GET(req: NextRequest) {
   const prevEnd = new Date(new Date(s).getTime() - 86400000).toISOString().split('T')[0];
 
   const prevTransactions = await db.transaction.findMany({
-    where: { type: 'expense', date: { gte: prevStart, lte: prevEnd } },
+    where: { type: 'expense', date: { gte: prevStart, lte: prevEnd }, userId },
     include: { category: true, splits: { include: { category: true } } },
   });
 

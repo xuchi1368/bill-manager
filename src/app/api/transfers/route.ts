@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getUserId } from '@/lib/auth';
 
 export async function GET() {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   const transfers = await db.transfer.findMany({
+    where: { userId },
     include: { from: true, to: true },
     orderBy: { createdAt: 'desc' },
     take: 30,
@@ -11,6 +16,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   const body = await req.json();
   const { fromId, toId, amount, note } = body;
 
@@ -27,13 +35,13 @@ export async function POST(req: NextRequest) {
   }
 
   const transfer = await db.transfer.create({
-    data: { fromId, toId, amount: amt, note: note || '' },
+    data: { fromId, toId, amount: amt, note: note || '', userId },
     include: { from: true, to: true },
   });
 
   // Update balances
-  await db.channel.update({ where: { id: fromId }, data: { balance: { decrement: amt } } });
-  await db.channel.update({ where: { id: toId }, data: { balance: { increment: amt } } });
+  await db.channel.update({ where: { id: fromId, userId }, data: { balance: { decrement: amt } } });
+  await db.channel.update({ where: { id: toId, userId }, data: { balance: { increment: amt } } });
 
   return NextResponse.json(transfer, { status: 201 });
 }

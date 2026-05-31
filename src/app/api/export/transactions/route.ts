@@ -1,14 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getUserId } from '@/lib/auth';
 
 export async function GET(req: NextRequest) {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   const { searchParams } = new URL(req.url);
   const dateFrom = searchParams.get('date_from') || '';
   const dateTo = searchParams.get('date_to') || '';
   const type = searchParams.get('type') || '';
   const categoryId = searchParams.get('category_id') || '';
 
-  const where: any = {};
+  const where: any = { userId };
   if (dateFrom) where.date = { ...where.date, gte: dateFrom };
   if (dateTo) where.date = { ...where.date, lte: dateTo };
   if (type) where.type = type;

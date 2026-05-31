@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getUserId } from '@/lib/auth';
 
 export async function GET(req: NextRequest) {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   const { searchParams } = new URL(req.url);
   const yearMonth = searchParams.get('yearMonth');
   if (!yearMonth) return NextResponse.json({ error: 'yearMonth required' }, { status: 400 });
@@ -11,7 +15,7 @@ export async function GET(req: NextRequest) {
   const lastDay = new Date(year, month, 0).toISOString().split('T')[0];
 
   const transactions = await db.transaction.findMany({
-    where: { date: { gte: firstDay, lte: lastDay } },
+    where: { date: { gte: firstDay, lte: lastDay }, userId },
     include: { category: true, channel: true, splits: { include: { category: true } } },
     orderBy: { date: 'asc' },
   });

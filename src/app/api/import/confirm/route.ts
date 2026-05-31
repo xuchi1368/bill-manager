@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getUserId } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
+  const userId = await getUserId();
+  if (!userId) return NextResponse.json({ error: '请先登录' }, { status: 401 });
+
   try {
     const body = await req.json();
     const { transactions } = body as {
@@ -38,12 +42,13 @@ export async function POST(req: NextRequest) {
           note: `${t.counterparty} ${t.description} [${t.method}]`.trim(),
           categoryId: t.categoryId,
           channelId: t.channelId,
+          userId,
         },
       });
 
       // Update channel balance
       const delta = t.type === 'expense' ? -t.amount : t.amount;
-      await db.channel.update({ where: { id: t.channelId }, data: { balance: { increment: delta } } });
+      await db.channel.update({ where: { id: t.channelId, userId }, data: { balance: { increment: delta } } });
 
       imported++;
     }
