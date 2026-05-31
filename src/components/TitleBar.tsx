@@ -151,6 +151,9 @@ export default function TitleBar() {
         padding: '0 14px',
         userSelect: 'none',
         flexShrink: 0,
+        position: 'sticky',
+        top: 0,
+        zIndex: 50,
         ...({ WebkitAppRegion: 'drag' } as any),
       }}
     >

@@ -19,17 +19,17 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   if (isHome) {
     return (
-      <>
+      <div className="h-screen flex flex-col overflow-hidden">
         <TitleBar />
-        <main className="min-h-screen p-6">
+        <main className="flex-1 overflow-auto p-6">
           <div className="max-w-4xl mx-auto">{children}</div>
         </main>
-      </>
+      </div>
     );
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col h-screen overflow-hidden">
       <TitleBar />
       <div className="flex flex-1 min-h-0">
         <LeftRail currentPath={pathname} />
