@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { setAuthCookie } from '@/lib/auth';
+import { seedUserData } from '@/lib/seed';
 
 export async function POST(req: Request) {
   const { phone, code } = await req.json();
@@ -19,6 +20,7 @@ export async function POST(req: Request) {
   let user = await db.user.findUnique({ where: { phone } });
   if (!user) {
     user = await db.user.create({ data: { phone } });
+    await seedUserData(user.id);
   }
 
   await setAuthCookie(user.id);
