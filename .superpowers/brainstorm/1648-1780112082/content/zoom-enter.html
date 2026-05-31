@@ -1,0 +1,212 @@
+<style>
+  .hub-scene {
+    background: #faf7f2;
+    border-radius: 16px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 420px;
+    overflow: hidden;
+  }
+  .hub-title {
+    text-align: center;
+    margin-bottom: 32px;
+    transition: all 0.4s ease-out;
+  }
+  .hub-title h2 { font-size: 22px; font-weight: 700; color: #3d342b; margin: 0 0 4px; }
+  .hub-title p { font-size: 12px; color: #9c8b7e; margin: 0; }
+
+  .hub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: 380px;
+    width: 100%;
+    transition: all 0.4s ease-out;
+  }
+
+  .hub-card {
+    background: white;
+    border: 1px solid #ede6dd;
+    border-radius: 16px;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1.0);
+    text-align: center;
+  }
+  .hub-card .icon { font-size: 36px; transition: transform 0.3s; }
+  .hub-card .title { font-weight: 600; font-size: 14px; color: #3d342b; }
+  .hub-card .desc { font-size: 11px; color: #9c8b7e; }
+
+  .hub-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+
+  /* Zoom states */
+  .zooming .hub-title { opacity: 0; transform: scale(0.9); }
+  .zooming .hub-grid .hub-card { opacity: 0; transform: scale(0.75); }
+  .zooming .hub-grid .hub-card.active {
+    opacity: 0;
+    transform: scale(1.8);
+    z-index: 10;
+    position: relative;
+  }
+
+  .controls {
+    margin-top: 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .controls button {
+    padding: 10px 20px;
+    border: 1px solid #d6cec4;
+    border-radius: 10px;
+    background: white;
+    color: #3d342b;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .controls button:hover { background: #f5f2ed; }
+  .controls button:disabled { opacity: 0.4; cursor: default; }
+
+  .arrival-scene {
+    background: #faf7f2;
+    border-radius: 16px;
+    padding: 40px 24px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  }
+  .arrival-scene.entering { opacity: 0; transform: scale(1.12); }
+  .arrival-scene.arrived { opacity: 1; transform: scale(1); }
+
+  .arrival-scene h3 { font-size: 18px; font-weight: 700; color: #3d342b; margin: 0 0 4px; }
+  .arrival-scene .back { color: #9c8b7e; font-size: 14px; margin-bottom: 16px; }
+  .arrival-scene .content-card {
+    background: white;
+    border: 1px solid #ede6dd;
+    border-radius: 16px;
+    padding: 32px 24px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    color: #9c8b7e;
+    font-size: 14px;
+  }
+</style>
+
+<h2>"走入画面" 动画预览</h2>
+<p class="subtitle">点击下方卡片查看缩放推进效果，点击"返回"看到达动画</p>
+
+<div class="split">
+  <!-- Hub -->
+  <div class="mockup">
+    <div class="mockup-header">首页 — 点击卡片</div>
+    <div class="mockup-body">
+      <div class="hub-scene" id="hubScene">
+        <div class="hub-title" id="hubTitle">
+          <h2>💰 账单管理</h2>
+          <p>个人财务助手</p>
+        </div>
+        <div class="hub-grid" id="hubGrid">
+          <div class="hub-card" data-id="dashboard" style="background:linear-gradient(135deg,#fffbeb,#fff7ed);" onclick="zoomIn('dashboard')">
+            <span class="icon">📊</span>
+            <span class="title">仪表盘</span>
+            <span class="desc">查看收支概览</span>
+          </div>
+          <div class="hub-card" data-id="transactions" style="background:linear-gradient(135deg,#fff1f2,#fdf2f8);" onclick="zoomIn('transactions')">
+            <span class="icon">📝</span>
+            <span class="title">记账</span>
+            <span class="desc">记录日常收支</span>
+          </div>
+          <div class="hub-card" data-id="reports" style="background:linear-gradient(135deg,#ecfdf5,#f0fdfa);" onclick="zoomIn('reports')">
+            <span class="icon">📈</span>
+            <span class="title">报表</span>
+            <span class="desc">分析支出趋势</span>
+          </div>
+          <div class="hub-card" data-id="recurring" style="background:linear-gradient(135deg,#f0f9ff,#eff6ff);" onclick="zoomIn('recurring')">
+            <span class="icon">📅</span>
+            <span class="title">周期账单</span>
+            <span class="desc">管理定期付款</span>
+          </div>
+        </div>
+        <div class="controls">
+          <button id="resetBtn" onclick="resetHub()" disabled style="display:none;">🔄 重置首页</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrival -->
+  <div class="mockup">
+    <div class="mockup-header">内页 — 到达效果</div>
+    <div class="mockup-body">
+      <div class="arrival-scene entered" id="arrivalScene" style="opacity:1;transform:scale(1);">
+        <h3 id="arrivalTitle">← 仪表盘</h3>
+        <p class="back">从首页走入...</p>
+        <div class="content-card">
+          <span style="font-size:40px;">📊</span>
+          <p>仪表盘内容加载完成</p>
+          <p style="font-size:12px;">从 scale(1.12) → scale(1) 到达</p>
+        </div>
+      </div>
+      <div class="controls" style="margin-top:16px;">
+        <button onclick="replayArrival()">🔁 重放到达到画</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function zoomIn(id) {
+    var scene = document.getElementById('hubScene');
+    var resetBtn = document.getElementById('resetBtn');
+    var cards = document.querySelectorAll('.hub-card');
+    var clicked = document.querySelector('.hub-card[data-id="'+id+'"]');
+
+    scene.classList.add('zooming');
+    cards.forEach(function(c) {
+      if (c.dataset.id === id) c.classList.add('active');
+    });
+    resetBtn.style.display = 'inline-block';
+    resetBtn.disabled = false;
+
+    setTimeout(function() {
+      replayArrival();
+    }, 500);
+  }
+
+  function resetHub() {
+    var scene = document.getElementById('hubScene');
+    var cards = document.querySelectorAll('.hub-card');
+    scene.classList.remove('zooming');
+    cards.forEach(function(c) { c.classList.remove('active'); });
+    document.getElementById('resetBtn').style.display = 'none';
+  }
+
+  function replayArrival() {
+    var el = document.getElementById('arrivalScene');
+    el.classList.remove('arrived');
+    el.classList.add('entering');
+    el.style.opacity = '0';
+    el.style.transform = 'scale(1.12)';
+
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        el.classList.remove('entering');
+        el.classList.add('arrived');
+        el.style.opacity = '1';
+        el.style.transform = 'scale(1)';
+      });
+    });
+  }
+</script>

@@ -1,0 +1,126 @@
+<h2>日历设计方案</h2>
+<p class="subtitle">既要紧凑（不占空间），又要好看（热力图），三种尺寸选项</p>
+
+<div class="cards">
+  <div class="card" data-choice="cal-a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:14px;border-radius:12px;font-family:system-ui;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:10px;color:#9c8b7e;">◀</span>
+        <span style="font-size:12px;font-weight:600;">2026年5月</span>
+        <span style="font-size:10px;color:#9c8b7e;">▶</span>
+      </div>
+      <div style="display:flex;justify-content:center;gap:12px;margin-bottom:8px;font-size:10px;">
+        <span>🟢 收 ¥13,000</span><span>🔴 支 ¥3,603</span>
+      </div>
+      <!-- Small heat map cells -->
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:9px;color:#9c8b7e;margin-bottom:2px;">
+        <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">
+        <span style="background:#f3f4f6;border-radius:4px;padding:3px 0;font-size:10px;color:#ccc;">27</span>
+        <span style="background:#f3f4f6;border-radius:4px;padding:3px 0;font-size:10px;color:#ccc;">28</span>
+        <span style="background:#f3f4f6;border-radius:4px;padding:3px 0;font-size:10px;color:#ccc;">29</span>
+        <span style="background:#f3f4f6;border-radius:4px;padding:3px 0;font-size:10px;color:#ccc;">30</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">1</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">2</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">3</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:2px;">
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">4</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">5</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">6</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">7</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">8</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">9</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">10</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:2px;">
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">11</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">12</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">13</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">14</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">15</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">16</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">17</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:2px;">
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">18</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">19</span>
+        <span style="background:rgba(46,168,122,0.15);border-radius:4px;padding:3px 0;font-size:10px;color:#2ea87a;">20</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">21</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">22</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">23</span>
+        <span style="background:#faf7f2;border-radius:4px;padding:3px 0;font-size:10px;color:#3d342b;">24</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:2px;">
+        <span style="background:rgba(226,92,59,0.12);border-radius:4px;padding:3px 0;font-size:10px;color:#e25c3b;">25</span>
+        <span style="background:rgba(226,92,59,0.12);border-radius:4px;padding:3px 0;font-size:10px;color:#e25c3b;">26</span>
+        <span style="background:rgba(226,92,59,0.08);border-radius:4px;padding:3px 0;font-size:10px;color:#e25c3b;">27</span>
+        <span style="background:rgba(46,168,122,0.40);border-radius:4px;padding:3px 0;font-size:10px;color:#2ea87a;font-weight:700;">28</span>
+        <span style="background:rgba(226,92,59,0.08);border-radius:4px;padding:3px 0;font-size:10px;color:#e25c3b;">29</span>
+        <span style="background:rgba(226,92,59,0.15);border-radius:4px;padding:3px 0;font-size:10px;color:#e25c3b;outline:2px solid #f59e0b;">30</span>
+        <span style="background:#f3f4f6;border-radius:4px;padding:3px 0;font-size:10px;color:#ccc;">31</span>
+      </div>
+      <div style="font-size:9px;color:#9c8b7e;margin-top:6px;text-align:center;">紧凑热力图 · 格子小但颜色分明 · 今天有金色边框</div>
+    </div>
+    <div class="card-body">
+      <h3>A：紧凑热力图</h3>
+      <p>格子 28px，gap 2px，每格只显示日期数字，颜色深浅=金额大小。6行×7列 ≈ 180px 总高。占空间最小。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="cal-b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:14px;border-radius:12px;font-family:system-ui;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:10px;color:#9c8b7e;">◀</span>
+        <span style="font-size:12px;font-weight:600;">2026年5月</span>
+        <span style="font-size:10px;color:#9c8b7e;">▶</span>
+      </div>
+      <div style="display:flex;justify-content:center;gap:12px;margin-bottom:10px;font-size:10px;">
+        <span>🟢 收 ¥13,000</span><span>🔴 支 ¥3,603</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center;font-size:10px;color:#9c8b7e;margin-bottom:3px;">
+        <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+      </div>
+      <!-- Medium cells with dots -->
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;">
+        <span style="background:#f3f4f6;border-radius:6px;padding:5px 0;font-size:10px;color:#ccc;">27</span>
+        <span style="background:#f3f4f6;border-radius:6px;padding:5px 0;font-size:10px;color:#ccc;">28</span>
+        <span style="background:#f3f4f6;border-radius:6px;padding:5px 0;font-size:10px;color:#ccc;">29</span>
+        <span style="background:#f3f4f6;border-radius:6px;padding:5px 0;font-size:10px;color:#ccc;">30</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">1</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">2</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">3</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:3px;">
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">4</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">5</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">6</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">7</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">8</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">9</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">10</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:3px;">
+        <span style="background:rgba(46,168,122,0.15);border-radius:6px;padding:5px 0;font-size:10px;color:#2ea87a;position:relative;">20<span style="position:absolute;bottom:2px;left:50%;margin-left:-2px;width:4px;height:4px;background:#2ea87a;border-radius:50%;"></span></span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">21</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">22</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">23</span>
+        <span style="background:#faf7f2;border-radius:6px;padding:5px 0;font-size:10px;color:#3d342b;">24</span>
+        <span style="background:rgba(226,92,59,0.15);border-radius:6px;padding:5px 0;font-size:10px;color:#e25c3b;position:relative;">25<span style="position:absolute;bottom:2px;left:50%;margin-left:-2px;width:4px;height:4px;background:#e25c3b;border-radius:50%;"></span></span>
+        <span style="background:rgba(226,92,59,0.20);border-radius:6px;padding:5px 0;font-size:10px;color:#e25c3b;position:relative;">26<span style="position:absolute;bottom:2px;left:50%;margin-left:-2px;width:4px;height:4px;background:#e25c3b;border-radius:50%;"></span></span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:3px;">
+        <span style="background:rgba(46,168,122,0.40);border-radius:6px;padding:5px 0;font-size:10px;color:#2ea87a;font-weight:700;">28</span>
+        <span style="background:rgba(226,92,59,0.10);border-radius:6px;padding:5px 0;font-size:10px;color:#e25c3b;">29</span>
+        <span style="background:rgba(226,92,59,0.20);border-radius:6px;outline:2px solid #f59e0b;padding:5px 0;font-size:10px;color:#e25c3b;font-weight:600;">30</span>
+        <span style="background:#f3f4f6;border-radius:6px;padding:5px 0;font-size:10px;color:#ccc;">31</span>
+      </div>
+      <div style="font-size:9px;color:#9c8b7e;margin-top:8px;text-align:center;">中等热力图 · 带交易金额标注 · 格子 34px · 5行 ≈ 200px</div>
+    </div>
+    <div class="card-body">
+      <h3>B：中等热力图 + 金额</h3>
+      <p>格子稍大，有交易的日子在数字下方显示小额标注。颜色深度=金额，视觉信息更丰富。但比A高20px。</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<h2>电脑端横版布局 — 你更喜欢哪种方向？</h2>
+<p class="subtitle">当前是单列居中（适合手机），电脑端可以更好地利用横向空间</p>
+
+<div class="cards">
+  <div class="card" data-choice="wide-dashboard" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#faf7f2;border-radius:12px;padding:20px;min-height:200px;">
+        <div style="text-align:center;margin-bottom:12px;"><span style="font-weight:700;color:#3d342b;">💰 账单管理</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;">
+          <div style="background:#fff;border-radius:10px;padding:16px 10px;text-align:center;border:1px solid #ede6dd;">📊<br><span style="font-size:11px;font-weight:600;">仪表盘</span></div>
+          <div style="background:#fff7ed;border-radius:10px;padding:16px 10px;text-align:center;border:1px solid #fecaca;box-shadow:0 0 0 2px #f59e0b;">📝<br><span style="font-size:11px;font-weight:600;">记账</span></div>
+          <div style="background:#fff;border-radius:10px;padding:16px 10px;text-align:center;border:1px solid #ede6dd;">📈<br><span style="font-size:11px;font-weight:600;">报表</span></div>
+          <div style="background:#fff;border-radius:10px;padding:16px 10px;text-align:center;border:1px solid #ede6dd;">📅<br><span style="font-size:11px;font-weight:600;">周期账单</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;">
+          <div style="background:#fff;border-radius:8px;padding:10px;border:1px solid #ede6dd;"><span style="font-size:10px;color:#9c8b7e;">本月收入</span><br><span style="font-weight:700;color:#2ea87a;">+12,500</span></div>
+          <div style="background:#fff;border-radius:8px;padding:10px;border:1px solid #ede6dd;"><span style="font-size:10px;color:#9c8b7e;">本月支出</span><br><span style="font-weight:700;color:#e25c3b;">-8,320</span></div>
+          <div style="background:#fff;border-radius:8px;padding:10px;border:1px solid #ede6dd;"><span style="font-size:10px;color:#9c8b7e;">结余</span><br><span style="font-weight:700;color:#3d342b;">4,180</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 宽版仪表盘首页</h3>
+      <p>4张卡片横向排列，下方直接展示仪表盘摘要数据。首页变成一个真正的"总览面板"，点击卡片进入详情。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="sidebar" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="display:flex;background:#faf7f2;border-radius:12px;min-height:200px;overflow:hidden;">
+        <div style="width:80px;background:#fff;border-right:1px solid #ede6dd;padding:16px 8px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+          <div style="font-size:20px;">💰</div>
+          <div style="background:#fef3c7;border-radius:8px;padding:8px 4px;text-align:center;font-size:16px;">📊</div>
+          <div style="text-align:center;font-size:16px;">📝</div>
+          <div style="text-align:center;font-size:16px;">📈</div>
+          <div style="text-align:center;font-size:16px;">📅</div>
+          <div style="text-align:center;font-size:16px;margin-top:auto;">⚙️</div>
+        </div>
+        <div style="flex:1;padding:16px;">
+          <div style="font-weight:700;font-size:13px;color:#3d342b;margin-bottom:10px;">← 仪表盘</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">
+            <div style="background:#fff;border-radius:8px;padding:10px;border:1px solid #ede6dd;"><span style="font-size:10px;color:#9c8b7e;">收入</span><br><span style="font-weight:700;color:#2ea87a;">+12,500</span></div>
+            <div style="background:#fff;border-radius:8px;padding:10px;border:1px solid #ede6dd;"><span style="font-size:10px;color:#9c8b7e;">支出</span><br><span style="font-weight:700;color:#e25c3b;">-8,320</span></div>
+            <div style="background:#fff;border-radius:8px;padding:10px;border:1px solid #ede6dd;"><span style="font-size:10px;color:#9c8b7e;">结余</span><br><span style="font-weight:700;color:#3d342b;">4,180</span></div>
+          </div>
+          <div style="background:#fff;border-radius:8px;padding:12px;border:1px solid #ede6dd;height:80px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. 侧边栏导航</h3>
+      <p>左侧固定导航栏始终可见，点击直接切换页面。经典桌面应用布局，适合频繁切换功能。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="hub-keep" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#faf7f2;border-radius:12px;padding:24px;min-height:200px;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+        <div style="font-weight:700;color:#3d342b;margin-bottom:8px;">💰 账单管理</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:320px;">
+          <div style="background:#fffbeb;border-radius:14px;padding:20px;text-align:center;border:1px solid #fde68a;">📊<br><span style="font-size:12px;font-weight:600;">仪表盘</span><br><span style="font-size:9px;color:#9c8b7e;">月支出 ¥8,320</span></div>
+          <div style="background:#fff1f2;border-radius:14px;padding:20px;text-align:center;border:1px solid #fecdd3;">📝<br><span style="font-size:12px;font-weight:600;">记账</span><br><span style="font-size:9px;color:#9c8b7e;">今日 3 笔</span></div>
+          <div style="background:#ecfdf5;border-radius:14px;padding:20px;text-align:center;border:1px solid #a7f3d0;">📈<br><span style="font-size:12px;font-weight:600;">报表</span><br><span style="font-size:9px;color:#9c8b7e;">支出 ↓12%</span></div>
+          <div style="background:#f0f9ff;border-radius:14px;padding:20px;text-align:center;border:1px solid #bae6fd;">📅<br><span style="font-size:12px;font-weight:600;">周期账单</span><br><span style="font-size:9px;color:#9c8b7e;">2 笔待付</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. 保留 Hub 首页 + 宽版内页</h3>
+      <p>首页保持2×2卡片居中（像现在这样），但扩大卡片显示实时摘要数据。内页使用更宽的网格布局（2~3列）。</p>
+    </div>
+  </div>
+</div>

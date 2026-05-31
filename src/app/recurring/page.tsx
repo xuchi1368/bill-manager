@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import PageTransition from '@/components/PageTransition';
 import RecurringRuleForm from '@/components/RecurringRuleForm';
 
 interface Rule {
@@ -41,31 +42,31 @@ export default function RecurringPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <h2 className="text-xl font-bold mb-6">📅 周期账单</h2>
+    <PageTransition>
+      <h2 className="text-lg font-bold text-[#3d342b] mb-6">周期账单</h2>
       <RecurringRuleForm onCreated={load} />
       <div className="space-y-3">
         {rules.map((rule) => (
-          <div key={rule.id} className="bg-zinc-950 border border-zinc-800 rounded-xl p-4 flex items-center justify-between">
+          <div key={rule.id} className="card p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="text-xl">{rule.category.icon}</span>
               <div>
-                <div className="font-medium text-sm">{rule.name}</div>
-                <div className="text-xs text-zinc-500">{freqLabels[rule.frequency]} | {rule.channel.name} | 下次: {rule.nextDueDate}</div>
+                <div className="font-medium text-sm text-[#3d342b]">{rule.name}</div>
+                <div className="text-xs text-[#6b5d52]">{freqLabels[rule.frequency]} | {rule.channel.name} | 下次: {rule.nextDueDate}</div>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <span className={`font-bold text-sm ${rule.type === 'income' ? 'text-green-400' : 'text-red-400'}`}>
+              <span className={`font-bold text-sm ${rule.type === 'income' ? 'text-[#2ea87a]' : 'text-[#e25c3b]'}`}>
                 {rule.type === 'income' ? '+' : '-'}{rule.amount.toLocaleString()}
               </span>
-              <button onClick={() => toggleActive(rule)} className={`text-xs px-2 py-1 rounded ${rule.isActive ? 'bg-green-900 text-green-400' : 'bg-zinc-800 text-zinc-500'}`}>
+              <button onClick={() => toggleActive(rule)} className={`text-xs px-2 py-1 rounded-[6px] ${rule.isActive ? 'bg-emerald-50 text-[#2ea87a]' : 'bg-[#f5f2ed] text-[#6b5d52]'}`}>
                 {rule.isActive ? '启用' : '暂停'}
               </button>
-              <button onClick={() => remove(rule.id)} className="text-zinc-600 hover:text-red-400 text-sm">🗑</button>
+              <button onClick={() => remove(rule.id)} className="text-[#6b5d52] hover:text-[#e25c3b] text-sm">🗑</button>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </PageTransition>
   );
 }

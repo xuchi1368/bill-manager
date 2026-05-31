@@ -1,0 +1,86 @@
+<h2>非对称布局 — 整体架构</h2>
+<p class="subtitle">左轨导航始终可见 + 内容区填满剩余宽度</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">首页 Hub（无左轨）</div>
+    <div class="mockup-body">
+      <div style="background:#faf7f2;border-radius:12px;padding:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;">
+        <div style="font-weight:700;font-size:16px;color:#3d342b;margin-bottom:4px;">💰 账单管理</div>
+        <div style="font-size:10px;color:#9c8b7e;margin-bottom:20px;">2026年5月</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:320px;">
+          <div style="background:#fffbeb;border-radius:12px;padding:18px 14px;text-align:center;border:1px solid #fde68a;">
+            <div style="font-size:24px;">📊</div><div style="font-weight:600;font-size:11px;">仪表盘</div><div style="font-size:9px;color:#2ea87a;font-weight:700;">¥4,180</div>
+          </div>
+          <div style="background:#fff1f2;border-radius:12px;padding:18px 14px;text-align:center;border:1px solid #fecdd3;">
+            <div style="font-size:24px;">📝</div><div style="font-weight:600;font-size:11px;">记账</div><div style="font-size:9px;color:#e25c3b;font-weight:700;">今日 3 笔</div>
+          </div>
+          <div style="background:#ecfdf5;border-radius:12px;padding:18px 14px;text-align:center;border:1px solid #a7f3d0;">
+            <div style="font-size:24px;">📈</div><div style="font-weight:600;font-size:11px;">报表</div><div style="font-size:9px;color:#f59e0b;font-weight:700;">¥8,320</div>
+          </div>
+          <div style="background:#f0f9ff;border-radius:12px;padding:18px 14px;text-align:center;border:1px solid #bae6fd;">
+            <div style="font-size:24px;">📅</div><div style="font-weight:600;font-size:11px;">周期账单</div><div style="font-size:9px;color:#6366f1;font-weight:700;">2 笔</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">内页 — 左轨 + 内容填满</div>
+    <div class="mockup-body">
+      <div style="display:flex;background:#faf7f2;border-radius:12px;min-height:280px;overflow:hidden;">
+        <!-- Left rail -->
+        <div style="width:64px;background:#fff;border-right:1px solid #ede6dd;display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:4px;flex-shrink:0;">
+          <a href="#" style="font-size:22px;padding:8px;text-decoration:none;" title="首页">💰</a>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding-top:8px;">
+            <a href="#" style="font-size:18px;padding:10px 8px;background:#fef3c7;border-radius:10px;text-decoration:none;" title="仪表盘">📊</a>
+            <a href="#" style="font-size:18px;padding:10px 8px;border-radius:10px;text-decoration:none;opacity:0.5;" title="记账">📝</a>
+            <a href="#" style="font-size:18px;padding:10px 8px;border-radius:10px;text-decoration:none;opacity:0.5;" title="报表">📈</a>
+            <a href="#" style="font-size:18px;padding:10px 8px;border-radius:10px;text-decoration:none;opacity:0.5;" title="周期">📅</a>
+          </div>
+          <a href="#" style="font-size:18px;padding:8px;text-decoration:none;opacity:0.4;" title="设置">⚙️</a>
+        </div>
+        <!-- Content fills rest -->
+        <div style="flex:1;padding:20px;overflow:auto;">
+          <div style="font-weight:700;font-size:15px;color:#3d342b;margin-bottom:12px;">仪表盘</div>
+          <div style="display:flex;gap:8px;margin-bottom:10px;">
+            <div style="flex:1;background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;"><span style="font-size:9px;color:#9c8b7e;">本月收入</span><br><span style="font-weight:700;color:#2ea87a;">+12,500</span></div>
+            <div style="flex:1;background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;"><span style="font-size:9px;color:#9c8b7e;">本月支出</span><br><span style="font-weight:700;color:#e25c3b;">-8,320</span></div>
+            <div style="flex:1;background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;"><span style="font-size:9px;color:#9c8b7e;">结余</span><br><span style="font-weight:700;color:#3d342b;">4,180</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;font-size:10px;color:#9c8b7e;">💳 账户余额</div>
+            <div style="background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;font-size:10px;color:#9c8b7e;">💰 本月预算</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px;">
+  <h3>设计要点</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>核心变化</h4>
+      <ul>
+        <li><strong>首页独立</strong>：Hub 页面无左轨，保持全屏沉浸 + 走入画面动画</li>
+        <li><strong>内页左轨</strong>：64px 窄导航条，图标按钮切换页面，当前页高亮</li>
+        <li><strong>内容撑满</strong>：内页容器从 max-w 改为 flex:1，自适应屏幕剩余宽度</li>
+        <li><strong>无需返回</strong>：点击左轨直接切换，不再需要 TopBar 的返回箭头</li>
+        <li><strong>顶部 Logo</strong>：左轨顶部 💰 图标回到首页</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>保留不变</h4>
+      <ul>
+        <li>首页走入画面动画（Hub → 内页）</li>
+        <li>内页之间切换可加轻微过渡或直接切换</li>
+        <li>CountUp、stagger、shimmer 动画全部保留</li>
+        <li>暖色调主题、卡片样式不变</li>
+        <li>小屏幕 (＜768px)：左轨缩到底部 TabBar</li>
+      </ul>
+    </div>
+  </div>
+</div>

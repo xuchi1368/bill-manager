@@ -48,39 +48,49 @@ export default function RecurringRuleForm({ onCreated }: { onCreated: () => void
     onCreated();
   }
 
+  const inputClass = 'bg-[#f5f2ed] border-0 rounded-[10px] px-3.5 py-2 text-sm text-[#3d342b] placeholder-[#6b5d52] focus:outline-none focus:ring-2 focus:ring-amber-500/30';
+
   return (
-    <form onSubmit={handleSubmit} className="bg-zinc-950 border border-zinc-800 rounded-xl p-4 mb-6">
-      <h3 className="text-sm font-medium text-zinc-400 mb-4">➕ 新建周期规则</h3>
-      <div className="flex gap-3 mb-3">
-        <button type="button" className={`px-4 py-1.5 rounded-lg text-sm ${type === 'expense' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-zinc-400'}`} onClick={() => setType('expense')}>支出</button>
-        <button type="button" className={`px-4 py-1.5 rounded-lg text-sm ${type === 'income' ? 'bg-green-600 text-white' : 'bg-zinc-800 text-zinc-400'}`} onClick={() => setType('income')}>收入</button>
+    <form onSubmit={handleSubmit} className="card p-5 mb-6">
+      <h3 className="text-sm font-semibold text-[#3d342b] mb-4">➕ 新建周期规则</h3>
+
+      <div className="flex gap-2 mb-4">
+        <button type="button" onClick={() => setType('expense')}
+          className={`flex-1 py-2 rounded-[10px] text-sm font-medium transition-colors ${type === 'expense' ? 'bg-rose-50 text-[#e25c3b]' : 'bg-[#f5f2ed] text-[#6b5d52]'}`}>支出</button>
+        <button type="button" onClick={() => setType('income')}
+          className={`flex-1 py-2 rounded-[10px] text-sm font-medium transition-colors ${type === 'income' ? 'bg-emerald-50 text-[#2ea87a]' : 'bg-[#f5f2ed] text-[#6b5d52]'}`}>收入</button>
       </div>
+
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-3">
-        <input type="text" placeholder="名称（如：房租）" value={name} onChange={(e) => setName(e.target.value)} required className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1.5 text-sm text-white placeholder-zinc-500" />
-        <input type="number" step="0.01" placeholder="金额" value={amount} onChange={(e) => setAmount(e.target.value)} required className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1.5 text-sm text-white placeholder-zinc-500" />
-        <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} required className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1.5 text-sm text-white">
+        <input type="text" placeholder="名称（如：房租）" value={name} onChange={(e) => setName(e.target.value)} required className={inputClass} />
+        <input type="number" step="0.01" placeholder="金额" value={amount} onChange={(e) => setAmount(e.target.value)} required className={inputClass} />
+        <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} required className={inputClass}>
           <option value="">分类</option>
           {categories.map((c) => (<option key={c.id} value={c.id}>{c.icon} {c.name}</option>))}
         </select>
-        <select value={channelId} onChange={(e) => setChannelId(e.target.value)} required className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1.5 text-sm text-white">
+        <select value={channelId} onChange={(e) => setChannelId(e.target.value)} required className={inputClass}>
           <option value="">渠道</option>
           {channels.map((c) => (<option key={c.id} value={c.id}>{c.name}</option>))}
         </select>
-        <select value={frequency} onChange={(e) => setFrequency(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1.5 text-sm text-white">
+        <select value={frequency} onChange={(e) => setFrequency(e.target.value)} className={inputClass}>
           <option value="daily">每天</option>
           <option value="weekly">每周</option>
           <option value="monthly">每月</option>
           <option value="yearly">每年</option>
         </select>
-        <input type="date" placeholder="下次到期日" value={nextDueDate} onChange={(e) => setNextDueDate(e.target.value)} required className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1.5 text-sm text-white" />
+        <input type="date" placeholder="下次到期日" value={nextDueDate} onChange={(e) => setNextDueDate(e.target.value)} required className={inputClass} />
       </div>
+
       {frequency === 'monthly' && (
-        <div className="mb-3">
-          <label className="text-xs text-zinc-500 mr-2">每月第几天</label>
-          <input type="number" min="1" max="31" value={dayOfMonth} onChange={(e) => setDayOfMonth(e.target.value)} className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1.5 text-sm text-white w-20" />
+        <div className="mb-3 flex items-center gap-2">
+          <label className="text-xs text-[#6b5d52]">每月第几天</label>
+          <input type="number" min="1" max="31" value={dayOfMonth} onChange={(e) => setDayOfMonth(e.target.value)} className={`${inputClass} w-20`} />
         </div>
       )}
-      <button type="submit" className="px-6 py-1.5 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-500">保存</button>
+
+      <button type="submit" className="px-6 py-2 bg-[#f59e0b] hover:bg-amber-500/90 active:scale-95 text-white font-medium rounded-[10px] text-sm transition-all">
+        保存
+      </button>
     </form>
   );
 }

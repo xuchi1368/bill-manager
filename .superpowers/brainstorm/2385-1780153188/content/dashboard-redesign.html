@@ -1,0 +1,147 @@
+<h2>仪表盘设计方案</h2>
+<p class="subtitle">核心理念：温暖财务故事 — 不对称平衡、焦点突出、克制的色彩</p>
+
+<div class="options" data-multiselect>
+  <div class="option" data-choice="a">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>方案 A：大余额焦点 + 侧栏</h3>
+      <p>本月结余作为视觉焦点（大字+渐变底色），收入/支出缩小为辅助指标。下方左右分栏：左（日历+趋势），右（账户+流水）。暖色调为主，关键数字用琥珀色突出。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>方案 B：卡片杂志风</h3>
+      <p>三张 StatCard 并排作为首行，各自独立成视觉单元。下方三栏网格：日历占 2/3 宽 + 账户占 1/3。趋势图和流水左右分栏。大量留白，卡片间距宽松，更像杂志排版。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="mockup">
+    <div class="mockup-header">方案 A 预览：大余额焦点</div>
+    <div class="mockup-body" style="background:#faf7f2;padding:16px;font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;">
+      <!-- Header -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div>
+          <h2 style="margin:0;font-size:18px;color:#3d342b;font-weight:700;">仪表盘</h2>
+          <p style="margin:2px 0 0;font-size:11px;color:#9c8b7e;">2026年5月</p>
+        </div>
+        <button style="background:#f59e0b;color:#fff;border:none;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;">＋ 记账</button>
+      </div>
+
+      <!-- Hero Balance + Mini Stats -->
+      <div style="display:flex;gap:12px;margin-bottom:14px;">
+        <!-- Hero balance card -->
+        <div style="flex:1.2;background:linear-gradient(135deg,#fff7ed,#fef3c7);border:1px solid #fde68a;border-radius:16px;padding:18px 20px;">
+          <div style="font-size:11px;color:#92400e;margin-bottom:4px;font-weight:500;">💰 本月结余</div>
+          <div style="font-size:32px;font-weight:800;color:#3d342b;margin-bottom:6px;">¥9,397</div>
+          <div style="display:flex;gap:8px;font-size:10px;">
+            <span style="color:#2ea87a;">↑ 收入 ¥13,000</span>
+            <span style="color:#9c8b7e;">·</span>
+            <span style="color:#e25c3b;">↓ 支出 ¥3,603</span>
+          </div>
+        </div>
+        <!-- Mini stat: income -->
+        <div style="flex:0.9;background:#fff;border:1px solid #ede6dd;border-radius:16px;padding:14px 16px;">
+          <div style="font-size:10px;color:#9c8b7e;margin-bottom:2px;">📈 本月收入</div>
+          <div style="font-size:22px;font-weight:700;color:#2ea87a;">¥13,000</div>
+          <div style="font-size:10px;color:#9c8b7e;margin-top:2px;">工资 + 投资</div>
+        </div>
+        <!-- Mini stat: expense -->
+        <div style="flex:0.9;background:#fff;border:1px solid #ede6dd;border-radius:16px;padding:14px 16px;">
+          <div style="font-size:10px;color:#9c8b7e;margin-bottom:2px;">📉 本月支出</div>
+          <div style="font-size:22px;font-weight:700;color:#e25c3b;">¥3,603</div>
+          <div style="font-size:10px;color:#9c8b7e;margin-top:2px;">5 笔交易</div>
+        </div>
+      </div>
+
+      <!-- Two columns: Left = Calendar+Trend, Right = Accounts+Recent -->
+      <div style="display:flex;gap:12px;">
+        <!-- Left column -->
+        <div style="flex:1.2;display:flex;flex-direction:column;gap:12px;">
+          <!-- Calendar -->
+          <div style="background:#fff;border:1px solid #ede6dd;border-radius:14px;padding:12px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <span style="font-size:10px;color:#9c8b7e;">◀</span>
+              <span style="font-size:12px;font-weight:600;color:#3d342b;">2026年5月</span>
+              <span style="font-size:10px;color:#9c8b7e;">▶</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px;text-align:center;">
+              <span style="font-size:9px;color:#9c8b7e;">日</span><span style="font-size:9px;color:#9c8b7e;">一</span><span style="font-size:9px;color:#9c8b7e;">二</span><span style="font-size:9px;color:#9c8b7e;">三</span><span style="font-size:9px;color:#9c8b7e;">四</span><span style="font-size:9px;color:#9c8b7e;">五</span><span style="font-size:9px;color:#9c8b7e;">六</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px;text-align:center;">
+              <span style="font-size:9px;color:#ccc;padding:3px 0;">27</span><span style="font-size:9px;color:#ccc;padding:3px 0;">28</span><span style="font-size:9px;color:#ccc;padding:3px 0;">29</span><span style="font-size:9px;color:#ccc;padding:3px 0;">30</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">1</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">2</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">3</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px;text-align:center;">
+              <span style="font-size:9px;color:#3d342b;padding:3px 0;">4</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">5</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">6</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">7</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">8</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">9</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">10</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px;text-align:center;">
+              <span style="font-size:9px;color:#3d342b;padding:3px 0;">11</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">12</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">13</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">14</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">15</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">16</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">17</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px;text-align:center;">
+              <span style="font-size:9px;color:#3d342b;padding:3px 0;">18</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">19</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">20</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">21</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">22</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">23</span><span style="font-size:9px;color:#3d342b;padding:3px 0;">24</span>
+            </div>
+          </div>
+          <!-- Trend -->
+          <div style="background:#fff;border:1px solid #ede6dd;border-radius:14px;padding:12px 14px;">
+            <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:8px;">📈 本月趋势</div>
+            <div style="height:120px;background:linear-gradient(180deg,#fef3c720,#fef3c750);border-radius:8px;display:flex;align-items:flex-end;justify-content:space-between;padding:8px;">
+              <div style="width:6px;height:30%;background:#2ea87a;border-radius:3px 3px 0 0;"></div>
+              <div style="width:6px;height:15%;background:#e25c3b;border-radius:3px 3px 0 0;"></div>
+              <div style="width:6px;height:25%;background:#2ea87a;border-radius:3px 3px 0 0;"></div>
+              <div style="width:6px;height:60%;background:linear-gradient(180deg,#2ea87a,#10b981);border-radius:3px 3px 0 0;"></div>
+              <div style="width:6px;height:20%;background:#e25c3b;border-radius:3px 3px 0 0;"></div>
+              <div style="width:6px;height:35%;background:#e25c3b;border-radius:3px 3px 0 0;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
+          <!-- Accounts -->
+          <div style="background:#fff;border:1px solid #ede6dd;border-radius:14px;padding:12px 14px;">
+            <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:10px;">💳 账户</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#faf7f2;border-radius:10px;">
+                <span style="font-size:12px;color:#3d342b;">💬 微信</span>
+                <span style="font-size:13px;font-weight:700;color:#2ea87a;">¥1,622</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#faf7f2;border-radius:10px;">
+                <span style="font-size:12px;color:#3d342b;">💙 支付宝</span>
+                <span style="font-size:13px;font-weight:700;color:#2ea87a;">¥2,775</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#faf7f2;border-radius:10px;">
+                <span style="font-size:12px;color:#3d342b;">💳 银行卡</span>
+                <span style="font-size:13px;font-weight:700;color:#2ea87a;">¥63,000</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#faf7f2;border-radius:10px;">
+                <span style="font-size:12px;color:#3d342b;">💵 现金</span>
+                <span style="font-size:13px;font-weight:700;color:#2ea87a;">¥2,000</span>
+              </div>
+            </div>
+          </div>
+          <!-- Recent transactions -->
+          <div style="background:#fff;border:1px solid #ede6dd;border-radius:14px;padding:12px 14px;flex:1;">
+            <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:8px;">📋 最近流水</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f5f2ed;">
+                <span style="font-size:10px;color:#9c8b7e;">5/30</span><span style="font-size:14px;">🍜</span><span style="font-size:11px;color:#3d342b;flex:1;">餐饮</span><span style="font-size:10px;color:#9c8b7e;">微信</span><span style="font-size:12px;font-weight:600;color:#e25c3b;">-200</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f5f2ed;">
+                <span style="font-size:10px;color:#9c8b7e;">5/29</span><span style="font-size:14px;">🍜</span><span style="font-size:11px;color:#3d342b;flex:1;">餐饮</span><span style="font-size:10px;color:#9c8b7e;">支付宝</span><span style="font-size:12px;font-weight:600;color:#e25c3b;">-25</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f5f2ed;">
+                <span style="font-size:10px;color:#9c8b7e;">5/28</span><span style="font-size:14px;">🏠</span><span style="font-size:11px;color:#3d342b;flex:1;">房租</span><span style="font-size:10px;color:#9c8b7e;">微信</span><span style="font-size:12px;font-weight:600;color:#e25c3b;">-3,000</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f5f2ed;">
+                <span style="font-size:10px;color:#9c8b7e;">5/28</span><span style="font-size:14px;">💰</span><span style="font-size:11px;color:#3d342b;flex:1;">工资</span><span style="font-size:10px;color:#9c8b7e;">银行卡</span><span style="font-size:12px;font-weight:600;color:#2ea87a;">+12,500</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

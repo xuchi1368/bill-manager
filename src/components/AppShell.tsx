@@ -1,0 +1,53 @@
+'use client';
+
+import { useState, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
+import { Plus } from 'lucide-react';
+import LeftRail from './LeftRail';
+import MobileTabBar from './MobileTabBar';
+import QuickAddPanel from './QuickAddPanel';
+
+export default function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const [showQuickAdd, setShowQuickAdd] = useState(false);
+
+  const handleCreated = useCallback(() => {
+    // Data refresh handled via window 'transaction-created' event
+  }, []);
+
+  if (isHome) {
+    return (
+      <main className="min-h-screen p-6">
+        <div className="max-w-4xl mx-auto">{children}</div>
+      </main>
+    );
+  }
+
+  return (
+    <div className="flex min-h-screen">
+      <LeftRail currentPath={pathname} />
+      <main className="flex-1 px-5 py-3 pb-20 md:pb-3 overflow-auto">
+        {children}
+      </main>
+      <MobileTabBar currentPath={pathname} />
+
+      {/* Global FAB */}
+      <button
+        onClick={() => setShowQuickAdd(true)}
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#f59e0b] hover:bg-amber-500 active:scale-95 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center cursor-pointer"
+        title="快速记账"
+      >
+        <Plus size={28} strokeWidth={2.5} />
+      </button>
+
+      {/* QuickAdd modal */}
+      {showQuickAdd && (
+        <QuickAddPanel
+          onCreated={handleCreated}
+          onClose={() => setShowQuickAdd(false)}
+        />
+      )}
+    </div>
+  );
+}

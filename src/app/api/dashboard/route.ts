@@ -44,5 +44,32 @@ export async function GET() {
     take: 10,
   });
 
-  return NextResponse.json({ totalIncome, totalExpense, balance: totalIncome - totalExpense, trend, recent });
+  // Budget tracking: each expense category with budgetLimit + actual spending this month
+  const expenseCategories = await db.category.findMany({
+    where: { type: 'expense', budgetLimit: { not: null } },
+  });
+  const budgets = await Promise.all(
+    expenseCategories.map(async (cat) => {
+      const result = await db.transaction.aggregate({
+        where: { categoryId: cat.id, type: 'expense', date: { gte: monthStart, lte: monthEnd } },
+        _sum: { amount: true },
+      });
+      return {
+        id: cat.id,
+        name: cat.name,
+        icon: cat.icon,
+        budgetLimit: cat.budgetLimit!,
+        spent: result._sum.amount || 0,
+      };
+    })
+  );
+
+  // Channel balances
+  const channels = await db.channel.findMany({ orderBy: { createdAt: 'asc' } });
+  const accounts = channels.map((c) => ({ id: c.id, name: c.name, type: c.type, balance: c.balance }));
+
+  return NextResponse.json({
+    totalIncome, totalExpense, balance: totalIncome - totalExpense,
+    trend, recent, budgets, accounts,
+  });
 }

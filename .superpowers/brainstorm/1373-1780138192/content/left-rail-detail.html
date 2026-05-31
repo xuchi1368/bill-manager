@@ -1,0 +1,101 @@
+<h2>LeftRail 组件 — 导航项与交互细节</h2>
+<p class="subtitle">64px 宽，4 个主导航 + 1 个设置入口，当前页高亮</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">导航状态示意</div>
+    <div class="mockup-body">
+      <div style="display:flex;gap:24px;justify-content:center;align-items:start;padding:16px;">
+        <!-- State 1: Dashboard active -->
+        <div style="text-align:center;">
+          <div style="font-size:10px;color:#9c8b7e;margin-bottom:6px;">仪表盘页</div>
+          <div style="width:64px;background:#fff;border-radius:14px;border:1px solid #ede6dd;padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="font-size:18px;padding:6px;">💰</div>
+            <div style="font-size:16px;padding:8px;background:#fef3c7;border-radius:10px;">📊</div>
+            <div style="font-size:16px;padding:8px;border-radius:10px;opacity:0.35;">📝</div>
+            <div style="font-size:16px;padding:8px;border-radius:10px;opacity:0.35;">📈</div>
+            <div style="font-size:16px;padding:8px;border-radius:10px;opacity:0.35;">📅</div>
+            <div style="font-size:16px;padding:6px;opacity:0.3;margin-top:auto;">⚙️</div>
+          </div>
+        </div>
+        <!-- State 2: Transactions active -->
+        <div style="text-align:center;">
+          <div style="font-size:10px;color:#9c8b7e;margin-bottom:6px;">记账页</div>
+          <div style="width:64px;background:#fff;border-radius:14px;border:1px solid #ede6dd;padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="font-size:18px;padding:6px;">💰</div>
+            <div style="font-size:16px;padding:8px;border-radius:10px;opacity:0.35;">📊</div>
+            <div style="font-size:16px;padding:8px;background:#ffe4e6;border-radius:10px;">📝</div>
+            <div style="font-size:16px;padding:8px;border-radius:10px;opacity:0.35;">📈</div>
+            <div style="font-size:16px;padding:8px;border-radius:10px;opacity:0.35;">📅</div>
+            <div style="font-size:16px;padding:6px;opacity:0.3;margin-top:auto;">⚙️</div>
+          </div>
+        </div>
+        <!-- State 3: Hover -->
+        <div style="text-align:center;">
+          <div style="font-size:10px;color:#9c8b7e;margin-bottom:6px;">悬停效果</div>
+          <div style="width:64px;background:#fff;border-radius:14px;border:1px solid #ede6dd;padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="font-size:18px;padding:6px;">💰</div>
+            <div style="font-size:16px;padding:8px;background:#fef3c7;border-radius:10px;">📊</div>
+            <div style="font-size:16px;padding:8px;border-radius:10px;opacity:0.35;">📝</div>
+            <div style="font-size:16px;padding:8px;border-radius:10px;background:#f5f2ed;opacity:0.7;cursor:pointer;">📈</div>
+            <div style="font-size:16px;padding:8px;border-radius:10px;opacity:0.35;">📅</div>
+            <div style="font-size:16px;padding:6px;opacity:0.3;margin-top:auto;">⚙️</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">移动端 — 底部 TabBar</div>
+    <div class="mockup-body">
+      <div style="background:#faf7f2;border-radius:12px;min-height:240px;display:flex;flex-direction:column;">
+        <div style="flex:1;padding:16px;">
+          <div style="font-weight:700;font-size:13px;color:#3d342b;margin-bottom:8px;">仪表盘</div>
+          <div style="display:flex;gap:6px;">
+            <div style="flex:1;background:#fff;border-radius:8px;padding:10px;border:1px solid #ede6dd;text-align:center;"><span style="font-size:9px;color:#9c8b7e;">收入</span><br><span style="font-weight:700;color:#2ea87a;">+12,500</span></div>
+            <div style="flex:1;background:#fff;border-radius:8px;padding:10px;border:1px solid #ede6dd;text-align:center;"><span style="font-size:9px;color:#9c8b7e;">支出</span><br><span style="font-weight:700;color:#e25c3b;">-8,320</span></div>
+          </div>
+        </div>
+        <!-- Bottom Tab Bar -->
+        <div style="display:flex;justify-content:space-around;align-items:center;background:#fff;border-top:1px solid #ede6dd;padding:8px 16px 12px;border-radius:0 0 12px 12px;">
+          <div style="text-align:center;font-size:11px;color:#f59e0b;"><div style="font-size:18px;">📊</div>仪表盘</div>
+          <div style="text-align:center;font-size:11px;color:#9c8b7e;"><div style="font-size:18px;">📝</div>记账</div>
+          <div style="text-align:center;font-size:11px;color:#9c8b7e;"><div style="font-size:18px;">📈</div>报表</div>
+          <div style="text-align:center;font-size:11px;color:#9c8b7e;"><div style="font-size:18px;">📅</div>周期</div>
+          <div style="text-align:center;font-size:11px;color:#9c8b7e;"><div style="font-size:18px;">⚙️</div>设置</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:24px;">
+  <h3>LeftRail 规格</h3>
+  <table style="width:100%;font-size:13px;border-collapse:collapse;">
+    <tr style="border-bottom:1px solid #ede6dd;">
+      <td style="padding:8px 12px;color:#9c8b7e;">宽度</td>
+      <td style="padding:8px 12px;color:#3d342b;">64px（桌面）/ 底部 TabBar（移动端 &lt;768px）</td>
+    </tr>
+    <tr style="border-bottom:1px solid #ede6dd;">
+      <td style="padding:8px 12px;color:#9c8b7e;">背景</td>
+      <td style="padding:8px 12px;color:#3d342b;">白色 + 右侧 1px 边框 #ede6dd</td>
+    </tr>
+    <tr style="border-bottom:1px solid #ede6dd;">
+      <td style="padding:8px 12px;color:#9c8b7e;">导航项</td>
+      <td style="padding:8px 12px;color:#3d342b;">顶部 Logo(💰)，中段 4 个功能图标，底部设置(⚙️)</td>
+    </tr>
+    <tr style="border-bottom:1px solid #ede6dd;">
+      <td style="padding:8px 12px;color:#9c8b7e;">当前页</td>
+      <td style="padding:8px 12px;color:#3d342b;">背景色高亮（仪表盘=#fef3c7，记账=#ffe4e6，报表=#d1fae5，周期=#dbeafe）</td>
+    </tr>
+    <tr style="border-bottom:1px solid #ede6dd;">
+      <td style="padding:8px 12px;color:#9c8b7e;">悬停</td>
+      <td style="padding:8px 12px;color:#3d342b;">背景 #f5f2ed，opacity 从 0.35 升到 0.7</td>
+    </tr>
+    <tr>
+      <td style="padding:8px 12px;color:#9c8b7e;">Tooltip</td>
+      <td style="padding:8px 12px;color:#3d342b;">hover 1s 后右侧弹出功能名称（"仪表盘""记账"等）</td>
+    </tr>
+  </table>
+</div>

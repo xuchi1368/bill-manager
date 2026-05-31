@@ -1,0 +1,215 @@
+<style>
+  .scene {
+    perspective: 1800px;
+    perspective-origin: left center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 360px;
+    background: #faf7f2;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .book-area {
+    position: relative;
+    width: 280px;
+    height: 210px;
+  }
+
+  .back-page {
+    position: absolute;
+    inset: 0;
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #ede6dd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    z-index: 0;
+  }
+  .back-page .icon { font-size: 28px; opacity: 0.5; }
+  .back-page .label { font-size: 13px; color: #9c8b7e; font-weight: 500; }
+
+  .front-group {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    z-index: 1;
+  }
+
+  .segment {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 5.26%;
+    background: white;
+    border: 1px solid #ede6dd;
+    border-right: none;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    animation: segFlip 3.2s cubic-bezier(0.42, 0.0, 0.58, 1.0) infinite;
+  }
+  .segment:first-child { border-radius: 14px 0 0 14px; }
+  .segment:nth-child(20) { border-radius: 0 14px 14px 0; border-right: 1px solid #ede6dd; }
+
+  .seg-0  { animation-delay: 0.00s; left: 0.00%; }
+  .seg-1  { animation-delay: 0.02s; left: 5.26%; }
+  .seg-2  { animation-delay: 0.04s; left: 10.52%; }
+  .seg-3  { animation-delay: 0.06s; left: 15.78%; }
+  .seg-4  { animation-delay: 0.07s; left: 21.05%; }
+  .seg-5  { animation-delay: 0.08s; left: 26.31%; }
+  .seg-6  { animation-delay: 0.09s; left: 31.58%; }
+  .seg-7  { animation-delay: 0.10s; left: 36.84%; }
+  .seg-8  { animation-delay: 0.10s; left: 42.10%; }
+  .seg-9  { animation-delay: 0.09s; left: 47.36%; }
+  .seg-10 { animation-delay: 0.08s; left: 52.63%; }
+  .seg-11 { animation-delay: 0.07s; left: 57.89%; }
+  .seg-12 { animation-delay: 0.06s; left: 63.15%; }
+  .seg-13 { animation-delay: 0.04s; left: 68.42%; }
+  .seg-14 { animation-delay: 0.03s; left: 73.68%; }
+  .seg-15 { animation-delay: 0.02s; left: 78.94%; }
+  .seg-16 { animation-delay: 0.02s; left: 84.21%; }
+  .seg-17 { animation-delay: 0.01s; left: 89.47%; }
+  .seg-18 { animation-delay: 0.01s; left: 94.73%; }
+
+  @keyframes segFlip {
+    0%, 10%   { transform: rotateY(0deg); }
+    42%, 52%  { transform: rotateY(-185deg); }
+    80%, 100% { transform: rotateY(0deg); }
+  }
+
+  .bend-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    z-index: -1;
+    animation: bendShadow 3.2s cubic-bezier(0.42, 0.0, 0.58, 1.0) infinite;
+    animation-delay: 0.05s;
+  }
+  @keyframes bendShadow {
+    0%, 12%  { box-shadow: none; }
+    38%, 56% { box-shadow: -12px 6px 30px rgba(0,0,0,0.2), -4px 3px 8px rgba(0,0,0,0.1); }
+    82%, 100% { box-shadow: none; }
+  }
+
+  .spine {
+    position: absolute;
+    left: -3px;
+    top: 10px;
+    bottom: 10px;
+    width: 4px;
+    background: linear-gradient(to right, #c4b8a8, #d6cec4, transparent);
+    border-radius: 3px;
+    z-index: 2;
+  }
+
+  .content-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    z-index: 10;
+    pointer-events: none;
+    animation: fadeContent 3.2s cubic-bezier(0.42, 0.0, 0.58, 1.0) infinite;
+  }
+  @keyframes fadeContent {
+    0%, 20%  { opacity: 1; }
+    35%, 60% { opacity: 0.1; }
+    78%, 100% { opacity: 1; }
+  }
+  .content-overlay .icon { font-size: 38px; }
+  .content-overlay .title { font-size: 16px; font-weight: 700; color: #3d342b; }
+  .content-overlay .desc { font-size: 11px; color: #9c8b7e; }
+
+  .hint {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .hint p { margin: 4px 0; }
+</style>
+
+<h2>分段弯曲翻页 — 模拟真实纸张</h2>
+<p class="subtitle">19 条垂直分段，波浪式依次翻转，模拟纸张弯曲变形</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">分段弯曲翻页</div>
+    <div class="mockup-body">
+      <div class="scene">
+        <div class="book-area">
+          <div class="back-page">
+            <span class="icon">📝</span>
+            <span class="label">记账</span>
+          </div>
+          <div class="bend-shadow"></div>
+          <div class="spine"></div>
+          <div class="front-group" id="frontGroup">
+            <div class="content-overlay">
+              <span class="icon">📊</span>
+              <span class="title">仪表盘</span>
+              <span class="desc">翻页中...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">原始硬板翻转（对比）</div>
+    <div class="mockup-body">
+      <div style="perspective:1800px; perspective-origin:left; height:360px; display:flex; align-items:center; justify-content:center; background:#faf7f2; border-radius:12px;">
+        <div style="width:280px; height:210px; position:relative;">
+          <div style="position:absolute; inset:0; background:white; border-radius:14px; border:1px solid #ede6dd; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <span style="font-size:28px; opacity:0.5;">📝</span>
+            <span style="font-size:13px; color:#9c8b7e;">记账</span>
+          </div>
+          <div style="position:absolute; inset:0; background:white; border-radius:14px; border:1px solid #ede6dd;
+            transform-origin:left; box-shadow:0 1px 4px rgba(0,0,0,0.06);
+            animation:rigid 2.5s ease-in-out infinite;
+            display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+            <span style="font-size:38px;">📊</span>
+            <span style="font-size:16px; font-weight:700; color:#3d342b;">仪表盘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hint">
+  <p style="color:#3d342b; font-weight:600;">关键差异</p>
+  <p style="color:#9c8b7e; font-size:13px;">
+    左侧：19 条分段，相邻段 0.01-0.02s 延迟 → 波浪弯曲效果 | 周围段先翻、中间段跟上 | 下方阴影随弯曲
+  </p>
+  <p style="color:#9c8b7e; font-size:13px;">
+    右侧：整块硬板绕左轴匀速旋转
+  </p>
+</div>
+
+<script>
+(function() {
+  var group = document.getElementById('frontGroup');
+  if (!group) return;
+  for (var i = 0; i < 19; i++) {
+    var seg = document.createElement('div');
+    seg.className = 'segment seg-' + i;
+    seg.innerHTML = '<div class="seg-inner"></div>';
+    group.appendChild(seg);
+  }
+})();
+</script>
+
+<style>
+  @keyframes rigid {
+    0%, 30% { transform: rotateY(0deg); }
+    45%, 75% { transform: rotateY(-140deg); }
+    90%, 100% { transform: rotateY(0deg); }
+  }
+</style>

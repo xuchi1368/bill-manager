@@ -1,0 +1,104 @@
+<h2>首页 Hub 改造 — 实时摘要卡片</h2>
+<p class="subtitle">左侧：现在的纯入口 | 右侧：带实时数据的卡片</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">现在 — 纯入口按钮</div>
+    <div class="mockup-body">
+      <div style="background:#faf7f2;border-radius:16px;padding:40px 24px;display:flex;flex-direction:column;align-items:center;min-height:360px;">
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="font-weight:700;font-size:18px;color:#3d342b;">💰 账单管理</div>
+          <div style="font-size:11px;color:#9c8b7e;">个人财务助手</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:340px;">
+          <div style="background:linear-gradient(135deg,#fffbeb,#fff7ed);border-radius:14px;padding:24px 14px;text-align:center;border:1px solid #ede6dd;">
+            <div style="font-size:32px;">📊</div>
+            <div style="font-weight:600;font-size:13px;color:#3d342b;">仪表盘</div>
+            <div style="font-size:10px;color:#9c8b7e;">查看收支概览</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#fff1f2,#fdf2f8);border-radius:14px;padding:24px 14px;text-align:center;border:1px solid #ede6dd;">
+            <div style="font-size:32px;">📝</div>
+            <div style="font-weight:600;font-size:13px;color:#3d342b;">记账</div>
+            <div style="font-size:10px;color:#9c8b7e;">记录日常收支</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#ecfdf5,#f0fdfa);border-radius:14px;padding:24px 14px;text-align:center;border:1px solid #ede6dd;">
+            <div style="font-size:32px;">📈</div>
+            <div style="font-weight:600;font-size:13px;color:#3d342b;">报表</div>
+            <div style="font-size:10px;color:#9c8b7e;">分析支出趋势</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#f0f9ff,#eff6ff);border-radius:14px;padding:24px 14px;text-align:center;border:1px solid #ede6dd;">
+            <div style="font-size:32px;">📅</div>
+            <div style="font-weight:600;font-size:13px;color:#3d342b;">周期账单</div>
+            <div style="font-size:10px;color:#9c8b7e;">管理定期付款</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">新方案 — 实时摘要卡片</div>
+    <div class="mockup-body">
+      <div style="background:#faf7f2;border-radius:16px;padding:40px 24px;display:flex;flex-direction:column;align-items:center;min-height:360px;">
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="font-weight:700;font-size:18px;color:#3d342b;">💰 账单管理</div>
+          <div style="font-size:11px;color:#9c8b7e;">个人财务助手 · 2026年5月</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:360px;">
+          <div style="background:linear-gradient(135deg,#fffbeb,#fff7ed);border-radius:14px;padding:18px 14px;text-align:center;border:1px solid #fde68a;cursor:pointer;">
+            <div style="font-size:28px;margin-bottom:2px;">📊</div>
+            <div style="font-weight:600;font-size:12px;color:#3d342b;margin-bottom:4px;">仪表盘</div>
+            <div style="font-size:10px;color:#9c8b7e;margin-bottom:6px;">本月结余</div>
+            <div style="font-weight:700;font-size:16px;color:#2ea87a;">¥4,180</div>
+            <div style="font-size:9px;color:#9c8b7e;margin-top:2px;">3 账户 · 点击查看</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#fff1f2,#fdf2f8);border-radius:14px;padding:18px 14px;text-align:center;border:1px solid #fecdd3;cursor:pointer;">
+            <div style="font-size:28px;margin-bottom:2px;">📝</div>
+            <div style="font-weight:600;font-size:12px;color:#3d342b;margin-bottom:4px;">记账</div>
+            <div style="font-size:10px;color:#9c8b7e;margin-bottom:6px;">今日</div>
+            <div style="font-weight:700;font-size:16px;color:#e25c3b;">3 笔</div>
+            <div style="font-size:9px;color:#9c8b7e;margin-top:2px;">共 ¥-186 · 点击记录</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#ecfdf5,#f0fdfa);border-radius:14px;padding:18px 14px;text-align:center;border:1px solid #a7f3d0;cursor:pointer;">
+            <div style="font-size:28px;margin-bottom:2px;">📈</div>
+            <div style="font-weight:600;font-size:12px;color:#3d342b;margin-bottom:4px;">报表</div>
+            <div style="font-size:10px;color:#9c8b7e;margin-bottom:6px;">本月支出</div>
+            <div style="font-weight:700;font-size:16px;color:#f59e0b;">¥8,320</div>
+            <div style="font-size:9px;color:#2ea87a;margin-top:2px;">↓12% 环比 · 点击分析</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#f0f9ff,#eff6ff);border-radius:14px;padding:18px 14px;text-align:center;border:1px solid #bae6fd;cursor:pointer;">
+            <div style="font-size:28px;margin-bottom:2px;">📅</div>
+            <div style="font-weight:600;font-size:12px;color:#3d342b;margin-bottom:4px;">周期账单</div>
+            <div style="font-size:10px;color:#9c8b7e;margin-bottom:6px;">待处理</div>
+            <div style="font-weight:700;font-size:16px;color:#6366f1;">2 笔</div>
+            <div style="font-size:9px;color:#e25c3b;margin-top:2px;">1 笔已逾期 · 点击处理</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px;">
+  <h3>设计要点</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>变化</h4>
+      <ul>
+        <li>每张卡片显示实时摘要数字（通过 /api/dashboard 预取）</li>
+        <li>卡片边框颜色反映状态（正常/警告/逾期）</li>
+        <li>底部引导文案动态变化（"点击查看"/"点击记录"/"点击处理"）</li>
+        <li>标题区增加当前月份显示</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>约束</h4>
+      <ul>
+        <li>保持 2×2 网格居中，不改变整体布局结构</li>
+        <li>走-入画面动画完整保留</li>
+        <li>卡片点击行为不变（zoomIn → navigate）</li>
+        <li>数据从单个 /api/dashboard 获取，不额外请求</li>
+      </ul>
+    </div>
+  </div>
+</div>

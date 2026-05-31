@@ -12,6 +12,10 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"PingFang SC"', '"Microsoft YaHei"', '"Hiragino Sans GB"', '"Noto Sans SC"', 'sans-serif'],
+        number: ['"SF Mono"', '"Segoe UI"', '-apple-system', 'system-ui', 'monospace'],
+      },
     },
   },
   plugins: [],

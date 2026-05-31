@@ -1,0 +1,141 @@
+<style>
+  .demo-area {
+    perspective: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 240px;
+    background: #faf7f2;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .page {
+    width: 280px;
+    height: 180px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+  }
+  .page .icon { font-size: 32px; }
+  .page .title { font-weight: 600; color: #3d342b; font-size: 14px; }
+  .page .desc { color: #9c8b7e; font-size: 12px; }
+
+  /* A: Horizontal Book Flip */
+  .flip-a {
+    animation: flipA 2.5s ease-in-out infinite;
+    transform-origin: left center;
+  }
+  @keyframes flipA {
+    0%, 30%   { transform: rotateY(0deg); }
+    45%, 75%  { transform: rotateY(-140deg); }
+    90%, 100% { transform: rotateY(0deg); }
+  }
+
+  /* B: Page Curl (corner peel) */
+  .curl-b .page-back {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f5f2ed, white);
+    border-radius: 12px;
+    z-index: 0;
+  }
+  .curl-b .page-front {
+    position: relative;
+    z-index: 1;
+    animation: pageCurl 3s ease-in-out infinite;
+    transform-origin: bottom right;
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  }
+  @keyframes pageCurl {
+    0%, 25%  { transform: rotate(0deg); opacity: 1; }
+    40%, 70%  { transform: rotate(-35deg) translateX(30px) translateY(-20px); opacity: 0.6; box-shadow: -4px 4px 20px rgba(0,0,0,0.25); }
+    85%, 100% { transform: rotate(0deg); opacity: 1; }
+  }
+
+  /* C: Push-Slide (simple horizontal) */
+  .slide-c {
+    animation: slidePush 3s ease-in-out infinite;
+  }
+  @keyframes slidePush {
+    0%, 30%  { transform: translateX(0) skewY(0deg); opacity: 1; }
+    45%, 75%  { transform: translateX(-260px) skewY(-2deg); opacity: 0.3; }
+    90%, 100% { transform: translateX(0) skewY(0deg); opacity: 1; }
+  }
+</style>
+
+<h2>三种翻页风格对比</h2>
+<p class="subtitle">每个卡片独立演示，观察动画循环</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image"><div class="demo-area">
+      <div class="page flip-a">
+        <span class="icon">📊</span>
+        <span class="title">仪表盘</span>
+        <span class="desc">从左侧翻开</span>
+      </div>
+    </div></div>
+    <div class="card-body">
+      <h3>A. 水平翻页</h3>
+      <p>3D 透视旋转，像真实书页从左侧翻过。有深度感和物理质感。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>最接近真实翻书</li><li>3D 视觉冲击力强</li></ul></div>
+        <div class="cons"><h4>缺点</h4><ul><li>需要有前后两个页面同时渲染</li><li>性能开销大</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image"><div class="demo-area">
+      <div class="page curl-b" style="background:transparent; box-shadow:none;">
+        <div class="page-back"></div>
+        <div class="page-front">
+          <span class="icon">📈</span>
+          <span class="title">报表</span>
+          <span class="desc">右下角卷起</span>
+        </div>
+      </div>
+    </div></div>
+    <div class="card-body">
+      <h3>B. 卷页翻角</h3>
+      <p>右下角掀起卷曲，露出下一页。模拟手指捻起书页的瞬间。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>细节丰富、质感高级</li><li>独特的视觉记忆点</li></ul></div>
+        <div class="cons"><h4>缺点</h4><ul><li>实现复杂，需要 canvas/CSS clip-path</li><li>不适合快速连续操作</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image"><div class="demo-area">
+      <div class="page slide-c">
+        <span class="icon">📝</span>
+        <span class="title">记账</span>
+        <span class="desc">滑出旧页进入新页</span>
+      </div>
+    </div></div>
+    <div class="card-body">
+      <h3>C. 推移翻页</h3>
+      <p>页面水平侧滑推出，略带倾斜。像把书页横向拨过去的感觉。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>实现简单、性能好</li><li>兼容移动端</li></ul></div>
+        <div class="cons"><h4>缺点</h4><ul><li>翻书感弱于 3D 方案</li><li>辨识度一般</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>

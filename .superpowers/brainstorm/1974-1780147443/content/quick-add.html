@@ -1,0 +1,99 @@
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">❌ 现状：完整表单（5-6步）</div>
+    <div class="mockup-body" style="padding:20px;background:#faf7f2;font-family:sans-serif;">
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <button style="flex:1;padding:10px;border-radius:10px;background:#f59e0b;color:#fff;border:none;font-size:14px;font-weight:600;">支出</button>
+          <button style="flex:1;padding:10px;border-radius:10px;background:#f5f2ed;color:#9c8b7e;border:none;font-size:14px;">收入</button>
+        </div>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:12px;color:#9c8b7e;display:block;margin-bottom:4px;">金额</label>
+        <input placeholder="0.00" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ede6dd;background:#fff;font-size:16px;box-sizing:border-box;">
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:12px;color:#9c8b7e;display:block;margin-bottom:4px;">分类</label>
+        <select style="width:100%;padding:12px;border-radius:10px;border:1px solid #ede6dd;background:#fff;font-size:14px;box-sizing:border-box;">
+          <option>🍜 餐饮</option><option>🚗 交通</option><option>🛒 购物</option>
+        </select>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:12px;color:#9c8b7e;display:block;margin-bottom:4px;">支付渠道</label>
+        <select style="width:100%;padding:12px;border-radius:10px;border:1px solid #ede6dd;background:#fff;font-size:14px;box-sizing:border-box;">
+          <option>微信</option><option>支付宝</option><option>银行卡</option>
+        </select>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:12px;color:#9c8b7e;display:block;margin-bottom:4px;">备注</label>
+        <input placeholder="选填" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ede6dd;background:#fff;font-size:14px;box-sizing:border-box;">
+      </div>
+      <button style="width:100%;padding:14px;border-radius:12px;background:#f59e0b;color:#fff;border:none;font-size:16px;font-weight:600;">提交</button>
+      <p style="text-align:center;font-size:11px;color:#9c8b7e;margin-top:8px;">至少 5 次点击/输入才能完成一笔</p>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">✅ 方案 A：浮动快记面板</div>
+    <div class="mockup-body" style="padding:20px;background:#faf7f2;font-family:sans-serif;">
+      <div style="background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+        <!-- Step 1: amount is auto-focused -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:12px;color:#9c8b7e;margin-bottom:6px;">金额</div>
+          <input placeholder="0" autofocus style="width:100%;padding:4px 0;border:none;border-bottom:2px solid #f59e0b;font-size:36px;font-weight:700;color:#3d342b;outline:none;box-sizing:border-box;background:transparent;">
+        </div>
+
+        <!-- Step 2: category icons - big tappable grid -->
+        <div style="margin-bottom:6px;">
+          <div style="font-size:12px;color:#9c8b7e;margin-bottom:8px;">分类</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+            <div style="padding:8px 4px;border-radius:12px;background:#fef3c7;text-align:center;cursor:pointer;border:2px solid #f59e0b;">
+              <div style="font-size:24px;">🍜</div>
+              <div style="font-size:10px;color:#3d342b;margin-top:2px;">餐饮</div>
+            </div>
+            <div style="padding:8px 4px;border-radius:12px;background:#f5f2ed;text-align:center;cursor:pointer;">
+              <div style="font-size:24px;">🚗</div>
+              <div style="font-size:10px;color:#9c8b7e;margin-top:2px;">交通</div>
+            </div>
+            <div style="padding:8px 4px;border-radius:12px;background:#f5f2ed;text-align:center;cursor:pointer;">
+              <div style="font-size:24px;">🛒</div>
+              <div style="font-size:10px;color:#9c8b7e;margin-top:2px;">购物</div>
+            </div>
+            <div style="padding:8px 4px;border-radius:12px;background:#f5f2ed;text-align:center;cursor:pointer;">
+              <div style="font-size:24px;">🏠</div>
+              <div style="font-size:10px;color:#9c8b7e;margin-top:2px;">房租</div>
+            </div>
+            <div style="padding:8px 4px;border-radius:12px;background:#f5f2ed;text-align:center;cursor:pointer;">
+              <div style="font-size:24px;">🎮</div>
+              <div style="font-size:10px;color:#9c8b7e;margin-top:2px;">娱乐</div>
+            </div>
+            <div style="padding:8px 4px;border-radius:12px;background:#f5f2ed;text-align:center;cursor:pointer;">
+              <div style="font-size:24px;">💊</div>
+              <div style="font-size:10px;color:#9c8b7e;margin-top:2px;">医疗</div>
+            </div>
+            <div style="padding:8px 4px;border-radius:12px;background:#f5f2ed;text-align:center;cursor:pointer;">
+              <div style="font-size:24px;">📱</div>
+              <div style="font-size:10px;color:#9c8b7e;margin-top:2px;">通讯</div>
+            </div>
+            <div style="padding:8px 4px;border-radius:12px;background:#f5f2ed;text-align:center;cursor:pointer;">
+              <div style="font-size:24px;">➕</div>
+              <div style="font-size:10px;color:#9c8b7e;margin-top:2px;">更多</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auto line: smart defaults -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:8px 12px;background:#f5f2ed;border-radius:10px;">
+          <span style="font-size:12px;color:#9c8b7e;">📅 今天</span>
+          <span style="color:#ede6dd;">|</span>
+          <span style="font-size:12px;color:#9c8b7e;">💳 微信</span>
+          <span style="color:#ede6dd;">|</span>
+          <button style="font-size:12px;color:#f59e0b;background:none;border:none;cursor:pointer;padding:0;">+ 备注</button>
+        </div>
+
+        <button style="width:100%;padding:14px;border-radius:12px;background:#f59e0b;color:#fff;border:none;font-size:16px;font-weight:600;cursor:pointer;">✓ 记一笔</button>
+        <p style="text-align:center;font-size:11px;color:#2ea87a;margin-top:8px;">3 步：输金额 → 点分类 → 确认。日期/渠道自动填充上次选择</p>
+      </div>
+    </div>
+  </div>
+</div>

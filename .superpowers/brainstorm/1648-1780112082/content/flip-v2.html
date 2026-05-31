@@ -1,0 +1,154 @@
+<style>
+  .scene {
+    perspective: 1500px;
+    perspective-origin: left center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 320px;
+    background: #faf7f2;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .book {
+    width: 280px;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  .page-back {
+    position: absolute;
+    inset: 0;
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #ede6dd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 0;
+  }
+  .page-back .icon { font-size: 28px; opacity: 0.6; }
+  .page-back .title { font-weight: 600; color: #9c8b7e; font-size: 13px; }
+
+  .page-front {
+    position: absolute;
+    inset: 0;
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #ede6dd;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transform-origin: left center;
+    z-index: 1;
+    animation: bookFlip 3.5s cubic-bezier(0.4, 0.0, 0.2, 1.0) infinite;
+  }
+  .page-front .icon { font-size: 36px; transition: transform 0.3s; }
+  .page-front .title { font-weight: 700; color: #3d342b; font-size: 15px; }
+  .page-front .desc { color: #9c8b7e; font-size: 12px; }
+
+  .page-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    z-index: -1;
+    background: transparent;
+    animation: shadowPulse 3.5s cubic-bezier(0.4, 0.0, 0.2, 1.0) infinite;
+  }
+
+  @keyframes bookFlip {
+    0%, 15% {
+      transform: rotateY(0deg) translateX(0) translateY(0);
+    }
+    40%, 55% {
+      transform: rotateY(-160deg) translateX(8px) translateY(-4px);
+    }
+    80%, 100% {
+      transform: rotateY(0deg) translateX(0) translateY(0);
+    }
+  }
+
+  @keyframes shadowPulse {
+    0%, 15% { box-shadow: none; }
+    38%, 58% { box-shadow: -8px 4px 24px rgba(0,0,0,0.18), -2px 2px 6px rgba(0,0,0,0.08); }
+    80%, 100% { box-shadow: none; }
+  }
+
+  .spine-line {
+    position: absolute;
+    left: -2px;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    background: linear-gradient(to right, #d6cec4, #ede6dd, transparent);
+    border-radius: 2px;
+    z-index: 2;
+  }
+
+  .hint {
+    margin-top: 16px;
+    text-align: center;
+    color: #9c8b7e;
+    font-size: 13px;
+  }
+
+  .hint strong { color: #3d342b; }
+</style>
+
+<h2>翻页优化版 — 更自然的书页质感</h2>
+<p class="subtitle">对比原始版本（左）和优化版本（右）</p>
+
+<div class="split">
+  <!-- Original -->
+  <div class="mockup">
+    <div class="mockup-header">原始版本 A — 僵硬</div>
+    <div class="mockup-body">
+      <div style="perspective:1200px; perspective-origin:left; height:280px; display:flex; align-items:center; justify-content:center; background:#faf7f2; border-radius:12px;">
+        <div style="width:240px; height:160px; background:white; border-radius:12px; border:1px solid #ede6dd;
+          transform-origin:left; box-shadow:0 1px 4px rgba(0,0,0,0.06);
+          animation: oldFlip 2.5s ease-in-out infinite;
+          display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+          <span style="font-size:30px;">📊</span>
+          <span style="font-weight:600; color:#3d342b; font-size:14px;">仪表盘</span>
+        </div>
+      </div>
+      <p style="text-align:center; color:#9c8b7e; font-size:12px; margin-top:8px;">匀速 ease-in-out，无阴影，无厚度</p>
+    </div>
+  </div>
+
+  <!-- Refined -->
+  <div class="mockup">
+    <div class="mockup-header">优化版本 — 自然翻页</div>
+    <div class="mockup-body">
+      <div class="scene">
+        <div class="book">
+          <div class="page-back">
+            <span class="icon">📝</span>
+            <span class="title">记账</span>
+          </div>
+          <div class="page-shadow"></div>
+          <div class="page-front">
+            <div class="spine-line"></div>
+            <span class="icon">📊</span>
+            <span class="title">仪表盘</span>
+            <span class="desc">翻页中...</span>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center; color:#9c8b7e; font-size:12px; margin-top:8px;">贝塞尔缓动（加速→减速），翻页时出现阴影，书脊厚度线，下层可见</p>
+    </div>
+  </div>
+</div>
+
+<div class="hint">
+  <strong>优化要点：</strong>
+  cubic-bezier(0.4, 0.0, 0.2, 1.0) 缓动 → 翻页阴影随角度加深 → 下一页隐约可见 → 书脊厚度线 → 轻微上浮
+</div>

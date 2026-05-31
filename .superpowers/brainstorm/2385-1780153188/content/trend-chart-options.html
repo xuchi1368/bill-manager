@@ -1,0 +1,96 @@
+<h2>趋势图方案</h2>
+<p class="subtitle">本月收支趋势 — 三种视觉风格</p>
+
+<div class="cards">
+  <div class="card" data-choice="trend-a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:20px;border-radius:12px;">
+      <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:10px;">方案 A：渐变面积图</div>
+      <div style="height:120px;position:relative;overflow:hidden;">
+        <svg viewBox="0 0 400 120" style="width:100%;height:100%;">
+          <defs>
+            <linearGradient id="gA1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2ea87a" stop-opacity="0.3"/><stop offset="100%" stop-color="#2ea87a" stop-opacity="0.02"/></linearGradient>
+            <linearGradient id="gA2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e25c3b" stop-opacity="0.3"/><stop offset="100%" stop-color="#e25c3b" stop-opacity="0.02"/></linearGradient>
+          </defs>
+          <!-- Grid lines -->
+          <line x1="40" y1="20" x2="390" y2="20" stroke="#f5f2ed" stroke-width="1"/>
+          <line x1="40" y1="60" x2="390" y2="60" stroke="#f5f2ed" stroke-width="1"/>
+          <line x1="40" y1="100" x2="390" y2="100" stroke="#f5f2ed" stroke-width="1"/>
+          <!-- Income area -->
+          <path d="M40,90 L100,90 L160,85 L220,30 L280,30 L340,85 L390,85 L390,110 L40,110 Z" fill="url(#gA1)"/>
+          <path d="M40,90 L100,90 L160,85 L220,30 L280,30 L340,85 L390,85" stroke="#2ea87a" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Expense area -->
+          <path d="M40,50 L100,55 L160,95 L220,70 L280,70 L340,60 L390,45 L390,55 L40,55 Z" fill="url(#gA2)" opacity="0.6"/>
+          <path d="M40,50 L100,55 L160,95 L220,70 L280,70 L340,60 L390,45" stroke="#e25c3b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Dot on highest point -->
+          <circle cx="220" cy="30" r="4" fill="#2ea87a" stroke="#fff" stroke-width="2"/>
+          <circle cx="280" cy="30" r="3" fill="#2ea87a" stroke="#fff" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div style="display:flex;gap:12px;font-size:9px;color:#9c8b7e;margin-top:4px;">
+        <span>🟢 收入</span><span>🔴 支出</span>
+      </div>
+    </div>
+    <div class="card-body"><h3>渐变面积图</h3><p>柔和渐变填充 + 平滑曲线，优雅克制，适合杂志风格</p></div>
+  </div>
+
+  <div class="card" data-choice="trend-b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:20px;border-radius:12px;">
+      <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:10px;">方案 B：极简火花线 + 关键数字</div>
+      <div style="display:flex;gap:20px;">
+        <div style="flex:1;text-align:center;">
+          <div style="font-size:10px;color:#9c8b7e;margin-bottom:4px;">收入趋势</div>
+          <div style="font-size:22px;font-weight:800;color:#2ea87a;">¥13,000</div>
+          <div style="height:50px;margin-top:6px;">
+            <svg viewBox="0 0 120 50" style="width:100%;height:100%;"><path d="M0,45 L20,45 L40,40 L60,10 L80,10 L100,40 L120,35" stroke="#2ea87a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div style="flex:1;text-align:center;">
+          <div style="font-size:10px;color:#9c8b7e;margin-bottom:4px;">支出趋势</div>
+          <div style="font-size:22px;font-weight:800;color:#e25c3b;">¥3,603</div>
+          <div style="height:50px;margin-top:6px;">
+            <svg viewBox="0 0 120 50" style="width:100%;height:100%;"><path d="M0,20 L20,25 L40,45 L60,35 L80,35 L100,28 L120,22" stroke="#e25c3b" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"><h3>极简火花线</h3><p>大字数字 + 微型趋势线，像 Apple Health 风格，信息密度高</p></div>
+  </div>
+
+  <div class="card" data-choice="trend-c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;padding:20px;border-radius:12px;">
+      <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:10px;">方案 C：混合图表（柱状+折线）</div>
+      <div style="height:120px;position:relative;">
+        <svg viewBox="0 0 400 120" style="width:100%;height:100%;">
+          <!-- Bars -->
+          <rect x="50" y="30" width="28" height="80" rx="4" fill="#2ea87a" opacity="0.3"/>
+          <rect x="95" y="70" width="28" height="40" rx="4" fill="#e25c3b" opacity="0.3"/>
+          <rect x="140" y="40" width="28" height="70" rx="4" fill="#2ea87a" opacity="0.3"/>
+          <rect x="185" y="10" width="28" height="100" rx="4" fill="url(#gradC1)" opacity="0.4"/>
+          <rect x="230" y="75" width="28" height="35" rx="4" fill="#e25c3b" opacity="0.3"/>
+          <rect x="275" y="50" width="28" height="60" rx="4" fill="#e25c3b" opacity="0.3"/>
+          <!-- Net line -->
+          <path d="M64,30 L109,70 L154,40 L199,10 L244,75 L289,50" stroke="#f59e0b" stroke-width="2" fill="none" stroke-dasharray="4 3" stroke-linecap="round"/>
+          <circle cx="199" cy="10" r="4" fill="#f59e0b" stroke="#fff" stroke-width="2"/>
+          <!-- Labels -->
+          <text x="55" y="118" font-size="8" fill="#9c8b7e">5/25</text>
+          <text x="100" y="118" font-size="8" fill="#9c8b7e">5/26</text>
+          <text x="145" y="118" font-size="8" fill="#9c8b7e">5/27</text>
+          <text x="190" y="118" font-size="8" fill="#9c8b7e">5/28</text>
+          <text x="235" y="118" font-size="8" fill="#9c8b7e">5/29</text>
+          <text x="280" y="118" font-size="8" fill="#9c8b7e">5/30</text>
+          <defs>
+            <linearGradient id="gradC1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2ea87a" stop-opacity="0.8"/><stop offset="100%" stop-color="#2ea87a" stop-opacity="0.2"/></linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div style="display:flex;gap:12px;font-size:9px;color:#9c8b7e;margin-top:4px;">
+        <span>🟢 收入</span><span>🔴 支出</span><span style="color:#f59e0b;">--- 净额趋势</span>
+      </div>
+    </div>
+    <div class="card-body"><h3>混合图表</h3><p>柱状图（收/支）+ 虚线折线（净额趋势），信息量大，适合分析型用户</p></div>
+  </div>
+</div>
+
+<div class="section">
+  <p class="subtitle">点击选择一个趋势图方案，结合之前的方案 B 布局</p>
+</div>

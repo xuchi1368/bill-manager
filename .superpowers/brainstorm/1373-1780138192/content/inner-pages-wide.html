@@ -1,0 +1,105 @@
+<h2>内页宽版布局 — 仪表盘页示例</h2>
+<p class="subtitle">左侧：现在的单列窄版 | 右侧：新方案宽版多列</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">现在 — 单列堆叠 (max-w-4xl)</div>
+    <div class="mockup-body">
+      <div style="background:#faf7f2;border-radius:12px;padding:16px;max-width:400px;margin:0 auto;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #ede6dd;">
+          <span style="color:#9c8b7e;">←</span>
+          <span style="font-weight:700;font-size:14px;color:#3d342b;">仪表盘</span>
+        </div>
+        <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:80px;background:#fff;border-radius:10px;padding:10px;border:1px solid #ede6dd;"><span style="font-size:9px;color:#9c8b7e;">本月收入</span><br><span style="font-weight:700;font-size:13px;color:#2ea87a;">+12,500</span></div>
+          <div style="flex:1;min-width:80px;background:#fff;border-radius:10px;padding:10px;border:1px solid #ede6dd;"><span style="font-size:9px;color:#9c8b7e;">本月支出</span><br><span style="font-weight:700;font-size:13px;color:#e25c3b;">-8,320</span></div>
+          <div style="flex:1;min-width:80px;background:#fff;border-radius:10px;padding:10px;border:1px solid #ede6dd;"><span style="font-size:9px;color:#9c8b7e;">结余</span><br><span style="font-weight:700;font-size:13px;color:#3d342b;">4,180</span></div>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:8px;border:1px solid #ede6dd;font-size:10px;color:#9c8b7e;">💳 账户余额</div>
+        <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:8px;border:1px solid #ede6dd;font-size:10px;color:#9c8b7e;">💰 本月预算</div>
+        <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:8px;border:1px solid #ede6dd;height:80px;font-size:10px;color:#9c8b7e;">📈 趋势图</div>
+        <div style="background:#fff;border-radius:10px;padding:10px;border:1px solid #ede6dd;font-size:10px;color:#9c8b7e;">📋 最近流水</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">新方案 — 宽版多列 (max-w-6xl ~ 72rem)</div>
+    <div class="mockup-body">
+      <div style="background:#faf7f2;border-radius:12px;padding:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #ede6dd;">
+          <span style="color:#9c8b7e;">←</span>
+          <span style="font-weight:700;font-size:14px;color:#3d342b;">仪表盘</span>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <div style="flex:1;background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;"><span style="font-size:9px;color:#9c8b7e;">本月收入</span><br><span style="font-weight:700;font-size:15px;color:#2ea87a;">+12,500</span></div>
+          <div style="flex:1;background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;"><span style="font-size:9px;color:#9c8b7e;">本月支出</span><br><span style="font-weight:700;font-size:15px;color:#e25c3b;">-8,320</span></div>
+          <div style="flex:1;background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;"><span style="font-size:9px;color:#9c8b7e;">结余</span><br><span style="font-weight:700;font-size:15px;color:#3d342b;">4,180</span></div>
+        </div>
+        <!-- Two column content area -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+          <div style="background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;">
+            <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:6px;">💳 账户余额</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+              <div style="background:#faf7f2;border-radius:6px;padding:6px;text-align:center;"><span style="font-size:9px;color:#9c8b7e;">支付宝</span><br><span style="font-weight:700;font-size:12px;color:#2ea87a;">¥4,200</span></div>
+              <div style="background:#faf7f2;border-radius:6px;padding:6px;text-align:center;"><span style="font-size:9px;color:#9c8b7e;">微信</span><br><span style="font-weight:700;font-size:12px;color:#2ea87a;">¥2,860</span></div>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;">
+            <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:6px;">💰 本月预算</div>
+            <div style="font-size:9px;color:#9c8b7e;">🍜 餐饮 ¥2,100/¥3,000</div>
+            <div style="height:4px;background:#f5f2ed;border-radius:2px;margin:4px 0;"><div style="width:70%;height:4px;background:#2ea87a;border-radius:2px;"></div></div>
+            <div style="font-size:9px;color:#9c8b7e;">🚌 交通 ¥480/¥500</div>
+            <div style="height:4px;background:#f5f2ed;border-radius:2px;margin:4px 0;"><div style="width:96%;height:4px;background:#f59e0b;border-radius:2px;"></div></div>
+          </div>
+        </div>
+        <!-- Full width chart -->
+        <div style="background:#fff;border-radius:10px;padding:12px;margin-bottom:8px;border:1px solid #ede6dd;">
+          <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:4px;">📈 收支趋势</div>
+          <div style="height:70px;display:flex;align-items:end;gap:3px;">
+            <div style="flex:1;height:40%;background:#2ea87a;border-radius:2px 2px 0 0;"></div>
+            <div style="flex:1;height:55%;background:#2ea87a;border-radius:2px 2px 0 0;"></div>
+            <div style="flex:1;height:35%;background:#2ea87a;border-radius:2px 2px 0 0;"></div>
+            <div style="flex:1;height:70%;background:#2ea87a;border-radius:2px 2px 0 0;"></div>
+            <div style="flex:1;height:50%;background:#2ea87a;border-radius:2px 2px 0 0;"></div>
+            <div style="flex:1;height:80%;background:#2ea87a;border-radius:2px 2px 0 0;"></div>
+            <div style="flex:1;height:45%;background:#2ea87a;border-radius:2px 2px 0 0;"></div>
+          </div>
+        </div>
+        <!-- Recent transactions full width -->
+        <div style="background:#fff;border-radius:10px;padding:12px;border:1px solid #ede6dd;">
+          <div style="font-size:11px;font-weight:600;color:#3d342b;margin-bottom:6px;">📋 最近流水</div>
+          <div style="font-size:9px;color:#9c8b7e;">🍜 午餐 · -35.00 · 今天</div>
+          <div style="font-size:9px;color:#9c8b7e;">🚌 地铁 · -5.00 · 今天</div>
+          <div style="font-size:9px;color:#9c8b7e;">💼 工资 · +15,000 · 5/15</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:24px;">
+  <h3>布局变化总结</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>改动</h4>
+      <ul>
+        <li>容器从 max-w-4xl (56rem) 扩到 max-w-6xl (72rem)</li>
+        <li>账户余额 + 预算进度 → 左右双栏并排</li>
+        <li>趋势图 → 独占整行，足够高度展示</li>
+        <li>StatCard 三列间距更宽裕</li>
+        <li>报表页：饼图 + 环比图 → 左大右小两栏</li>
+        <li>记账页：表单 + 列表 → 左窄右宽两栏</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>不动</h4>
+      <ul>
+        <li>TopBar 返回导航保持不变</li>
+        <li>所有动画（CountUp、stagger、走入画面）完整保留</li>
+        <li>小屏幕 (＜1024px) 自动退回单列布局</li>
+        <li>Tailwind 响应式前缀 (lg:) 控制断点</li>
+      </ul>
+    </div>
+  </div>
+</div>

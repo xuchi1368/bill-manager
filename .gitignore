@@ -37,3 +37,9 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+# electron build output
+/dist-electron
+
+# next.js build in src
+/src/.next

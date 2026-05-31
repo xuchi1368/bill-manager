@@ -1,0 +1,114 @@
+<h2>仪表盘字体与留白优化</h2>
+<p class="subtitle">当前版本 vs 优化版本 — 字号放大、空间利用率提升</p>
+
+<div class="split">
+  <!-- CURRENT -->
+  <div class="mockup">
+    <div class="mockup-header">❌ 当前版本</div>
+    <div class="mockup-body" style="background:#faf7f2;padding:14px;font-size:15px;font-family:system-ui;max-width:960px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div><div style="font-size:20px;font-weight:700;">仪表盘</div><div style="font-size:12px;color:#9c8b7e;">2026年5月 · 收支总览</div></div>
+        <button style="background:#f59e0b;color:#fff;border:none;padding:5px 14px;border-radius:20px;font-size:11px;">＋ 记账</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+        <div style="background:#fff;border:1px solid #ede6dd;border-radius:14px;padding:14px;"><div style="font-size:12px;color:#9c8b7e;">📈 本月收入</div><div style="font-size:30px;font-weight:800;color:#2ea87a;">¥13,000</div><div style="font-size:11px;color:#9c8b7e;">2 笔收入 · 含大额入账</div></div>
+        <div style="background:#fff;border:1px solid #ede6dd;border-radius:14px;padding:14px;"><div style="font-size:12px;color:#9c8b7e;">📉 本月支出</div><div style="font-size:30px;font-weight:800;color:#e25c3b;">¥3,603</div><div style="font-size:11px;color:#9c8b7e;">5 笔支出 · 最高 ¥3,000</div></div>
+        <div style="background:linear-gradient(135deg,#fffdf5,#fffbeb);border:1px solid #fde68a;border-radius:14px;padding:14px;"><div style="font-size:12px;color:#92400e;">💰 本月结余</div><div style="font-size:30px;font-weight:800;">¥9,397</div><div style="font-size:11px;color:#92400e;">结余率 72% · 优秀</div></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:14px;">
+        <div style="flex:2;background:#fff;border:1px solid #ede6dd;border-radius:14px;padding:14px 14px 8px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="font-size:10px;color:#9c8b7e;">◀</span><span style="font-size:14px;font-weight:600;">2026年5月</span><span style="font-size:10px;color:#9c8b7e;">▶</span></div>
+          <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;font-size:11px;color:#9c8b7e;">🟢 收 ¥13,000 · 🔴 支 ¥3,603</div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;font-size:10px;color:#9c8b7e;margin-bottom:2px;"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;"><span style="background:#faf7f2;border-radius:3px;padding:3px 0;text-align:center;font-size:10px;">1</span><span style="background:#faf7f2;border-radius:3px;padding:3px 0;text-align:center;font-size:10px;">2</span><span style="background:#faf7f2;border-radius:3px;padding:3px 0;text-align:center;font-size:10px;">3</span><span style="background:#faf7f2;border-radius:3px;padding:3px 0;text-align:center;font-size:10px;">4</span><span style="background:#faf7f2;border-radius:3px;padding:3px 0;text-align:center;font-size:10px;">5</span><span style="background:#faf7f2;border-radius:3px;padding:3px 0;text-align:center;font-size:10px;">6</span><span style="background:#faf7f2;border-radius:3px;padding:3px 0;text-align:center;font-size:10px;">7</span></div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:2px;"><span style="background:rgba(46,168,122,0.40);border-radius:3px;padding:3px 0;text-align:center;font-size:10px;color:#2ea87a;font-weight:700;">28</span><span style="background:rgba(226,92,59,0.08);border-radius:3px;padding:3px 0;text-align:center;font-size:10px;">29</span><span style="background:rgba(226,92,59,0.20);border-radius:3px;outline:2px solid #f59e0b;padding:3px 0;text-align:center;font-size:10px;">30</span></div>
+        </div>
+        <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:14px;padding:14px;"><div style="font-size:13px;font-weight:600;margin-bottom:10px;">💳 账户</div><div style="display:flex;flex-direction:column;gap:6px;font-size:12px;"><div>💬 微信 ¥1,622</div><div>💙 支付宝 ¥2,775</div></div><div style="border-top:1px solid #f5f2ed;margin-top:8px;padding-top:8px;font-size:16px;font-weight:800;color:#2ea87a;">¥69,397</div></div>
+      </div>
+      <div style="font-size:11px;color:#e25c3b;text-align:center;padding:4px;background:#fef2f2;border-radius:6px;margin-bottom:10px;">⚠ 当前字号偏小 · 留白过多 · 空间利用率低</div>
+    </div>
+  </div>
+
+  <!-- OPTIMIZED -->
+  <div class="mockup">
+    <div class="mockup-header">✅ 优化版本：放大字号 + 紧凑布局</div>
+    <div class="mockup-body" style="background:#faf7f2;padding:16px;font-size:16px;font-family:system-ui;max-width:960px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <div><div style="font-size:22px;font-weight:700;color:#3d342b;">仪表盘</div><div style="font-size:13px;color:#9c8b7e;margin-top:2px;">2026年5月 · 收支总览</div></div>
+        <button style="background:#f59e0b;color:#fff;border:none;padding:7px 18px;border-radius:20px;font-size:13px;font-weight:600;">＋ 记账</button>
+      </div>
+
+      <!-- Stats - bigger numbers, tighter -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;">
+        <div style="background:#fff;border:1px solid #ede6dd;border-radius:16px;padding:18px 20px;">
+          <div style="font-size:13px;color:#9c8b7e;font-weight:500;margin-bottom:4px;">📈 本月收入</div>
+          <div style="font-size:34px;font-weight:800;color:#2ea87a;margin-bottom:4px;letter-spacing:-0.02em;">¥13,000</div>
+          <div style="font-size:12px;color:#9c8b7e;">2 笔收入 · 含大额入账</div>
+        </div>
+        <div style="background:#fff;border:1px solid #ede6dd;border-radius:16px;padding:18px 20px;">
+          <div style="font-size:13px;color:#9c8b7e;font-weight:500;margin-bottom:4px;">📉 本月支出</div>
+          <div style="font-size:34px;font-weight:800;color:#e25c3b;margin-bottom:4px;letter-spacing:-0.02em;">¥3,603</div>
+          <div style="font-size:12px;color:#9c8b7e;">5 笔支出 · 最高 ¥3,000</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#fffdf5,#fffbeb);border:1px solid #fde68a;border-radius:16px;padding:18px 20px;">
+          <div style="font-size:13px;color:#92400e;font-weight:500;margin-bottom:4px;">💰 本月结余</div>
+          <div style="font-size:34px;font-weight:800;color:#3d342b;margin-bottom:4px;letter-spacing:-0.02em;">¥9,397</div>
+          <div style="font-size:12px;color:#92400e;">结余率 72% · 优秀</div>
+        </div>
+      </div>
+
+      <!-- Calendar + Accounts - reduced gaps -->
+      <div style="display:flex;gap:12px;margin-bottom:16px;">
+        <div style="flex:2;background:#fff;border:1px solid #ede6dd;border-radius:16px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:12px;color:#9c8b7e;">◀</span>
+            <span style="font-size:15px;font-weight:600;">2026年5月</span>
+            <span style="font-size:12px;color:#9c8b7e;">▶</span>
+          </div>
+          <div style="display:flex;gap:12px;justify-content:center;margin-bottom:8px;font-size:12px;color:#9c8b7e;">🟢 收 ¥13,000 · 🔴 支 ¥3,603</div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font-size:11px;color:#9c8b7e;margin-bottom:3px;"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;"><span style="background:#faf7f2;border-radius:4px;padding:5px 0;text-align:center;font-size:11px;">1</span><span style="background:#faf7f2;border-radius:4px;padding:5px 0;text-align:center;font-size:11px;">2</span><span style="background:#faf7f2;border-radius:4px;padding:5px 0;text-align:center;font-size:11px;">3</span><span style="background:#faf7f2;border-radius:4px;padding:5px 0;text-align:center;font-size:11px;">4</span><span style="background:#faf7f2;border-radius:4px;padding:5px 0;text-align:center;font-size:11px;">5</span><span style="background:#faf7f2;border-radius:4px;padding:5px 0;text-align:center;font-size:11px;">6</span><span style="background:#faf7f2;border-radius:4px;padding:5px 0;text-align:center;font-size:11px;">7</span></div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:3px;"><span style="background:rgba(46,168,122,0.40);border-radius:4px;padding:5px 0;text-align:center;font-size:11px;color:#2ea87a;font-weight:700;">28</span><span style="background:rgba(226,92,59,0.08);border-radius:4px;padding:5px 0;text-align:center;font-size:11px;">29</span><span style="background:rgba(226,92,59,0.20);border-radius:4px;outline:2px solid #f59e0b;padding:5px 0;text-align:center;font-size:11px;">30</span></div>
+        </div>
+        <div style="flex:1;background:#fff;border:1px solid #ede6dd;border-radius:16px;padding:16px;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;">💳 账户余额</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+            <div style="display:flex;justify-content:space-between;">💬 微信 <span style="font-weight:700;">¥1,622</span></div>
+            <div style="display:flex;justify-content:space-between;">💙 支付宝 <span style="font-weight:700;">¥2,775</span></div>
+            <div style="display:flex;justify-content:space-between;">💳 银行卡 <span style="font-weight:700;">¥63,000</span></div>
+            <div style="display:flex;justify-content:space-between;">💵 现金 <span style="font-weight:700;">¥2,000</span></div>
+          </div>
+          <div style="border-top:1px solid #f5f2ed;margin-top:12px;padding-top:10px;display:flex;justify-content:space-between;font-size:14px;"><span style="font-weight:600;">总资产</span><span style="font-size:18px;font-weight:800;color:#2ea87a;">¥69,397</span></div>
+        </div>
+      </div>
+
+      <!-- Trend + Recent - more content density -->
+      <div style="display:flex;gap:12px;">
+        <div style="flex:3;background:#fff;border:1px solid #ede6dd;border-radius:16px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:10px;">
+            <div><div style="font-size:14px;font-weight:600;">📈 收支趋势</div><div style="font-size:12px;color:#9c8b7e;">累计净值走势</div></div>
+            <div style="text-align:right;"><div style="font-size:24px;font-weight:800;color:#2ea87a;">+¥9,397</div><div style="font-size:12px;color:#9c8b7e;">本月净增长</div></div>
+          </div>
+          <div style="height:130px;background:linear-gradient(180deg,rgba(46,168,122,0.15),rgba(46,168,122,0.02));border-radius:10px;display:flex;align-items:flex-end;padding:10px;">
+            <svg viewBox="0 0 350 130" style="width:100%;height:100%;"><path d="M0,100 L50,95 L100,80 L150,20 L200,18 L250,55 L340,50" stroke="#2ea87a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="150" cy="20" r="6" fill="#2ea87a" stroke="#fff" stroke-width="3"/></svg>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px;font-size:11px;">
+            <span style="background:#ecfdf5;color:#2ea87a;padding:3px 10px;border-radius:12px;">💰 28日 +¥12,500</span>
+            <span style="background:#fef2f2;color:#e25c3b;padding:3px 10px;border-radius:12px;">📉 28日 -¥3,000</span>
+          </div>
+        </div>
+        <div style="flex:2;background:#fff;border:1px solid #ede6dd;border-radius:16px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><span style="font-size:14px;font-weight:600;">📋 最近流水</span><span style="font-size:12px;color:#f59e0b;">查看全部 →</span></div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
+            <div style="display:flex;align-items:center;gap:8px;"><span style="color:#9c8b7e;">5/30</span><span>🍜</span><span style="flex:1;">餐饮</span><span style="color:#9c8b7e;">微信</span><span style="font-weight:600;color:#e25c3b;">-200</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="color:#9c8b7e;">5/28</span><span>🏠</span><span style="flex:1;">房租</span><span style="color:#9c8b7e;">微信</span><span style="font-weight:600;color:#e25c3b;">-3,000</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="color:#9c8b7e;">5/28</span><span>💰</span><span style="flex:1;">工资</span><span style="color:#9c8b7e;">银行卡</span><span style="font-weight:600;color:#2ea87a;">+12,500</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="color:#9c8b7e;">5/26</span><span>📈</span><span style="flex:1;">投资</span><span style="color:#9c8b7e;">银行卡</span><span style="font-weight:600;color:#2ea87a;">+500</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="color:#9c8b7e;">5/25</span><span>🎮</span><span style="flex:1;">娱乐</span><span style="color:#9c8b7e;">微信</span><span style="font-weight:600;color:#e25c3b;">-128</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#2ea87a;text-align:center;padding:6px;background:#f0fdf4;border-radius:8px;margin-top:12px;">✅ 字号放大 · 留白合理 · 信息密度适中 · 1080p 刚好一屏</div>
+    </div>
+  </div>
+</div>

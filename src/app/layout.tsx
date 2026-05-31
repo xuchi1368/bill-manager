@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Navbar from '@/components/Navbar';
 import { register } from '@/lib/registry';
+import AppShell from '@/components/AppShell';
 
 register();
 
@@ -12,12 +12,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN" className="dark">
-      <body className="bg-zinc-900 text-white flex">
-        <Navbar />
-        <main className="flex-1 p-6 overflow-auto min-h-screen">
-          {children}
-        </main>
+    <html lang="zh-CN">
+      <body className="bg-[#faf7f2] text-[#3d342b] antialiased">
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

@@ -1,0 +1,81 @@
+<h2>布局架构 — 文件改动清单</h2>
+<p class="subtitle">核心思路：layout.tsx 用条件渲染区分首页/内页，LeftRail 只在非首页显示</p>
+
+<div style="background:#faf7f2;border-radius:12px;padding:24px;margin-bottom:20px;">
+  <h3 style="margin-top:0;">组件树（桌面端）</h3>
+  <div style="font-family:monospace;font-size:12px;line-height:2;color:#3d342b;background:#fff;border-radius:10px;padding:20px;border:1px solid #ede6dd;">
+    <div>RootLayout</div>
+    <div style="padding-left:20px;border-left:2px solid #ede6dd;">
+      <div style="color:#f59e0b;">├─ / (首页) → 无 LeftRail，全屏 Hub</div>
+      <div style="color:#2ea87a;">├─ /dashboard</div>
+      <div style="color:#2ea87a;">├─ /transactions</div>
+      <div style="color:#2ea87a;">├─ /reports</div>
+      <div style="color:#2ea87a;">├─ /recurring</div>
+      <div style="color:#2ea87a;">└─ /settings</div>
+      <div style="padding-left:20px;margin-top:2px;color:#9c8b7e;">
+        └─ 以上 5 页统一包裹：<br>
+        &nbsp;&nbsp;&nbsp;<span style="background:#fff;border:1px solid #ede6dd;border-radius:6px;padding:2px 8px;display:inline-block;">LeftRail (64px)</span> + <span style="background:#faf7f2;border:1px solid #ede6dd;border-radius:6px;padding:2px 8px;display:inline-block;">内容区 flex:1</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>文件变更</h3>
+
+  <table style="width:100%;font-size:13px;border-collapse:collapse;">
+    <tr style="border-bottom:2px solid #ede6dd;">
+      <th style="text-align:left;padding:8px 12px;color:#9c8b7e;">文件</th>
+      <th style="text-align:left;padding:8px 12px;color:#9c8b7e;">操作</th>
+      <th style="text-align:left;padding:8px 12px;color:#9c8b7e;">说明</th>
+    </tr>
+    <tr style="border-bottom:1px solid #f5f2ed;">
+      <td style="padding:8px 12px;font-family:monospace;font-size:12px;color:#3d342b;">src/components/LeftRail.tsx</td>
+      <td style="padding:8px 12px;"><span style="background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:4px;font-size:11px;">新建</span></td>
+      <td style="padding:8px 12px;color:#3d342b;">64px 导航组件，接收 currentPath prop，高亮当前页</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f5f2ed;">
+      <td style="padding:8px 12px;font-family:monospace;font-size:12px;color:#3d342b;">src/components/MobileTabBar.tsx</td>
+      <td style="padding:8px 12px;"><span style="background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:4px;font-size:11px;">新建</span></td>
+      <td style="padding:8px 12px;color:#3d342b;">底部 TabBar 组件，&lt;768px 时替代 LeftRail</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f5f2ed;">
+      <td style="padding:8px 12px;font-family:monospace;font-size:12px;color:#3d342b;">src/app/layout.tsx</td>
+      <td style="padding:8px 12px;"><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:4px;font-size:11px;">修改</span></td>
+      <td style="padding:8px 12px;color:#3d342b;">条件渲染：首页无左轨，内页 flex row(LeftRail + 内容)</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f5f2ed;">
+      <td style="padding:8px 12px;font-family:monospace;font-size:12px;color:#3d342b;">src/components/TopBar.tsx</td>
+      <td style="padding:8px 12px;"><span style="background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:4px;font-size:11px;">删除</span></td>
+      <td style="padding:8px 12px;color:#3d342b;">不再需要返回箭头，左轨已提供导航</td>
+    </tr>
+    <tr>
+      <td style="padding:8px 12px;font-family:monospace;font-size:12px;color:#3d342b;">src/app/*/page.tsx (5个内页)</td>
+      <td style="padding:8px 12px;"><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:4px;font-size:11px;">修改</span></td>
+      <td style="padding:8px 12px;color:#3d342b;">移除 TopBar 引入，标题内嵌到页面内容顶部</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section" style="margin-top:20px;">
+  <h3>关键实现细节</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>layout.tsx 条件逻辑</h4>
+      <ul>
+        <li>用 <code>usePathname()</code> 判断是否首页</li>
+        <li><code>pathname === '/'</code> → 居中全屏（现有行为）</li>
+        <li><code>pathname !== '/'</code> → flex row: LeftRail + 内容</li>
+        <li>LeftRail 本身也是 client component（需要 usePathname 高亮当前页）</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>TopBar 替代方案</h4>
+      <ul>
+        <li>内页标题从 TopBar 移到页面内容区顶部（h2 标签）</li>
+        <li>左轨已标示当前所在页面，标题字的导航功能由左轨接管</li>
+        <li>设置页无需特殊处理——LeftRail 底部 ⚙️ 即入口</li>
+      </ul>
+    </div>
+  </div>
+</div>

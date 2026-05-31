@@ -8,15 +8,20 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, type } = body;
-  const channel = await db.channel.create({ data: { name, type } });
+  const { name, type, balance } = body;
+  const channel = await db.channel.create({
+    data: { name, type, balance: balance ? parseFloat(balance) : 0 },
+  });
   return NextResponse.json(channel, { status: 201 });
 }
 
 export async function PUT(req: NextRequest) {
   const body = await req.json();
-  const { id, name } = body;
-  const channel = await db.channel.update({ where: { id }, data: { name } });
+  const { id, name, balance } = body;
+  const data: Record<string, unknown> = {};
+  if (name !== undefined) data.name = name;
+  if (balance !== undefined) data.balance = parseFloat(balance);
+  const channel = await db.channel.update({ where: { id }, data });
   return NextResponse.json(channel);
 }
 

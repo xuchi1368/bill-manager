@@ -18,22 +18,38 @@ model Category {
   children    Category[] @relation("CategoryHierarchy")
   transactions Transaction[]
   rules       RecurringRule[]
+  catRules    CategorizationRule[]
+  splits      TransactionSplit[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
 
 model Channel {
-  id          String        @id @default(cuid())
+  id          String         @id @default(cuid())
   name        String
   type        String
+  balance     Float          @default(0)
   transactions Transaction[]
   rules       RecurringRule[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  transfersOut Transfer[]    @relation("TransferFrom")
+  transfersIn  Transfer[]    @relation("TransferTo")
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Transfer {
+  id          String   @id @default(cuid())
+  amount      Float
+  note        String?
+  fromId      String
+  toId        String
+  from        Channel  @relation("TransferFrom", fields: [fromId], references: [id])
+  to          Channel  @relation("TransferTo", fields: [toId], references: [id])
+  createdAt   DateTime @default(now())
 }
 
 model Transaction {
-  id         String    @id @default(cuid())
+  id         String             @id @default(cuid())
   type       String
   amount     Float
   date       String
@@ -41,10 +57,20 @@ model Transaction {
   categoryId String
   channelId  String
   projectId  String?
-  category   Category  @relation(fields: [categoryId], references: [id])
-  channel    Channel   @relation(fields: [channelId], references: [id])
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  category   Category           @relation(fields: [categoryId], references: [id])
+  channel    Channel            @relation(fields: [channelId], references: [id])
+  splits     TransactionSplit[]
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+}
+
+model TransactionSplit {
+  id            String      @id @default(cuid())
+  transactionId String
+  categoryId    String
+  amount        Float
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  category      Category    @relation(fields: [categoryId], references: [id])
 }
 
 model RecurringRule {
@@ -62,4 +88,15 @@ model RecurringRule {
   channel     Channel  @relation(fields: [channelId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model CategorizationRule {
+  id         String   @id @default(cuid())
+  keyword    String
+  categoryId String
+  isActive   Boolean  @default(true)
+  priority   Int      @default(0)
+  category   Category @relation(fields: [categoryId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

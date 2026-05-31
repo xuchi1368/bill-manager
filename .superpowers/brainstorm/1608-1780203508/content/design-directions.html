@@ -1,0 +1,189 @@
+<h2>三个设计方向</h2>
+<p class="subtitle">同样的仪表盘数据，三种截然不同的美学</p>
+
+<!-- A: Editorial -->
+<div class="section">
+<h3>A：编辑部杂志风</h3>
+<div style="background:#faf8f3;padding:20px;border-radius:16px;font-family:Georgia,'Noto Serif SC','Source Han Serif SC',serif;max-width:900px;margin:0 auto;">
+  <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#8c7b6e;margin-bottom:24px;border-bottom:1px solid #d4c8b8;padding-bottom:12px;">2026年5月 · 个人财务报告</div>
+
+  <!-- Hero number -->
+  <div style="text-align:center;margin-bottom:32px;">
+    <div style="font-size:13px;color:#8c7b6e;letter-spacing:0.1em;margin-bottom:8px;">本月净增长</div>
+    <div style="font-size:96px;font-weight:400;color:#2d2418;line-height:1;letter-spacing:-0.03em;margin-bottom:8px;">9,397</div>
+    <div style="font-size:14px;color:#8c7b6e;">收入 ¥13,000 · 支出 ¥3,603 · 结余率 72%</div>
+  </div>
+
+  <!-- Two columns: left = story, right = accounts -->
+  <div style="display:flex;gap:40px;margin-bottom:32px;">
+    <div style="flex:1.5;">
+      <div style="font-size:12px;letter-spacing:0.1em;color:#8c7b6e;margin-bottom:8px;">趋势</div>
+      <div style="background:linear-gradient(180deg,rgba(46,168,122,0.08),transparent);border-radius:8px;height:140px;display:flex;align-items:flex-end;padding:12px;">
+        <svg viewBox="0 0 350 140" style="width:100%;height:100%;"><path d="M0,110 L50,100 L100,85 L150,25 L200,22 L250,60 L340,55" stroke="#2d2418" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div style="flex:1;">
+      <div style="font-size:12px;letter-spacing:0.1em;color:#8c7b6e;margin-bottom:8px;">账户</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid #e8e0d4;padding-bottom:6px;"><span style="font-size:14px;color:#2d2418;">微信</span><span style="font-size:14px;color:#2d2418;">1,622</span></div>
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid #e8e0d4;padding-bottom:6px;"><span style="font-size:14px;color:#2d2418;">支付宝</span><span style="font-size:14px;color:#2d2418;">2,775</span></div>
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid #e8e0d4;padding-bottom:6px;"><span style="font-size:14px;color:#2d2418;">银行卡</span><span style="font-size:14px;color:#2d2418;">63,000</span></div>
+        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:2px solid #2d2418;"><span style="font-size:14px;font-weight:700;color:#2d2418;">总资产</span><span style="font-size:18px;font-weight:700;color:#2d2418;">69,397</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar -->
+  <div style="margin-bottom:24px;">
+    <div style="font-size:12px;letter-spacing:0.1em;color:#8c7b6e;margin-bottom:8px;">5月</div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:11px;color:#8c7b6e;font-family:system-ui,sans-serif;margin-bottom:4px;"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-family:system-ui,sans-serif;font-size:12px;">
+      <span style="padding:6px 0;text-align:center;border-radius:4px;background:rgba(46,168,122,0.10);color:#2ea87a;">20</span>
+      <span style="padding:6px 0;text-align:center;">21</span><span style="padding:6px 0;text-align:center;">22</span>
+      <span style="padding:6px 0;text-align:center;">23</span><span style="padding:6px 0;text-align:center;">24</span>
+      <span style="padding:6px 0;text-align:center;background:rgba(226,92,59,0.10);color:#c0392b;">25</span>
+      <span style="padding:6px 0;text-align:center;background:rgba(226,92,59,0.10);color:#c0392b;">26</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-family:system-ui,sans-serif;font-size:12px;margin-top:4px;">
+      <span style="padding:6px 0;text-align:center;">27</span>
+      <span style="padding:6px 0;text-align:center;background:rgba(46,168,122,0.30);color:#2ea87a;font-weight:700;">28</span>
+      <span style="padding:6px 0;text-align:center;background:rgba(226,92,59,0.08);color:#c0392b;">29</span>
+      <span style="padding:6px 0;text-align:center;background:rgba(226,92,59,0.15);color:#c0392b;outline:2px solid #c9a648;font-weight:600;">30</span>
+    </div>
+  </div>
+
+  <div style="font-size:10px;color:#b8a99a;text-align:center;font-style:italic;">Editorial · 衬线字体 · 大面积留白 · 数字即故事</div>
+</div>
+</div>
+
+<!-- B: Warm Industrial -->
+<div class="section">
+<h3>B：暖工业风</h3>
+<div style="background:#1e1b18;padding:20px;border-radius:16px;font-family:'DM Mono','JetBrains Mono','SF Mono',monospace;max-width:900px;margin:0 auto;color:#d4c8b8;">
+  <!-- Header bar -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #3a3530;">
+    <span style="font-size:11px;letter-spacing:0.12em;color:#8c7b6e;">BILL-MGR // DASHBOARD</span>
+    <span style="font-size:11px;color:#c9a648;">2026.05</span>
+  </div>
+
+  <!-- Big stat tiles -->
+  <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px;margin-bottom:20px;">
+    <div style="background:#2a2520;border:1px solid #3a3530;border-radius:4px;padding:16px;">
+      <div style="font-size:10px;color:#8c7b6e;letter-spacing:0.1em;margin-bottom:4px;">NET GROWTH</div>
+      <div style="font-size:52px;font-weight:300;color:#e8dcc8;line-height:1;letter-spacing:-0.02em;">+9,397</div>
+      <div style="font-size:10px;color:#c9a648;margin-top:4px;">结余率 72.3%</div>
+    </div>
+    <div style="background:#2a2520;border:1px solid #3a3530;border-radius:4px;padding:16px;">
+      <div style="font-size:10px;color:#8c7b6e;letter-spacing:0.1em;margin-bottom:4px;">INCOME</div>
+      <div style="font-size:32px;font-weight:300;color:#7ecba1;line-height:1;">13,000</div>
+      <div style="font-size:10px;color:#8c7b6e;">2笔</div>
+    </div>
+    <div style="background:#2a2520;border:1px solid #3a3530;border-radius:4px;padding:16px;">
+      <div style="font-size:10px;color:#8c7b6e;letter-spacing:0.1em;margin-bottom:4px;">EXPENSE</div>
+      <div style="font-size:32px;font-weight:300;color:#d48872;line-height:1;">3,603</div>
+      <div style="font-size:10px;color:#8c7b6e;">5笔</div>
+    </div>
+  </div>
+
+  <!-- Trend + Calendar -->
+  <div style="display:flex;gap:12px;margin-bottom:20px;">
+    <div style="flex:1.5;background:#2a2520;border:1px solid #3a3530;border-radius:4px;padding:16px;">
+      <div style="font-size:10px;color:#8c7b6e;letter-spacing:0.1em;margin-bottom:8px;">CUMULATIVE TREND</div>
+      <div style="height:100px;position:relative;">
+        <svg viewBox="0 0 300 100" style="width:100%;height:100%;"><path d="M0,80 L40,75 L80,65 L120,20 L180,18 L240,45 L290,42" stroke="#c9a648" stroke-width="2" fill="none"/><circle cx="120" cy="20" r="4" fill="#c9a648"/></svg>
+      </div>
+    </div>
+    <div style="flex:1;background:#2a2520;border:1px solid #3a3530;border-radius:4px;padding:16px;">
+      <div style="font-size:10px;color:#8c7b6e;letter-spacing:0.1em;margin-bottom:8px;">ACCOUNTS</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:11px;">
+        <div style="display:flex;justify-content:space-between;"><span>微信</span><span style="color:#c9a648;">1,622</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>支付宝</span><span style="color:#c9a648;">2,775</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>银行卡</span><span style="color:#c9a648;">63,000</span></div>
+        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3530;"><span style="color:#e8dcc8;">TOTAL</span><span style="color:#e8dcc8;font-size:14px;">69,397</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar strip -->
+  <div style="background:#2a2520;border:1px solid #3a3530;border-radius:4px;padding:12px 16px;">
+    <div style="font-size:10px;color:#8c7b6e;letter-spacing:0.1em;margin-bottom:8px;">MAY 2026</div>
+    <div style="display:flex;gap:3px;font-size:11px;font-family:system-ui,sans-serif;">
+      <span style="background:rgba(46,168,122,0.15);border-radius:3px;padding:4px 7px;color:#7ecba1;">20</span>
+      <span style="padding:4px 7px;color:#8c7b6e;">21</span><span style="padding:4px 7px;color:#8c7b6e;">22</span><span style="padding:4px 7px;color:#8c7b6e;">23</span>
+      <span style="padding:4px 7px;color:#8c7b6e;">24</span>
+      <span style="background:rgba(226,92,59,0.15);border-radius:3px;padding:4px 7px;color:#d48872;">25</span>
+      <span style="background:rgba(226,92,59,0.15);border-radius:3px;padding:4px 7px;color:#d48872;">26</span>
+      <span style="padding:4px 7px;color:#8c7b6e;">27</span>
+      <span style="background:rgba(46,168,122,0.35);border-radius:3px;padding:4px 7px;color:#7ecba1;font-weight:700;">28</span>
+      <span style="background:rgba(226,92,59,0.10);border-radius:3px;padding:4px 7px;color:#d48872;">29</span>
+      <span style="background:rgba(226,92,59,0.20);border-radius:3px;padding:4px 7px;color:#d48872;outline:1px solid #c9a648;">30</span>
+    </div>
+  </div>
+
+  <div style="font-size:10px;color:#8c7b6e;text-align:center;margin-top:12px;">Warm Industrial · 深色+铜色accent · 等宽字体 · 精密仪表感</div>
+</div>
+</div>
+
+<!-- C: Organic Ledger -->
+<div class="section">
+<h3>C：有机账本风</h3>
+<div style="background:#f5f0e8;padding:24px;border-radius:16px;font-family:'Crimson Text','Noto Serif SC',Georgia,serif;max-width:900px;margin:0 auto;background-image:radial-gradient(circle at 20% 50%,rgba(139,119,90,0.06) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(139,119,90,0.04) 0%,transparent 50%);">
+  <!-- Header: handwritten feel -->
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid #c4b89e;">
+    <div>
+      <span style="font-size:28px;color:#3d3226;font-style:italic;">账单</span>
+      <span style="font-size:13px;color:#8c7b6e;margin-left:8px;">2026年5月</span>
+    </div>
+    <span style="font-size:12px;color:#b8a080;">+ 记一笔</span>
+  </div>
+
+  <!-- Balance: the heart of the page -->
+  <div style="text-align:center;margin-bottom:28px;">
+    <div style="font-size:13px;color:#8c7b6e;margin-bottom:6px;">本月结余</div>
+    <div style="font-size:72px;color:#3d3226;line-height:1;font-weight:400;letter-spacing:-0.02em;">¥9,397</div>
+    <div style="display:flex;justify-content:center;gap:24px;margin-top:12px;font-size:14px;">
+      <span>收 <span style="color:#5a8a6a;">13,000</span></span>
+      <span style="color:#c4b89e;">|</span>
+      <span>支 <span style="color:#b55a4a;">3,603</span></span>
+      <span style="color:#c4b89e;">|</span>
+      <span>率 <span style="color:#8c7b6e;">72%</span></span>
+    </div>
+  </div>
+
+  <!-- Calendar: paper tear style -->
+  <div style="background:rgba(255,255,255,0.5);border:1px solid #d4c8b0;border-radius:4px;padding:14px;margin-bottom:20px;">
+    <div style="font-size:12px;color:#8c7b6e;margin-bottom:8px;">5月</div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;font-family:system-ui,sans-serif;font-size:11px;text-align:center;color:#8c7b6e;margin-bottom:3px;"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+    <div style="display:flex;gap:2px;font-family:system-ui,sans-serif;font-size:11px;">
+      <span style="background:rgba(90,138,106,0.12);border-radius:2px;padding:5px 7px;color:#5a8a6a;">20</span><span style="padding:5px 7px;color:#6b5e4e;">21</span><span style="padding:5px 7px;color:#6b5e4e;">22</span>
+      <span style="padding:5px 7px;color:#6b5e4e;">23</span><span style="padding:5px 7px;color:#6b5e4e;">24</span>
+      <span style="background:rgba(181,90,74,0.10);border-radius:2px;padding:5px 7px;color:#b55a4a;">25</span>
+      <span style="background:rgba(90,138,106,0.35);border-radius:2px;padding:5px 7px;color:#5a8a6a;font-weight:700;">28</span>
+      <span style="background:rgba(181,90,74,0.15);border-radius:2px;padding:5px 7px;color:#b55a4a;font-weight:600;box-shadow:0 0 0 1px #b8a080;border-radius:2px;">30</span>
+    </div>
+  </div>
+
+  <!-- Accounts: like a ledger -->
+  <div style="margin-bottom:20px;">
+    <div style="font-size:12px;color:#8c7b6e;margin-bottom:8px;">账户</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted #d4c8b0;"><span style="color:#3d3226;">微信</span><span style="color:#3d3226;">¥1,622</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted #d4c8b0;"><span style="color:#3d3226;">支付宝</span><span style="color:#3d3226;">¥2,775</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted #d4c8b0;"><span style="color:#3d3226;">银行卡</span><span style="color:#3d3226;">¥63,000</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:2px solid #b8a080;"><span style="font-weight:700;color:#3d3226;">合计</span><span style="font-weight:700;font-size:16px;color:#3d3226;">¥69,397</span></div>
+    </div>
+  </div>
+
+  <!-- Recent: handwritten list -->
+  <div>
+    <div style="font-size:12px;color:#8c7b6e;margin-bottom:8px;">近日流水</div>
+    <div style="display:flex;flex-direction:column;gap:4px;font-size:13px;">
+      <div style="display:flex;gap:12px;padding:4px 0;border-bottom:1px solid #e8dcc8;"><span style="color:#8c7b6e;">5/30</span><span>🍜 餐饮</span><span style="margin-left:auto;color:#b55a4a;">-200</span></div>
+      <div style="display:flex;gap:12px;padding:4px 0;border-bottom:1px solid #e8dcc8;"><span style="color:#8c7b6e;">5/28</span><span>🏠 房租</span><span style="margin-left:auto;color:#b55a4a;">-3,000</span></div>
+      <div style="display:flex;gap:12px;padding:4px 0;border-bottom:1px solid #e8dcc8;"><span style="color:#8c7b6e;">5/28</span><span>💰 工资</span><span style="margin-left:auto;color:#5a8a6a;">+12,500</span></div>
+    </div>
+  </div>
+
+  <div style="font-size:10px;color:#b8a080;text-align:center;margin-top:16px;font-style:italic;">Organic Ledger · 纸质感 · 衬线体 · 点线分隔 · 手工账本的温暖</div>
+</div>
+</div>
