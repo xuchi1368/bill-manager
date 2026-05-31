@@ -145,3 +145,23 @@
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* Dark mode */
+.dark {
+  --bg: #1a1816;
+  --card: #242220;
+  --border: #363330;
+  --text: #e0d8ce;
+  --muted: #9c8e7e;
+  --input: #2a2825;
+  --accent: #f59e0b;
+}
+.dark body { background: var(--bg); color: var(--text); }
+.dark .card { background: var(--card); border-color: var(--border); }
+.dark .bg-\[\#faf7f2\] { background: var(--bg) !important; }
+.dark .bg-white { background: var(--card) !important; }
+.dark .border-\[\#ede6dd\] { border-color: var(--border) !important; }
+.dark .text-\[\#3d342b\] { color: var(--text) !important; }
+.dark .text-\[\#6b5d52\] { color: var(--muted) !important; }
+.dark .bg-\[\#f5f2ed\] { background: var(--input) !important; }
+.dark input, .dark select { background: var(--input); color: var(--text); }

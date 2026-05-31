@@ -4,6 +4,8 @@ import { register } from '@/lib/registry';
 import AppShell from '@/components/AppShell';
 import { IconProvider } from '@/components/IconProvider';
 import { ViewTransitionProvider } from '@/components/ViewTransitionProvider';
+import ToastProvider from '@/components/ToastProvider';
+import ThemeProvider from '@/components/ThemeProvider';
 
 register();
 
@@ -16,11 +18,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="zh-CN">
       <body className="bg-[#faf7f2] text-[#3d342b] antialiased">
-        <IconProvider>
-          <ViewTransitionProvider>
-            <AppShell>{children}</AppShell>
-          </ViewTransitionProvider>
-        </IconProvider>
+        <ThemeProvider>
+          <IconProvider>
+            <ViewTransitionProvider>
+              <ToastProvider>
+                <AppShell>{children}</AppShell>
+              </ToastProvider>
+            </ViewTransitionProvider>
+          </IconProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

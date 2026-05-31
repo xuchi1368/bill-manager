@@ -7,6 +7,7 @@ import LeftRail from './LeftRail';
 import MobileTabBar from './MobileTabBar';
 import QuickAddPanel from './QuickAddPanel';
 import TitleBar from './TitleBar';
+import KeyboardShortcuts from './KeyboardShortcuts';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -24,6 +25,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-auto p-4 flex flex-col">
           <div className="max-w-2xl mx-auto flex flex-col flex-1">{children}</div>
         </main>
+        <KeyboardShortcuts />
       </div>
     );
   }
@@ -55,6 +57,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           onClose={() => setShowQuickAdd(false)}
         />
       )}
+      <KeyboardShortcuts />
     </div>
   );
 }
