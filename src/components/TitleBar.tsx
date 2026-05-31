@@ -44,48 +44,45 @@ function macDot(color: string): React.CSSProperties {
 }
 
 // ---- Windows 风格按钮 ----
-function WinButtons() {
+function WinButtons({ isMaximized }: { isMaximized: boolean }) {
+  const [closeHovered, setCloseHovered] = useState(false);
+
   return (
     <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
       {/* 最小化 */}
-      <button
-        onClick={() => window.electronAPI?.minimize()}
-        style={winBtnBase}
-        title="最小化"
-      >
+      <button onClick={() => window.electronAPI?.minimize()} style={winBtnBase} title="最小化">
         <svg width="10" height="10" viewBox="0 0 10 10">
           <line x1="1" y1="5" x2="9" y2="5" stroke="#6b5d52" strokeWidth="1.2" />
         </svg>
       </button>
-      {/* 最大化 */}
-      <button
-        onClick={() => window.electronAPI?.maximize()}
-        style={winBtnBase}
-        title="最大化"
-      >
-        <svg width="10" height="10" viewBox="0 0 10 10">
-          <rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="#6b5d52" strokeWidth="1.2" />
-        </svg>
+      {/* 最大化/还原 */}
+      <button onClick={() => window.electronAPI?.maximize()} style={winBtnBase} title={isMaximized ? '还原' : '最大化'}>
+        {isMaximized ? (
+          <svg width="10" height="10" viewBox="0 0 10 10">
+            <rect x="2.5" y="0.5" width="7" height="7" fill="none" stroke="#6b5d52" strokeWidth="1.2" />
+            <rect x="0.5" y="2.5" width="7" height="7" fill="#faf7f2" stroke="#6b5d52" strokeWidth="1.2" />
+          </svg>
+        ) : (
+          <svg width="10" height="10" viewBox="0 0 10 10">
+            <rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="#6b5d52" strokeWidth="1.2" />
+          </svg>
+        )}
       </button>
-      {/* 关闭 */}
+      {/* 关闭 — 使用 state 管理 hover */}
       <button
         onClick={() => window.electronAPI?.close()}
-        style={{ ...winBtnBase, marginLeft: 6 }}
+        style={{
+          ...winBtnBase,
+          marginLeft: 6,
+          background: closeHovered ? '#e88b6e' : 'transparent',
+        }}
         title="关闭"
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = '#e88b6e';
-          const lines = e.currentTarget.querySelectorAll('line');
-          lines.forEach(l => l.setAttribute('stroke', '#fff'));
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'transparent';
-          const lines = e.currentTarget.querySelectorAll('line');
-          lines.forEach(l => l.setAttribute('stroke', '#c97d60'));
-        }}
+        onMouseEnter={() => setCloseHovered(true)}
+        onMouseLeave={() => setCloseHovered(false)}
       >
         <svg width="10" height="10" viewBox="0 0 10 10">
-          <line x1="2" y1="2" x2="8" y2="8" stroke="#c97d60" strokeWidth="1.3" />
-          <line x1="8" y1="2" x2="2" y2="8" stroke="#c97d60" strokeWidth="1.3" />
+          <line x1="2" y1="2" x2="8" y2="8" stroke={closeHovered ? '#fff' : '#c97d60'} strokeWidth="1.3" />
+          <line x1="8" y1="2" x2="2" y2="8" stroke={closeHovered ? '#fff' : '#c97d60'} strokeWidth="1.3" />
         </svg>
       </button>
     </div>
@@ -106,14 +103,13 @@ function MacButtons() {
 // ---- 主组件 ----
 export default function TitleBar() {
   const [style, setStyle] = useState<TitlebarStyle>('auto');
+  const [isMaximized, setIsMaximized] = useState(false);
 
   useEffect(() => {
     setStyle(getTitlebarStyle());
 
-    // 监听最大化状态 (preload 已修复返回 cleanup)
-    const cleanup = window.electronAPI?.onMaximizeChange(() => {
-      // 可以用于更新最大化图标
-    });
+    // 监听最大化状态
+    const cleanup = window.electronAPI?.onMaximizeChange(setIsMaximized);
 
     // 双击标题栏最大化/还原
     const handleDblClick = () => window.electronAPI?.maximize();
@@ -177,7 +173,7 @@ export default function TitleBar() {
       {/* 右侧：Windows 按钮 */}
       {effectiveStyle === 'windows' && (
         <div style={{ marginLeft: 'auto', WebkitAppRegion: 'no-drag' }}>
-          <WinButtons />
+          <WinButtons isMaximized={isMaximized} />
         </div>
       )}
     </div>
