@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: '验证码错误或已过期' }, { status: 400 });
   }
 
-  await db.verificationCode.delete({ where: { id: record.id } });
+  // 验证码 5 分钟内可重复使用，不删除
 
   // Find or create user
   let user = await db.user.findUnique({ where: { phone } });

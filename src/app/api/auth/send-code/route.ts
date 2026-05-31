@@ -9,9 +9,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: '请输入正确的手机号' }, { status: 400 });
   }
 
-  // 删除旧验证码
+  // 清理过期验证码
   try {
-    await db.verificationCode.deleteMany({ where: { phone } });
+    await db.verificationCode.deleteMany({ where: { phone, expiresAt: { lt: new Date() } } });
 
     const code = generateCode();
     await db.verificationCode.create({
