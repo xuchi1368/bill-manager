@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import PageTransition from '@/components/PageTransition';
 import TransactionForm from '@/components/TransactionForm';
 import TransactionList from '@/components/TransactionList';
+import DatePicker from '@/components/DatePicker';
 import { LoadingSkeleton, ErrorState, EmptyState } from '@/components/PageState';
 import { PenLine } from 'lucide-react';
 
@@ -70,21 +71,9 @@ function TransactionsContent() {
           onChange={(e) => setSearch(e.target.value)}
           className={inputClass}
         />
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          className={inputClass}
-          onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
-        />
+        <DatePicker value={startDate} onChange={setStartDate} placeholder="开始日期" />
         <span className="text-xs text-[#6b5d52]">至</span>
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-          className={inputClass}
-          onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
-        />
+        <DatePicker value={endDate} onChange={setEndDate} placeholder="结束日期" />
         {(search || startDate || endDate) && (
           <button
             onClick={() => { setSearch(''); setStartDate(''); setEndDate(''); }}

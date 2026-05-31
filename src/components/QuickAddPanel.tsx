@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import DatePicker from './DatePicker';
 
 import { useCategoryIcon } from '@/lib/icon-map';
 
@@ -238,8 +239,7 @@ export default function QuickAddPanel({ onCreated, onClose }: { onCreated: () =>
         {/* Smart defaults bar */}
         <div className="flex items-center gap-2 mb-4 px-3 py-2 bg-[#f5f2ed] rounded-[10px] text-xs">
           <span className="text-[#6b5d52]">📅</span>
-          <input type="date" value={date} onChange={e => setDate(e.target.value)} onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
-            className="bg-transparent text-[#3d342b] outline-none text-xs flex-1 min-w-0" />
+          <DatePicker value={date} onChange={setDate} className="flex-1" />
           <span className="text-[#ede6dd]">|</span>
           <span className="text-[#6b5d52]">💳</span>
           <select value={channelId} onChange={e => setChannelId(e.target.value)}
