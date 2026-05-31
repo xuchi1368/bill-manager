@@ -102,7 +102,6 @@ function TransactionsContent() {
         >
           📥 导出 CSV
         </button>
-        <span className="text-xs text-[#6b5d52]">{transactions.length} 条</span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-4">
@@ -120,11 +119,18 @@ function TransactionsContent() {
           onCancelEdit={() => setEditing(null)}
         />
         <div className="overflow-y-auto lg:max-h-[calc(100vh-210px)]">
-          <TransactionList
-            transactions={transactions}
-            onEdit={(t) => setEditing(t)}
-            onDelete={handleDelete}
-          />
+          <div className="card overflow-hidden">
+            <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-[#ede6dd]">
+              <h3 className="text-sm font-semibold text-[#3d342b]">交易记录</h3>
+              <span className="text-xs text-[#6b5d52]">{transactions.length} 条</span>
+            </div>
+            <TransactionList
+              transactions={transactions}
+              onEdit={(t) => setEditing(t)}
+              onDelete={handleDelete}
+              compact
+            />
+          </div>
         </div>
       </div>
       {transactions.length === 0 && (
