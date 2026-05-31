@@ -68,9 +68,6 @@ function SettingsContent() {
   const [importError, setImportError] = useState('');
   const [importSubmitting, setImportSubmitting] = useState(false);
   const [importDone, setImportDone] = useState<{ imported: number; skipped: number } | null>(null);
-  const [aiStatus, setAiStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
-  const [aiError, setAiError] = useState('');
-  const [aiSuggestions, setAiSuggestions] = useState<{ index: number; categoryId: string; categoryName: string; categoryIcon: string; confidence: number; accepted: boolean }[]>([]);
   const [rules, setRules] = useState<Rule[]>([]);
   const [ruleKeyword, setRuleKeyword] = useState('');
   const [ruleCategoryId, setRuleCategoryId] = useState('');
@@ -265,48 +262,6 @@ function SettingsContent() {
     setImportResult(null);
     setImportError('');
     setImportDone(null);
-    setAiStatus('idle');
-    setAiError('');
-    setAiSuggestions([]);
-  }
-
-  async function runAISuggest() {
-    if (!importResult) return;
-    setAiStatus('loading');
-    setAiError('');
-    const txns = importResult.transactions.map((t: any, i: number) => ({
-      index: i,
-      description: [t.counterparty, t.description].filter(Boolean).join(' - ') || `¥${t.amount}`,
-      amount: t.amount,
-      type: t.type,
-    }));
-    try {
-      const res = await fetch('/api/ai/suggest', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ transactions: txns, categories: allCategories }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setAiError(data.error || 'AI 分析失败'); setAiStatus('error'); return; }
-      setAiSuggestions(data.suggestions.map((s: any) => ({ ...s, accepted: true })));
-      setAiStatus('done');
-    } catch {
-      setAiError('AI 请求失败');
-      setAiStatus('error');
-    }
-  }
-
-  function applyAISuggestions() {
-    if (!importResult) return;
-    const txns = [...importResult.transactions];
-    for (const s of aiSuggestions) {
-      if (s.accepted && txns[s.index]) {
-        txns[s.index] = { ...txns[s.index], _editCategoryId: s.categoryId };
-      }
-    }
-    setImportResult({ ...importResult, transactions: txns });
-    setAiStatus('idle');
-    setAiSuggestions([]);
   }
 
   async function loadTransfers() {
@@ -669,74 +624,19 @@ function SettingsContent() {
                 </table>
               </div>
 
-              {aiStatus === 'idle' && (
-                <button
-                  onClick={runAISuggest}
-                  className="px-4 py-2 bg-purple-50 text-purple-600 border border-purple-200 rounded-[10px] text-sm hover:bg-purple-100 transition-colors mb-4"
-                >
-                  🤖 AI 智能分类
-                </button>
-              )}
-
-              {aiStatus === 'loading' && (
-                <div className="mb-4 bg-purple-50 border border-purple-200 rounded-xl p-4 text-sm text-purple-600">
-                  <span className="animate-pulse">🤖 AI 正在分析 {importResult.transactions.length} 条交易...</span>
-                </div>
-              )}
-
-              {aiStatus === 'error' && (
-                <div className="mb-4 bg-rose-50 border border-rose-200 rounded-xl p-4 text-sm text-[#e25c3b]">
-                  {aiError}
-                  <button onClick={() => { setAiStatus('idle'); setAiError(''); }} className="ml-3 underline">关闭</button>
-                </div>
-              )}
-
-              {aiStatus === 'done' && (
-                <div className="mb-4 bg-purple-50/50 border border-purple-100 rounded-xl p-4 animate-slide-up">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-sm font-semibold text-[#3d342b]">🤖 AI 分类建议 ({aiSuggestions.length} 条)</h4>
-                    <div className="flex gap-2">
-                      <button onClick={() => setAiSuggestions(aiSuggestions.map(s => ({ ...s, accepted: true })))} className="text-xs text-[#6b5d52] hover:text-[#3d342b]">全部接受</button>
-                      <button onClick={() => setAiSuggestions(aiSuggestions.map(s => ({ ...s, accepted: false })))} className="text-xs text-[#6b5d52] hover:text-[#3d342b]">全部拒绝</button>
-                    </div>
+              {/* 快速统计 */}
+              {(() => {
+                const withCat = importResult.transactions.filter((t: any) => t.categoryId).length;
+                const withoutCat = importResult.transactions.length - withCat;
+                return (
+                  <div className="mb-4 p-3 bg-[#faf7f2] rounded-xl border border-[#ede6dd] text-xs text-[#3d342b]">
+                    共 {importResult.transactions.length} 条 ·
+                    <span className="text-[#2ea87a] font-medium"> 已分类 {withCat} 条</span>
+                    {withoutCat > 0 && <span className="text-[#e25c3b] font-medium"> · 未分类 {withoutCat} 条</span>}
+                    {withoutCat > 0 && <span className="text-[#6b5d52]">（请在表格中手动选择分类后导入）</span>}
                   </div>
-                  <div className="space-y-1.5 max-h-60 overflow-y-auto mb-3">
-                    {aiSuggestions.map((s) => {
-                      const t = importResult.transactions[s.index];
-                      const confidenceColor = s.confidence >= 80 ? 'text-[#2ea87a]' : s.confidence >= 50 ? 'text-amber-600' : 'text-[#e25c3b]';
-                      return (
-                        <button
-                          key={s.index}
-                          onClick={() => {
-                            const next = [...aiSuggestions];
-                            next[s.index] = { ...s, accepted: !s.accepted };
-                            setAiSuggestions(next);
-                          }}
-                          className={`w-full text-left flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all ${
-                            s.accepted ? 'bg-white border border-purple-100' : 'bg-[#faf7f2] opacity-50'
-                          }`}
-                        >
-                          <span>{s.categoryIcon}</span>
-                          <span className="flex-1 text-[#3d342b]">{t?.counterparty || t?.description || `¥${t?.amount}`}</span>
-                          <span className="text-[#6b5d52]">→</span>
-                          <span className="text-[#3d342b] font-medium">{s.categoryIcon} {s.categoryName}</span>
-                          <span className={`font-mono ${confidenceColor}`}>{s.confidence}%</span>
-                          <span className={`text-xs ${s.accepted ? 'text-[#2ea87a]' : 'text-[#6b5d52]'}`}>
-                            {s.accepted ? '✓' : '✗'}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <button
-                    onClick={applyAISuggestions}
-                    className="px-4 py-1.5 bg-purple-100 text-purple-700 rounded-[10px] text-sm font-medium hover:bg-purple-200 transition-colors"
-                    disabled={aiSuggestions.filter(s => s.accepted).length === 0}
-                  >
-                    应用 {aiSuggestions.filter(s => s.accepted).length} 条已接受的建议
-                  </button>
-                </div>
-              )}
+                );
+              })()}
 
               <button
                 onClick={confirmImport}
