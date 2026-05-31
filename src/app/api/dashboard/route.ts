@@ -54,12 +54,22 @@ export async function GET() {
         where: { categoryId: cat.id, type: 'expense', date: { gte: monthStart, lte: monthEnd } },
         _sum: { amount: true },
       });
+      // 上月对比
+      const now = new Date();
+      const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      const lastMonthStart = lastMonth.toISOString().split('T')[0];
+      const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0).toISOString().split('T')[0];
+      const lastResult = await db.transaction.aggregate({
+        where: { categoryId: cat.id, type: 'expense', date: { gte: lastMonthStart, lte: lastMonthEnd } },
+        _sum: { amount: true },
+      });
       return {
         id: cat.id,
         name: cat.name,
         icon: cat.icon,
         budgetLimit: cat.budgetLimit!,
         spent: result._sum.amount || 0,
+        lastMonthSpent: lastResult._sum.amount || 0,
       };
     })
   );
@@ -68,8 +78,13 @@ export async function GET() {
   const channels = await db.channel.findMany({ orderBy: { createdAt: 'asc' } });
   const accounts = channels.map((c) => ({ id: c.id, name: c.name, type: c.type, balance: c.balance }));
 
+  const allExpenseCategories = await db.category.findMany({
+    where: { type: 'expense' },
+    select: { id: true, name: true, icon: true, budgetLimit: true },
+  });
+
   return NextResponse.json({
     totalIncome, totalExpense, balance: totalIncome - totalExpense,
-    trend, recent, budgets, accounts,
+    trend, recent, budgets, accounts, allExpenseCategories,
   });
 }
