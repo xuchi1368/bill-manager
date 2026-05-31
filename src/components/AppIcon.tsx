@@ -7,7 +7,7 @@ import {
   FolderOpen, CreditCard, Download, Filter, Database, Palette, type LucideIcon,
 } from 'lucide-react';
 
-type IconName = 'home' | 'dashboard' | 'transactions' | 'reports' | 'recurring' |
+export type IconName = 'home' | 'dashboard' | 'transactions' | 'reports' | 'recurring' |
   'settings' | 'help' | 'logout' | 'categories' | 'channels' | 'import' |
   'rules' | 'backup' | 'appearance';
 

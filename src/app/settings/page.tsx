@@ -37,6 +37,7 @@ const inputClass = 'bg-[#f5f2ed] border-0 rounded-[10px] px-3.5 py-2 text-sm tex
 import PageTransition from '@/components/PageTransition';
 import { useIconTheme } from '@/components/IconProvider';
 import { useAppTheme, THEMES, type ThemeName } from '@/components/ThemeProvider';
+import { useAppEmoji, type IconName } from '@/components/AppIcon';
 import { useCategoryIcon } from '@/lib/icon-map';
 import { getTitlebarStyle, setTitlebarStyle, type TitlebarStyle } from '@/lib/titlebar-store';
 
@@ -46,6 +47,7 @@ function SettingsContent() {
   const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance'>(initialTab);
   const { theme, setTheme } = useIconTheme();
   const { theme: appTheme, setTheme: setAppTheme } = useAppTheme();
+  const getEmoji = useAppEmoji();
   const renderIcon = useCategoryIcon();
   const [categories, setCategories] = useState<Category[]>([]);
   const [channels, setChannels] = useState<Channel[]>([]);
@@ -311,12 +313,12 @@ function SettingsContent() {
   const expenseCategories = categories.filter((c) => c.type === 'expense');
   const incomeCategories = categories.filter((c) => c.type === 'income');
 
-  const tabBtn = (t: 'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance', label: string) => (
+  const tabBtn = (t: 'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance', icon: IconName, label: string) => (
     <button
       className={`px-4 py-2.5 text-sm font-medium transition-colors ${tab === t ? 'border-b-2 border-[#f59e0b] text-[#3d342b]' : 'text-[#6b5d52] hover:text-[#3d342b]'}`}
       onClick={() => setTab(t)}
     >
-      {label}
+      {getEmoji(icon)}{label}
     </button>
   );
 
@@ -325,12 +327,12 @@ function SettingsContent() {
       <h2 className="text-lg font-bold text-[#3d342b] mb-4">设置</h2>
 
       <div className="flex gap-0 mb-4 border-b border-[#ede6dd] overflow-x-auto">
-        {tabBtn('categories', '📂 收支分类')}
-        {tabBtn('channels', '💳 渠道管理')}
-        {tabBtn('import', '📥 数据导入')}
-        {tabBtn('rules', '📏 自动分类')}
-        {tabBtn('backup', '💾 数据备份')}
-        {tabBtn('appearance', '🎨 外观')}
+        {tabBtn('categories', 'categories', '收支分类')}
+        {tabBtn('channels', 'channels', '渠道管理')}
+        {tabBtn('import', 'import', '数据导入')}
+        {tabBtn('rules', 'rules', '自动分类')}
+        {tabBtn('backup', 'backup', '数据备份')}
+        {tabBtn('appearance', 'appearance', '外观')}
       </div>
 
       {tab === 'categories' && (
