@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getCategoryIcon } from '@/lib/icon-map';
+import { useCategoryIcon } from '@/lib/icon-map';
 
 interface DayData {
   date: string; income: number; expense: number; count: number;
@@ -29,6 +29,7 @@ function heatText(data: DayData | undefined): string {
 
 export default function CalendarView() {
   const today = new Date();
+  const catIcon = useCategoryIcon();
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth() + 1);
   const [days, setDays] = useState<Map<string, DayData>>(new Map());
@@ -160,19 +161,16 @@ export default function CalendarView() {
             </span>
           </div>
           <div className="space-y-1">
-            {selectedData.items.map(t => {
-              const CatIcon = getCategoryIcon(t.category.icon);
-              return (
+            {selectedData.items.map(t => (
                 <div key={t.id} className="flex items-center gap-1.5 bg-[#faf7f2] rounded-md px-2 py-1">
-                  <CatIcon size={14} strokeWidth={1.5} className="text-[#6b5d52]" />
+                  {catIcon(t.category.icon, t.category.name)}
                   <span className="text-[11px] text-[#3d342b] flex-1 truncate">{t.category.name}{t.note ? ` · ${t.note}` : ''}</span>
                   <span className="caption">{t.channel.name}</span>
                   <span className={`amount text-[11px] font-semibold ${t.type === 'income' ? 'text-[#2ea87a]' : 'text-[#e25c3b]'}`}>
                     {t.type === 'income' ? '+' : '-'}{t.amount.toLocaleString()}
                   </span>
                 </div>
-              );
-            })}
+              ))}
           </div>
         </div>
       )}
