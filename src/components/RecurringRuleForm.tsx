@@ -39,10 +39,14 @@ export default function RecurringRuleForm({ onCreated }: { onCreated: () => void
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const amt = parseFloat(amount);
+    if (!name.trim()) { alert('请输入规则名称'); return; }
+    if (isNaN(amt) || amt <= 0) { alert('请输入有效金额'); return; }
+    if (!categoryId || !channelId) { alert('请选择分类和渠道'); return; }
     await fetch('/api/recurring-rules', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, amount: parseFloat(amount), type, frequency, dayOfMonth: parseInt(dayOfMonth), nextDueDate, categoryId, channelId }),
+      body: JSON.stringify({ name, amount: amt, type, frequency, dayOfMonth: parseInt(dayOfMonth), nextDueDate, categoryId, channelId }),
     });
     setName(''); setAmount(''); setNextDueDate('');
     onCreated();

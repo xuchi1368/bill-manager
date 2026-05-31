@@ -21,10 +21,11 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
   edit?: EditData | null;
   onCancelEdit?: () => void;
 }) {
+  const savedChannel = (() => { try { return localStorage.getItem('bill-form-channel') || ''; } catch { return ''; } })();
   const [type, setType] = useState<'expense' | 'income'>(edit?.type || 'expense');
   const [amount, setAmount] = useState(edit ? String(edit.amount) : '');
   const [categoryId, setCategoryId] = useState(edit?.categoryId || '');
-  const [channelId, setChannelId] = useState(edit?.channelId || '');
+  const [channelId, setChannelId] = useState(edit?.channelId || savedChannel);
   const [date, setDate] = useState(edit?.date || new Date().toISOString().split('T')[0]);
   const [note, setNote] = useState(edit?.note || '');
   const [categories, setCategories] = useState<Category[]>([]);
@@ -118,6 +119,7 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
 
     if (!edit) {
       resetForm();
+      try { localStorage.setItem('bill-form-channel', channelId); } catch {}
       window.dispatchEvent(new CustomEvent('transaction-created'));
     }
     setSubmitting(false);
