@@ -130,8 +130,14 @@ export default function TitleBar() {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
-  // 非 Electron 环境不渲染
-  if (typeof window === 'undefined' || !window.electronAPI) return null;
+  // SSR / initial render: always null to avoid hydration mismatch
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  // During SSR and first render, render nothing (matches server)
+  if (!mounted) return null;
+  // After mount, only show in Electron
+  if (!window.electronAPI) return null;
 
   // 计算生效风格
   const effectiveStyle: 'windows' | 'mac' =
