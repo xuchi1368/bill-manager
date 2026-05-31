@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, Home } from 'lucide-react';
+import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, Home, LogOut } from 'lucide-react';
 
 const items = [
   { href: '/dashboard', Icon: LayoutDashboard, label: '仪表盘', activeBg: 'bg-[#fef3c7]' },
@@ -95,6 +95,17 @@ export default function LeftRail({ currentPath }: { currentPath: string }) {
       >
         <Settings size={20} strokeWidth={1.5} />
       </Link>
+
+      <button
+        onClick={async () => {
+          await fetch('/api/auth/logout', { method: 'POST' });
+          window.location.href = '/login';
+        }}
+        className="p-2.5 rounded-xl block transition-all cursor-pointer opacity-35 hover:opacity-70 hover:bg-rose-50 mt-1"
+        title="退出登录"
+      >
+        <LogOut size={20} strokeWidth={1.5} />
+      </button>
     </nav>
   );
 }
