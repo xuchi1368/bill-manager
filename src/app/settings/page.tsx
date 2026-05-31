@@ -31,11 +31,15 @@ interface Rule {
 const inputClass = 'bg-[#f5f2ed] border-0 rounded-[10px] px-3.5 py-2 text-sm text-[#3d342b] placeholder-[#6b5d52] focus:outline-none focus:ring-2 focus:ring-amber-500/30';
 
 import PageTransition from '@/components/PageTransition';
+import { useIconTheme } from '@/components/IconProvider';
+import { useCategoryIcon } from '@/lib/icon-map';
 
 function SettingsContent() {
   const searchParams = useSearchParams();
   const initialTab = (searchParams.get('tab') as 'categories' | 'channels' | 'import' | 'rules') || 'categories';
   const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules'>(initialTab);
+  const { theme, setTheme } = useIconTheme();
+  const catIcon = useCategoryIcon();
   const [categories, setCategories] = useState<Category[]>([]);
   const [channels, setChannels] = useState<Channel[]>([]);
   const [catName, setCatName] = useState('');
@@ -80,6 +84,22 @@ function SettingsContent() {
   }, []);
 
   useEffect(() => { loadCategories(); loadChannels(); loadRules(); }, [loadCategories, loadChannels, loadRules]);
+
+  useEffect(() => {
+    const highlightId = searchParams.get('highlight');
+    if (highlightId && tab === 'categories') {
+      setTimeout(() => {
+        const el = document.getElementById(`category-${highlightId}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.style.boxShadow = '0 0 0 3px #f59e0b';
+          el.style.borderRadius = '8px';
+          el.style.transition = 'box-shadow 0.3s';
+          setTimeout(() => { el.style.boxShadow = ''; }, 2000);
+        }
+      }, 300);
+    }
+  }, [searchParams, tab]);
 
   async function addRule() {
     if (!ruleKeyword || !ruleCategoryId) return;
@@ -319,8 +339,25 @@ function SettingsContent() {
       </div>
 
       {tab === 'categories' && (
-        <div>
-          <div className="card p-4 mb-4 flex gap-3 flex-wrap items-end">
+        <>
+          <div className="card p-3 mb-4 flex items-center gap-3">
+            <span className="text-xs text-[#6b5d52] font-medium">图标风格：</span>
+            {(['lucide', 'emoji', 'colored'] as const).map(t => (
+              <button
+                key={t}
+                onClick={() => setTheme(t)}
+                className={`px-3 py-1.5 text-xs rounded-[8px] font-medium transition-all cursor-pointer ${
+                  theme === t
+                    ? 'bg-[#f59e0b] text-white shadow-sm'
+                    : 'bg-[#f5f2ed] text-[#6b5d52] hover:bg-[#ede6dd]'
+                }`}
+              >
+                {t === 'lucide' ? '🔲 Lucide 线性' : t === 'emoji' ? '😀 Emoji' : '🎨 色块图标'}
+              </button>
+            ))}
+          </div>
+          <div>
+            <div className="card p-4 mb-4 flex gap-3 flex-wrap items-end">
             <div>
               <label className="text-xs text-[#6b5d52] block mb-1">名称</label>
               <input value={catName} onChange={(e) => setCatName(e.target.value)} className={`${inputClass} w-32`} />
@@ -362,8 +399,8 @@ function SettingsContent() {
           <h3 className="text-sm font-semibold text-[#3d342b] mb-2">支出分类</h3>
           <div className="space-y-1 mb-4">
             {expenseCategories.map((c) => (
-              <div key={c.id} className="card p-3 flex items-center justify-between">
-                <span className="text-[#3d342b]">{c.icon} {c.name}</span>
+              <div key={c.id} id={`category-${c.id}`} className="card p-3 flex items-center justify-between">
+                <span className="text-[#3d342b]">{catIcon(c.icon, c.name)} {c.name}</span>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-[#6b5d52]">预算:</span>
@@ -384,14 +421,14 @@ function SettingsContent() {
           <h3 className="text-sm font-semibold text-[#3d342b] mb-2">收入分类</h3>
           <div className="space-y-1">
             {incomeCategories.map((c) => (
-              <div key={c.id} className="card p-3 flex items-center justify-between">
-                <span className="text-[#3d342b]">{c.icon} {c.name}</span>
+              <div key={c.id} id={`category-${c.id}`} className="card p-3 flex items-center justify-between">
+                <span className="text-[#3d342b]">{catIcon(c.icon, c.name)} {c.name}</span>
                 <button onClick={() => deleteCategory(c.id)} className="text-[#6b5d52] hover:text-[#e25c3b] text-xs">删除</button>
               </div>
             ))}
           </div>
         </div>
-      )}
+      </>
 
       {tab === 'channels' && (
         <div>
