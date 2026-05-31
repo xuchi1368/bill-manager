@@ -1,22 +1,43 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
 const path = require('path');
-const { fork } = require('child_process');
+const { fork, spawn } = require('child_process');
+const fs = require('fs');
 
 let mainWindow;
 let tray;
 let serverProcess;
 
+// Find system Node.js — prefer bundled node.exe in resources, fall back to electron's node
+function findSystemNode() {
+  // In packaged app: resources/node.exe (bundled with build)
+  const bundled = path.join(process.resourcesPath, 'node.exe');
+  if (fs.existsSync(bundled)) {
+    console.log('Using bundled Node.js:', bundled);
+    return bundled;
+  }
+  // In dev: use the node that started electron (system node)
+  // process.execPath is electron.exe; system node is typically on PATH
+  console.log('Bundled Node.js not found, using system Node');
+  return 'node';
+}
+
 function startNextServer() {
   return new Promise((resolve, reject) => {
     const serverPath = path.join(__dirname, 'server.js');
-    serverProcess = fork(serverPath, [], {
+    const nodeExe = findSystemNode();
+
+    // Use spawn with system Node instead of fork (fork uses electron's Node)
+    serverProcess = spawn(nodeExe, [serverPath], {
       cwd: path.join(__dirname, '..'),
-      stdio: 'pipe',
+      stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
       env: { ...process.env, NODE_ENV: 'production' },
     });
 
+    let started = false;
+
     serverProcess.on('message', (msg) => {
-      if (msg === 'ready') {
+      if (msg === 'ready' && !started) {
+        started = true;
         console.log('Next.js server ready');
         resolve();
       }
@@ -24,7 +45,7 @@ function startNextServer() {
 
     serverProcess.on('error', (err) => {
       console.error('Server process error:', err);
-      reject(err);
+      if (!started) reject(err);
     });
 
     serverProcess.stderr?.on('data', (data) => {
@@ -32,11 +53,28 @@ function startNextServer() {
     });
 
     serverProcess.stdout?.on('data', (data) => {
-      console.log('[server]', data.toString());
+      const text = data.toString();
+      console.log('[server]', text);
+      // Detect "Ready" message if IPC doesn't work
+      if (!started && text.includes('Ready on')) {
+        started = true;
+        resolve();
+      }
+    });
+
+    serverProcess.on('exit', (code) => {
+      if (!started) {
+        reject(new Error(`Server exited with code ${code}`));
+      }
     });
 
     // Timeout fallback — if no 'ready' message in 30s, try anyway
-    setTimeout(() => resolve(), 30000);
+    setTimeout(() => {
+      if (!started) {
+        console.log('Server start timeout, proceeding anyway');
+        resolve();
+      }
+    }, 30000);
   });
 }
 

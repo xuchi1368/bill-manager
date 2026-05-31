@@ -65,12 +65,20 @@
       "node_modules/**/*",
       "package.json",
       "prisma/**/*",
+      "dev.db",
       "!node_modules/electron/**",
       "!node_modules/electron-builder/**",
       "!node_modules/typescript/**",
-      "!node_modules/eslint*/**"
+      "!node_modules/eslint*/**",
+      "!node_modules/.cache/**"
     ],
     "npmRebuild": false,
+    "extraResources": [
+      {
+        "from": "C:/Program Files/nodejs/node.exe",
+        "to": "node.exe"
+      }
+    ],
     "directories": {
       "output": "dist-electron"
     },
@@ -83,11 +91,6 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
     },
-    "asar": true,
-    "asarUnpack": [
-      "node_modules/better-sqlite3/**",
-      "node_modules/@prisma/engines/**",
-      "node_modules/prisma/**"
-    ]
+    "asar": false
   }
 }
