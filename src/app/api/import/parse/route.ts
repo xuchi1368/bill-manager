@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import iconv from 'iconv-lite';
+import * as XLSX from 'xlsx';
 import { db } from '@/lib/db';
 import { getUserId } from '@/lib/auth';
 import { matchCategory as matchCategoryByRule } from '@/lib/categorization';
+
+function parseXLSX(buffer: Buffer): string[][] {
+  const wb = XLSX.read(buffer, { type: 'buffer' });
+  const sheet = wb.Sheets[wb.SheetNames[0]];
+  const data = XLSX.utils.sheet_to_json<string[]>(sheet, { header: 1, defval: '' });
+  return data.filter((row: string[]) => row.some(c => c !== ''));
+}
 
 function parseCSV(text: string): string[][] {
   const rows: string[][] = [];
@@ -93,46 +101,57 @@ export async function POST(req: NextRequest) {
     if (!file) return NextResponse.json({ error: '请选择文件' }, { status: 400 });
 
     const buffer = Buffer.from(await file.arrayBuffer());
+    const fileName = file.name.toLowerCase();
+    const isXLSX = fileName.endsWith('.xlsx');
 
-    const tryDecode = (encoding: 'utf-8' | 'gbk') => {
-      return encoding === 'utf-8' ? buffer.toString('utf-8') : iconv.decode(buffer, 'gbk');
-    };
+    let allRows: string[][];
 
-    // Try UTF-8 first, fall back to GBK if rows insufficient or format unrecognized
-    let text = tryDecode('utf-8');
-    let allRows = parseCSV(text);
+    if (isXLSX) {
+      // WeChat: .xlsx Excel format
+      allRows = parseXLSX(buffer);
+    } else {
+      // Alipay: .csv format (UTF-8 or GBK)
+      const tryDecode = (encoding: 'utf-8' | 'gbk') => {
+        return encoding === 'utf-8' ? buffer.toString('utf-8') : iconv.decode(buffer, 'gbk');
+      };
 
-    if (allRows.length < 2) {
-      text = tryDecode('gbk');
+      let text = tryDecode('utf-8');
       allRows = parseCSV(text);
+
+      if (allRows.length < 2) {
+        text = tryDecode('gbk');
+        allRows = parseCSV(text);
+      }
     }
 
     if (allRows.length < 2) return NextResponse.json({ error: '无法解析文件，请确认是微信或支付宝账单' }, { status: 400 });
 
-    let headers = allRows[0];
-    let format = detectFormat(headers);
+    const headers = allRows[0];
+    const format = isXLSX ? 'wechat' : detectFormat(headers);
 
-    // If UTF-8 didn't detect (likely GBK-encoded Alipay), retry with GBK
     if (!format) {
-      text = tryDecode('gbk');
-      allRows = parseCSV(text);
-      if (allRows.length < 2) return NextResponse.json({ error: '无法解析文件，请确认是微信或支付宝账单' }, { status: 400 });
-      headers = allRows[0];
-      format = detectFormat(headers);
+      // Retry with GBK for Alipay CSV
+      if (!isXLSX) {
+        const text = iconv.decode(buffer, 'gbk');
+        allRows = parseCSV(text);
+        if (allRows.length < 2) return NextResponse.json({ error: '无法解析文件，请确认是微信或支付宝账单' }, { status: 400 });
+      }
     }
 
-    if (!format) return NextResponse.json({ error: '无法识别账单格式，请使用微信或支付宝导出的原始账单' }, { status: 400 });
+    const finalFormat = isXLSX ? 'wechat' : detectFormat(allRows[0]);
+    if (!finalFormat) return NextResponse.json({ error: '无法识别账单格式，请使用微信或支付宝导出的原始账单' }, { status: 400 });
 
     // Map column indices
+    const useHeaders = allRows[0];
     let timeIdx: number, typeIdx: number, counterpartyIdx: number, descIdx: number, inoutIdx: number, amountIdx: number, methodIdx: number;
-    if (format === 'wechat') {
-      timeIdx = headers.findIndex((h) => h.includes('交易时间'));
-      typeIdx = headers.findIndex((h) => h.includes('交易类型'));
-      counterpartyIdx = headers.findIndex((h) => h.includes('交易对方'));
-      descIdx = headers.findIndex((h) => h.includes('商品'));
-      inoutIdx = headers.findIndex((h) => h.includes('收/支'));
-      amountIdx = headers.findIndex((h) => h.includes('金额'));
-      methodIdx = headers.findIndex((h) => h.includes('支付方式'));
+    if (finalFormat === 'wechat') {
+      timeIdx = useHeaders.findIndex((h) => h.includes('交易时间'));
+      typeIdx = useHeaders.findIndex((h) => h.includes('交易类型'));
+      counterpartyIdx = useHeaders.findIndex((h) => h.includes('交易对方'));
+      descIdx = useHeaders.findIndex((h) => h.includes('商品') || h.includes('说明'));
+      inoutIdx = useHeaders.findIndex((h) => h.includes('收/支') || h.includes('收支'));
+      amountIdx = useHeaders.findIndex((h) => h.includes('金额'));
+      methodIdx = useHeaders.findIndex((h) => h.includes('支付方式'));
     } else {
       timeIdx = headers.findIndex((h) => h.includes('交易时间'));
       typeIdx = headers.findIndex((h) => h.includes('交易分类'));

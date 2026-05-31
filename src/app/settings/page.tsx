@@ -595,12 +595,12 @@ function SettingsContent() {
                 <label className="block bg-[#faf7f2] border border-dashed border-[#d6cec4] rounded-xl p-6 text-center cursor-pointer hover:border-[#f59e0b] transition-colors">
                   <input
                     type="file"
-                    accept=".csv"
+                    accept={importPlatform === 'wechat' ? '.xlsx' : '.csv'}
                     onChange={handleImportUpload}
                     className="hidden"
                   />
                   <span className="text-[#6b5d52] text-sm">
-                    {importParsing ? '解析中...' : `📂 选择${importPlatform === 'wechat' ? '微信' : '支付宝'}账单 CSV 文件`}
+                    {importParsing ? '解析中...' : `📂 选择${importPlatform === 'wechat' ? '微信' : '支付宝'}账单${importPlatform === 'wechat' ? ' XLSX' : ' CSV'}文件`}
                   </span>
                 </label>
               </div>
