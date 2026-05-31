@@ -28,13 +28,18 @@ export default function DashboardPage() {
 
   const loadData = useCallback(() => {
     setError('');
-    fetch('/api/dashboard')
+    const controller = new AbortController();
+    fetch('/api/dashboard', { signal: controller.signal })
       .then(r => { if (!r.ok) throw new Error('请求失败'); return r.json(); })
       .then(setData)
-      .catch(e => setError(e.message));
+      .catch(e => { if (e.name !== 'AbortError') setError(e.message); });
+    return () => controller.abort();
   }, []);
 
-  useEffect(() => { loadData(); }, [loadData]);
+  useEffect(() => {
+    const cleanup = loadData();
+    return cleanup;
+  }, [loadData]);
   useEffect(() => {
     const handler = () => loadData();
     window.addEventListener('transaction-created', handler);

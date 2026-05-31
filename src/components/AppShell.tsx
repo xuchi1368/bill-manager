@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Plus } from 'lucide-react';
 import LeftRail from './LeftRail';
@@ -16,6 +16,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const handleCreated = useCallback(() => {
     // Data refresh handled via window 'transaction-created' event
+  }, []);
+
+  useEffect(() => {
+    const handler = () => setShowQuickAdd(true);
+    window.addEventListener('quick-add', handler);
+    return () => window.removeEventListener('quick-add', handler);
   }, []);
 
   if (isHome) {

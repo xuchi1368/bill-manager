@@ -52,6 +52,8 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
         setIsSplit(false);
         setSplitParts([{ categoryId: '', amount: '' }, { categoryId: '', amount: '' }]);
       }
+    } else {
+      resetForm();
     }
   }, [edit?.id]);
 
@@ -98,38 +100,43 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
     setSubmitting(true);
     setMatchInfo(null);
 
-    const payload = {
-      type, amount: parseFloat(amount), date, note, categoryId, channelId,
-      ...(isSplit ? { splits: splitParts.map(sp => ({ categoryId: sp.categoryId, amount: parseFloat(sp.amount) })) } : {}),
-    };
-    if (isSplit) payload.categoryId = splitParts[0]?.categoryId || categoryId;
+    try {
+      const payload = {
+        type, amount: parseFloat(amount), date, note, categoryId, channelId,
+        ...(isSplit ? { splits: splitParts.map(sp => ({ categoryId: sp.categoryId, amount: parseFloat(sp.amount) })) } : {}),
+      };
+      if (isSplit) payload.categoryId = splitParts[0]?.categoryId || categoryId;
 
-    if (edit) {
-      await fetch(`/api/transactions/${edit.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-    } else {
-      const res = await fetch('/api/transactions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      if (data.matchedRuleName) {
-        setMatchInfo(`已匹配规则: ${data.matchedRuleName}`);
+      if (edit) {
+        await fetch(`/api/transactions/${edit.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } else {
+        const res = await fetch('/api/transactions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (data.matchedRuleName) {
+          setMatchInfo(`已匹配规则: ${data.matchedRuleName}`);
+        }
       }
-    }
 
-    if (!edit) {
-      resetForm();
-      try { localStorage.setItem('bill-form-channel', channelId); } catch {}
-      window.dispatchEvent(new CustomEvent('transaction-created'));
+      if (!edit) {
+        resetForm();
+        try { localStorage.setItem('bill-form-channel', channelId); } catch {}
+        window.dispatchEvent(new CustomEvent('transaction-created'));
+      }
+      onCreated();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err: any) {
+      alert('操作失败: ' + (err.message || '网络错误'));
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
-    onCreated();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   return (

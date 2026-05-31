@@ -21,13 +21,6 @@ model User {
   categorizationRules CategorizationRule[]
 }
 
-model VerificationCode {
-  id        String   @id @default(cuid())
-  phone     String
-  code      String
-  expiresAt DateTime
-}
-
 model Category {
   id          String    @id @default(cuid())
   name        String

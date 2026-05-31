@@ -42,19 +42,27 @@ function TransactionsContent() {
   const load = useCallback(() => {
     setLoading(true);
     setError('');
+    const controller = new AbortController();
     const params = new URLSearchParams();
     params.set('limit', '100');
     if (search) params.set('search', search);
     if (startDate) params.set('startDate', startDate);
     if (endDate) params.set('endDate', endDate);
 
-    fetch(`/api/transactions?${params.toString()}`)
+    fetch(`/api/transactions?${params.toString()}`, { signal: controller.signal })
       .then((r) => { if (!r.ok) throw new Error('请求失败'); return r.json(); })
       .then((data) => { setTransactions(data); setLoading(false); })
-      .catch((e) => { setError(e.message); setLoading(false); });
+      .catch((e) => {
+        if (e.name !== 'AbortError') { setError(e.message); setLoading(false); }
+      });
+
+    return () => controller.abort();
   }, [search, startDate, endDate]);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    const cleanup = load();
+    return cleanup;
+  }, [load]);
 
   async function handleDelete(id: string) {
     if (!confirm('确定删除这笔交易吗？')) return;

@@ -16,7 +16,7 @@ export default function CategoryPieChart({ data, title }: Props) {
 
   function handlePieClick(_: any, index: number) {
     if (data[index]) {
-      const catName = data[index].name.replace(/^.\s*/, ''); // remove emoji prefix
+      const catName = data[index].name.replace(/^[\uD800-\uDBFF][\uDC00-\uDFFF]\s*|^.\s*/, '');
       router.push(`/transactions?search=${encodeURIComponent(catName)}`);
     }
   }

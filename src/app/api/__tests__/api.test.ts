@@ -6,25 +6,20 @@ const BASE = 'http://localhost:8889';
 let authCookie = '';
 
 beforeAll(async () => {
-  // Create a test user and verification code directly in the DB
+  // Create a test user directly in the DB
   const phone = '13800138000';
-  const code = '123456';
 
-  const user = await db.user.upsert({
+  await db.user.upsert({
     where: { phone },
     update: {},
     create: { phone },
   });
-  await db.verificationCode.deleteMany({ where: { phone } });
-  await db.verificationCode.create({
-    data: { phone, code, expiresAt: new Date(Date.now() + 60_000) },
-  });
 
-  // Call verify endpoint to get the auth cookie
-  const res = await fetch(`${BASE}/api/auth/verify`, {
+  // Call login endpoint to get the auth cookie
+  const res = await fetch(`${BASE}/api/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ phone, code }),
+    body: JSON.stringify({ phone }),
   });
 
   if (res.ok) {

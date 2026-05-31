@@ -13,8 +13,7 @@ export default function KeyboardShortcuts() {
       // Ctrl+N: Quick add (from any page)
       if (e.ctrlKey && e.key === 'n') {
         e.preventDefault();
-        const fab = document.querySelector('[title="快速记账"]') as HTMLElement;
-        fab?.click();
+        window.dispatchEvent(new CustomEvent('quick-add'));
       }
       // Esc: close modals
       if (e.key === 'Escape') {

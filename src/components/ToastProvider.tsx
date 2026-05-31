@@ -7,11 +7,13 @@ const ToastContext = createContext<{ toast: (msg: string, type?: Toast['type']) 
 
 export function useToast() { return useContext(ToastContext); }
 
+let nextId = 0;
+
 export default function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const toast = useCallback((message: string, type: Toast['type'] = 'info') => {
-    const id = Date.now();
+    const id = ++nextId;
     setToasts(prev => [...prev, { id, message, type }]);
     setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 3000);
   }, []);
