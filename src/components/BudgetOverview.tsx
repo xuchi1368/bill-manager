@@ -140,7 +140,7 @@ function CategoryRingCard({ budget }: { budget: Budget }) {
       <div style={{ fontSize: 14, fontWeight: 700, color: '#3d342b' }}>¥{budget.spent.toLocaleString()}</div>
       <div style={{ fontSize: 11, fontWeight: 500, color: hintColor }}>{hintText}</div>
       {monthDiff !== null && monthDiff !== 0 && (
-        <div style={{ fontSize: 11, color: monthDiff > 0 ? '#f59e0b' : '#2ea87a', marginTop: 2 }}>
+        <div style={{ fontSize: 12, color: monthDiff > 0 ? '#f59e0b' : '#2ea87a', marginTop: 2 }}>
           {monthDiff > 0 ? '↑' : '↓'} ¥{Math.abs(monthDiff).toFixed(0)} 较上月
         </div>
       )}

@@ -55,10 +55,10 @@ export default function TrendChart({ data, title = '收支趋势', compact }: { 
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#f5f2ed" vertical={false} />
-          <XAxis dataKey="label" stroke="#6b5d52" fontSize={10} tickLine={false} axisLine={{ stroke: '#f5f2ed' }} />
-          <YAxis stroke="#6b5d52" fontSize={10} tickLine={false} axisLine={false}
+          <XAxis dataKey="label" stroke="#6b5d52" fontSize={12} tickLine={false} axisLine={{ stroke: '#f5f2ed' }} />
+          <YAxis stroke="#6b5d52" fontSize={12} tickLine={false} axisLine={false}
             tickFormatter={v => v >= 1000 ? `${Math.round(v/1000)}k` : String(v)}
-            width={35}
+            width={40}
           />
           <Tooltip
             contentStyle={tooltipStyle}

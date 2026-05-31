@@ -21,8 +21,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return (
       <div className="h-screen flex flex-col overflow-hidden">
         <TitleBar />
-        <main className="flex-1 overflow-auto p-6">
-          <div className="max-w-4xl mx-auto">{children}</div>
+        <main className="flex-1 overflow-auto p-4">
+          <div className="max-w-2xl mx-auto">{children}</div>
         </main>
       </div>
     );
@@ -33,7 +33,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <TitleBar />
       <div className="flex flex-1 min-h-0">
         <LeftRail currentPath={pathname} />
-        <main className="flex-1 px-5 py-3 pb-20 md:pb-3 overflow-auto">
+        <main className="flex-1 px-5 py-3 pb-16 md:pb-3 overflow-auto">
           {children}
         </main>
         <MobileTabBar currentPath={pathname} />

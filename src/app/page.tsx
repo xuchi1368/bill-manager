@@ -78,7 +78,7 @@ export default function HomePage() {
   }, [router]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-6">
+    <div className="flex flex-col items-center justify-center min-h-screen py-3">
       <div className={`text-center mb-5 transition-all duration-300 ${zooming ? 'opacity-0 scale-90' : 'animate-slide-down'}`}>
         <h1 className="text-2xl font-bold text-[#3d342b] mb-0.5">账单管理</h1>
         <p className="text-[11px] text-[#6b5d52]">

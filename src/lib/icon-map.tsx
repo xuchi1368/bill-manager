@@ -18,7 +18,7 @@ export function useCategoryIcon() {
   const { getIcon } = useIconTheme();
   return (emoji: string, categoryName?: string): React.ReactElement => {
     const key = getIconKey(categoryName || '', emoji);
-    return getIcon(key, 16) || React.createElement(Package, { size: 16 });
+    return getIcon(key, 20) || React.createElement(Package, { size: 20 });
   };
 }
 

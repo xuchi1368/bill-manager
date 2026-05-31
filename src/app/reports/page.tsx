@@ -100,8 +100,8 @@ export default function ReportsPage() {
             <ResponsiveContainer width="100%" height={Math.min(200, Math.max(120, data.momComparison.length * 24))}>
               <BarChart data={data.momComparison} layout="vertical" barCategoryGap={2}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ede6dd" />
-                <XAxis type="number" stroke="#6b5d52" fontSize={10} />
-                <YAxis dataKey="name" type="category" stroke="#6b5d52" fontSize={10} width={50} />
+                <XAxis type="number" stroke="#6b5d52" fontSize={12} />
+                <YAxis dataKey="name" type="category" stroke="#6b5d52" fontSize={12} width={50} />
                 <Tooltip contentStyle={tooltipStyle} formatter={(v) => [`¥${Number(v).toLocaleString()}`, '']} />
                 <Bar dataKey="previous" fill="#d6cec4" radius={[0, 2, 2, 0]} name="上月" />
                 <Bar dataKey="current" fill="#f97316" radius={[0, 2, 2, 0]} name="本月" />
