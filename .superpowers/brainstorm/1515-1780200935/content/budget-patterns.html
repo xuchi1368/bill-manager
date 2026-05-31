@@ -1,0 +1,154 @@
+<div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+  <h2>预算展示的 4 种主流做法</h2>
+  <p class="subtitle">参考了随手记、YNAB、MoneyWiz、鲨鱼记账等产品。每种都来自真实 APP，点击选择你喜欢的风格。</p>
+
+  <p style="margin: 10px 0 0; color: #6b5d52; font-size: 13px;">📌 看的时候注意三个维度：<strong>一眼判断超不超 → 知道还能花多少 → 对比其他分类</strong></p>
+</div>
+
+<div class="options" style="max-width: 900px; margin: 24px auto;">
+  <div class="option" data-choice="progress-bar" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content" style="flex:1">
+      <h3>进度条风格（随手记 / MoneyWiz）</h3>
+      <p style="color:#6b5d52;margin:4px 0 0">每个分类一条横向进度条，颜色渐变表示健康度</p>
+      <div class="card-image" style="margin-top:12px">
+        <!-- Mockup -->
+        <div style="background:#faf7f2; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;min-width:60px"><span>🍜</span><span style="font-size:13px;font-weight:500">餐饮</span></div>
+            <div style="flex:1;background:#ede6dd;border-radius:6px;height:10px;overflow:hidden">
+              <div style="width:72%;height:100%;background:#2ea87a;border-radius:6px"></div>
+            </div>
+            <div style="font-size:12px;color:#6b5d52;min-width:80px;text-align:right">¥1,800 / ¥2,500</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;min-width:60px"><span>🚗</span><span style="font-size:13px;font-weight:500">交通</span></div>
+            <div style="flex:1;background:#ede6dd;border-radius:6px;height:10px;overflow-hidden">
+              <div style="width:88%;height:100%;background:#f59e0b;border-radius:6px"></div>
+            </div>
+            <div style="font-size:12px;color:#6b5d52;min-width:80px;text-align:right">¥880 / ¥1,000</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;min-width:60px"><span>🎮</span><span style="font-size:13px;font-weight:500">娱乐</span></div>
+            <div style="flex:1;background:#ede6dd;border-radius:6px;height:10px;overflow-hidden">
+              <div style="width:105%;height:100%;background:#e25c3b;border-radius:6px"></div>
+            </div>
+            <div style="font-size:12px;color:#e25c3b;min-width:80px;text-align:right;font-weight:600">¥630 / ¥600</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;min-width:60px"><span>🛒</span><span style="font-size:13px;font-weight:500">购物</span></div>
+            <div style="flex:1;background:#ede6dd;border-radius:6px;height:10px;overflow-hidden">
+              <div style="width:45%;height:100%;background:#2ea87a;border-radius:6px"></div>
+            </div>
+            <div style="font-size:12px;color:#6b5d52;min-width:80px;text-align:right">¥900 / ¥2,000</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:#6b5d52;margin-top:8px">✓ 一眼扫描找红色 &nbsp; ✓ 精确知道剩多少 &nbsp; ✓ 分类间易比较</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="ring-cards" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content" style="flex:1">
+      <h3>环形卡片风格（YNAB / MoneyLover）</h3>
+      <p style="color:#6b5d52;margin:4px 0 0">每个分类一张卡片，环形图+百分比，直观但不精确</p>
+      <div class="card-image" style="margin-top:12px">
+        <div style="background:#faf7f2; border-radius:12px; padding:16px; display:flex; gap:12px; flex-wrap:wrap;">
+          <!-- Simulated ring charts with CSS -->
+          <div style="background:white; border-radius:10px; padding:14px; text-align:center; flex:1; min-width:90px; border:1px solid #ede6dd">
+            <div style="width:48px;height:48px;border-radius:50%;border:5px solid #ede6dd;border-top-color:#2ea87a;border-right-color:#2ea87a;margin:0 auto 8px;transform:rotate(-45deg)"></div>
+            <span style="font-size:12px;font-weight:600">🍜 餐饮</span>
+            <div style="font-size:18px;font-weight:700;color:#3d342b;margin:4px 0">72%</div>
+            <div style="font-size:11px;color:#6b5d52">¥1,800 / ¥2,500</div>
+          </div>
+          <div style="background:white; border-radius:10px; padding:14px; text-align:center; flex:1; min-width:90px; border:1px solid #ede6dd">
+            <div style="width:48px;height:48px;border-radius:50%;border:5px solid #ede6dd;border-top-color:#f59e0b;border-right-color:#f59e0b;margin:0 auto 8px;transform:rotate(-25deg)"></div>
+            <span style="font-size:12px;font-weight:600">🚗 交通</span>
+            <div style="font-size:18px;font-weight:700;color:#3d342b;margin:4px 0">88%</div>
+            <div style="font-size:11px;color:#6b5d52">¥880 / ¥1,000</div>
+          </div>
+          <div style="background:white; border-radius:10px; padding:14px; text-align:center; flex:1; min-width:90px; border:1px solid #fde1d5">
+            <div style="width:48px;height:48px;border-radius:50%;border:5px solid #e25c3b;margin:0 auto 8px"></div>
+            <span style="font-size:12px;font-weight:600">🎮 娱乐</span>
+            <div style="font-size:18px;font-weight:700;color:#e25c3b;margin:4px 0">105%</div>
+            <div style="font-size:11px;color:#e25c3b">超支 ¥30</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:#6b5d52;margin-top:8px">✓ 视觉冲击力强 &nbsp; ✓ 超支一眼认出 &nbsp; ✗ 占空间大 &nbsp; ✗ 精度不如进度条</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="table-list" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content" style="flex:1">
+      <h3>紧凑列表风格（鲨鱼记账 / Spendee）</h3>
+      <p style="color:#6b5d52;margin:4px 0 0">一页看完所有分类，文字为主+迷你条形图，移动端友好</p>
+      <div class="card-image" style="margin-top:12px">
+        <div style="background:#faf7f2; border-radius:12px; padding:16px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #ede6dd">
+            <div style="display:flex;align-items:center;gap:8px"><span>🍜</span><span style="font-size:14px;font-weight:500">餐饮</span></div>
+            <div style="background:#ede6dd; border-radius:4px; width:100px; height:6px; margin:0 12px"><div style="width:72%; height:100%; background:#2ea87a; border-radius:4px"></div></div>
+            <span style="font-size:13px;color:#3d342b">¥1,800</span>
+            <span style="font-size:12px;color:#6b5d52;margin-left:8px">剩 ¥700</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #ede6dd">
+            <div style="display:flex;align-items:center;gap:8px"><span>🚗</span><span style="font-size:14px;font-weight:500">交通</span></div>
+            <div style="background:#ede6dd; border-radius:4px; width:100px; height:6px; margin:0 12px"><div style="width:88%; height:100%; background:#f59e0b; border-radius:4px"></div></div>
+            <span style="font-size:13px;color:#3d342b">¥880</span>
+            <span style="font-size:12px;color:#6b5d52;margin-left:8px">剩 ¥120</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #ede6dd">
+            <div style="display:flex;align-items:center;gap:8px"><span>🎮</span><span style="font-size:14px;font-weight:500">娱乐</span></div>
+            <div style="background:#ede6dd; border-radius:4px; width:100px; height:6px; margin:0 12px"><div style="width:105%; height:100%; background:#e25c3b; border-radius:4px"></div></div>
+            <span style="font-size:13px;color:#e25c3b;font-weight:600">¥630</span>
+            <span style="font-size:12px;color:#e25c3b;margin-left:8px">超 ¥30</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #ede6dd">
+            <div style="display:flex;align-items:center;gap:8px"><span>🛒</span><span style="font-size:14px;font-weight:500">购物</span></div>
+            <div style="background:#ede6dd; border-radius:4px; width:100px; height:6px; margin:0 12px"><div style="width:45%; height:100%; background:#2ea87a; border-radius:4px"></div></div>
+            <span style="font-size:13px;color:#3d342b">¥900</span>
+            <span style="font-size:12px;color:#6b5d52;margin-left:8px">剩 ¥1,100</span>
+          </div>
+        </div>
+        <div style="font-size:11px;color:#6b5d52;margin-top:8px">✓ 信息密度最高 &nbsp; ✓ 手机屏友好 &nbsp; ✓ 配合图标一眼读完 &nbsp; ✗ 不够有设计感</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="gradient-area" onclick="toggleSelect(this)">
+    <div class="letter">D</div>
+    <div class="content" style="flex:1">
+      <h3>总览+热点风格（Mint / Money Manager）</h3>
+      <p style="color:#6b5d52;margin:4px 0 0">顶部一个总预算环+下方热点列表，先总后分</p>
+      <div class="card-image" style="margin-top:12px">
+        <div style="background:#faf7f2; border-radius:12px; padding:16px; display:flex; gap:16px; align-items:center;">
+          <!-- Big ring on left -->
+          <div style="text-align:center; min-width:100px">
+            <div style="width:72px;height:72px;border-radius:50%;border:6px solid #ede6dd;border-top-color:#2ea87a;border-right-color:#2ea87a;border-bottom-color:#f59e0b;margin:0 auto 8px;transform:rotate(-20deg)"></div>
+            <div style="font-size:20px;font-weight:700;color:#3d342b">68%</div>
+            <div style="font-size:11px;color:#6b5d52">月度总预算</div>
+            <div style="font-size:12px;color:#3d342b;margin-top:2px">¥4,210 / ¥6,100</div>
+          </div>
+          <!-- Hot spots on right -->
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px">
+            <div style="background:#fff5f5; border-radius:8px; padding:8px 12px; display:flex; justify-content:space-between; align-items:center">
+              <span>🎮 娱乐 <span style="color:#e25c3b;font-size:12px">超支</span></span>
+              <span style="font-weight:600;color:#e25c3b">¥630 / ¥600</span>
+            </div>
+            <div style="background:#fffbf0; border-radius:8px; padding:8px 12px; display:flex; justify-content:space-between; align-items:center">
+              <span>🚗 交通 <span style="color:#f59e0b;font-size:12px">即将超支</span></span>
+              <span style="font-weight:600;color:#f59e0b">¥880 / ¥1,000</span>
+            </div>
+            <div style="background:#f5faf7; border-radius:8px; padding:8px 12px; display:flex; justify-content:space-between; align-items:center">
+              <span>🍜 餐饮 <span style="color:#2ea87a;font-size:12px">正常</span></span>
+              <span style="color:#6b5d52">¥1,800 / ¥2,500</span>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:#6b5d52;margin-top:8px">✓ 先总后分 &nbsp; ✓ 异常自动置顶 &nbsp; ✓ 提醒感强 &nbsp; ✗ 正常分类信息弱化</div>
+      </div>
+    </div>
+  </div>
+</div>

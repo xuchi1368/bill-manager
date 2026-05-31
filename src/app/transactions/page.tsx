@@ -77,7 +77,18 @@ export default function TransactionsPage() {
             清除筛选
           </button>
         )}
-        <span className="text-xs text-[#6b5d52] ml-auto">{transactions.length} 条</span>
+        <button
+          onClick={() => {
+            const p = new URLSearchParams();
+            if (startDate) p.set('date_from', startDate);
+            if (endDate) p.set('date_to', endDate);
+            window.open(`/api/export/transactions?${p.toString()}`, '_blank');
+          }}
+          className="text-xs px-3 py-1.5 bg-[#2ea87a] hover:bg-emerald-500/90 text-white rounded-[8px] font-medium transition-colors cursor-pointer ml-auto"
+        >
+          📥 导出 CSV
+        </button>
+        <span className="text-xs text-[#6b5d52]">{transactions.length} 条</span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6">

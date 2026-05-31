@@ -36,8 +36,8 @@ import { useCategoryIcon } from '@/lib/icon-map';
 
 function SettingsContent() {
   const searchParams = useSearchParams();
-  const initialTab = (searchParams.get('tab') as 'categories' | 'channels' | 'import' | 'rules') || 'categories';
-  const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules'>(initialTab);
+  const initialTab = (searchParams.get('tab') as 'categories' | 'channels' | 'import' | 'rules' | 'backup') || 'categories';
+  const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules' | 'backup'>(initialTab);
   const { theme, setTheme } = useIconTheme();
   const renderIcon = useCategoryIcon();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -318,7 +318,7 @@ function SettingsContent() {
   const expenseCategories = categories.filter((c) => c.type === 'expense');
   const incomeCategories = categories.filter((c) => c.type === 'income');
 
-  const tabBtn = (t: 'categories' | 'channels' | 'import' | 'rules', label: string) => (
+  const tabBtn = (t: 'categories' | 'channels' | 'import' | 'rules' | 'backup', label: string) => (
     <button
       className={`px-4 py-2.5 text-sm font-medium transition-colors ${tab === t ? 'border-b-2 border-[#f59e0b] text-[#3d342b]' : 'text-[#6b5d52] hover:text-[#3d342b]'}`}
       onClick={() => setTab(t)}
@@ -336,6 +336,7 @@ function SettingsContent() {
         {tabBtn('channels', '💳 渠道管理')}
         {tabBtn('import', '📥 数据导入')}
         {tabBtn('rules', '📏 自动分类')}
+        {tabBtn('backup', '💾 数据备份')}
       </div>
 
       {tab === 'categories' && (
@@ -771,6 +772,54 @@ function SettingsContent() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {tab === 'backup' && (
+        <div>
+          <div className="card p-4 mb-4">
+            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">💾 数据备份</h3>
+            <p className="text-xs text-[#6b5d52] mb-3">下载完整数据库文件，可用于迁移到新电脑或恢复数据。</p>
+            <a
+              href="/api/backup/download"
+              download
+              className="inline-block px-5 py-2 bg-[#2ea87a] hover:bg-emerald-500/90 text-white font-medium rounded-[10px] text-sm transition-colors"
+            >
+              📥 下载备份
+            </a>
+          </div>
+
+          <div className="card p-4">
+            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">🔄 恢复数据</h3>
+            <p className="text-xs text-[#6b5d52] mb-3">上传之前下载的 .db 备份文件。恢复前会自动保存当前数据到 backups/ 目录。</p>
+            <label className="inline-block bg-[#faf7f2] border border-dashed border-[#d6cec4] rounded-xl p-4 text-center cursor-pointer hover:border-[#f59e0b] transition-colors">
+              <span className="text-[#6b5d52] text-sm">📂 选择备份文件 (.db)</span>
+              <input
+                type="file"
+                accept=".db"
+                className="hidden"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  if (!confirm(`确定要用 "${file.name}" 恢复数据吗？当前数据将被覆盖。`)) return;
+                  const fd = new FormData();
+                  fd.append('file', file);
+                  try {
+                    const res = await fetch('/api/backup/restore', { method: 'POST', body: fd });
+                    const data = await res.json();
+                    if (res.ok) {
+                      alert(data.message);
+                      window.location.reload();
+                    } else {
+                      alert('恢复失败: ' + (data.error || '未知错误'));
+                    }
+                  } catch {
+                    alert('恢复请求失败');
+                  }
+                }}
+              />
+            </label>
           </div>
         </div>
       )}
