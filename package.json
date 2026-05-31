@@ -11,7 +11,8 @@
     "electron:dev": "concurrently \"next dev -p 8888\" \"wait-on http://localhost:8888 && electron .\"",
     "electron:build": "next build && electron-builder",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
