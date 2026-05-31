@@ -4,6 +4,8 @@ import { useEffect, useState, useCallback } from 'react';
 import PageTransition from '@/components/PageTransition';
 import TransactionForm from '@/components/TransactionForm';
 import TransactionList from '@/components/TransactionList';
+import { LoadingSkeleton, ErrorState, EmptyState } from '@/components/PageState';
+import { PenLine } from 'lucide-react';
 
 interface Transaction {
   id: string; type: string; amount: number; date: string;
@@ -18,11 +20,15 @@ interface Transaction {
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [editing, setEditing] = useState<Transaction | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
   const load = useCallback(() => {
+    setLoading(true);
+    setError('');
     const params = new URLSearchParams();
     params.set('limit', '100');
     if (search) params.set('search', search);
@@ -30,8 +36,9 @@ export default function TransactionsPage() {
     if (endDate) params.set('endDate', endDate);
 
     fetch(`/api/transactions?${params.toString()}`)
-      .then((r) => r.json())
-      .then(setTransactions);
+      .then((r) => { if (!r.ok) throw new Error('请求失败'); return r.json(); })
+      .then((data) => { setTransactions(data); setLoading(false); })
+      .catch((e) => { setError(e.message); setLoading(false); });
   }, [search, startDate, endDate]);
 
   useEffect(() => { load(); }, [load]);
@@ -48,6 +55,10 @@ export default function TransactionsPage() {
     <PageTransition>
       <h2 className="text-lg font-bold text-[#3d342b] mb-6">记账</h2>
 
+      {error && <ErrorState message={error} onRetry={load} />}
+      {loading && !error && <LoadingSkeleton rows={4} />}
+
+      {!loading && !error && (<>
       <div className="flex gap-3 mb-4 flex-wrap items-center">
         <input
           type="text"
@@ -111,6 +122,10 @@ export default function TransactionsPage() {
           onDelete={handleDelete}
         />
       </div>
+      {transactions.length === 0 && (
+        <EmptyState icon={<PenLine size={40} strokeWidth={1.5} />} title="暂无交易记录" desc="点击左侧表单添加第一笔收支" />
+      )}
+      </>)}
     </PageTransition>
   );
 }

@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { TrendingUp, TrendingDown, Wallet, CreditCard, ClipboardList } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
+import { ErrorState } from '@/components/PageState';
 import TrendChart from '@/components/TrendChart';
 import CalendarView from '@/components/CalendarView';
 import TransactionList from '@/components/TransactionList';
@@ -23,9 +24,14 @@ export default function DashboardPage() {
     allExpenseCategories: { id: string; name: string; icon: string; budgetLimit: number | null }[];
   } | null>(null);
   const [showQuickAdd, setShowQuickAdd] = useState(false);
+  const [error, setError] = useState('');
 
   const loadData = useCallback(() => {
-    fetch('/api/dashboard').then(r => r.json()).then(setData);
+    setError('');
+    fetch('/api/dashboard')
+      .then(r => { if (!r.ok) throw new Error('请求失败'); return r.json(); })
+      .then(setData)
+      .catch(e => setError(e.message));
   }, []);
 
   useEffect(() => { loadData(); }, [loadData]);
@@ -34,6 +40,13 @@ export default function DashboardPage() {
     window.addEventListener('transaction-created', handler);
     return () => window.removeEventListener('transaction-created', handler);
   }, [loadData]);
+
+  if (error) return (
+    <PageTransition>
+      <div className="mb-4"><h2 className="text-[22px] font-bold text-[#3d342b] tracking-tight">仪表盘</h2></div>
+      <ErrorState message={error} onRetry={loadData} />
+    </PageTransition>
+  );
 
   if (!data) return (
     <PageTransition>

@@ -7,6 +7,7 @@ import StatCard from '@/components/StatCard';
 import TrendChart from '@/components/TrendChart';
 import CategoryPieChart from '@/components/CategoryPieChart';
 import ChannelChart from '@/components/ChannelChart';
+import { LoadingSkeleton, ErrorState } from '@/components/PageState';
 
 function fmtMonth(d: Date) { return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; }
 
@@ -23,11 +24,21 @@ export default function ReportsPage() {
   const now = new Date();
   const [yearMonth, setYearMonth] = useState(fmtMonth(now));
   const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const load = useCallback(async (ym: string) => {
-    const { start, end } = monthRange(ym);
-    const res = await fetch(`/api/reports?startDate=${start}&endDate=${end}`);
-    setData(await res.json());
+    setLoading(true);
+    setError('');
+    try {
+      const { start, end } = monthRange(ym);
+      const res = await fetch(`/api/reports?startDate=${start}&endDate=${end}`);
+      if (!res.ok) throw new Error('请求失败');
+      setData(await res.json());
+    } catch (e) {
+      setError((e as Error).message);
+    }
+    setLoading(false);
   }, []);
 
   useEffect(() => { load(yearMonth); }, [yearMonth, load]);
@@ -37,21 +48,20 @@ export default function ReportsPage() {
     const d = new Date(y, m - 2, 1);
     setYearMonth(fmtMonth(d));
   }
+
+  const expensePie = data?.categoryDistribution
+    ?.filter((c: any) => c.expense > 0)
+    ?.map((c: any) => ({ name: `${c.icon} ${c.name}`, value: c.expense, icon: c.icon })) || [];
+
+  const incomePie = data?.categoryDistribution
+    ?.filter((c: any) => c.income > 0)
+    ?.map((c: any) => ({ name: `${c.icon} ${c.name}`, value: c.income, icon: c.icon })) || [];
+
   function nextMonth() {
     const [y, m] = yearMonth.split('-').map(Number);
     const d = new Date(y, m, 1);
     setYearMonth(fmtMonth(d));
   }
-
-  if (!data) return <div className="p-4 text-sm text-[#6b5d52]">加载中...</div>;
-
-  const expensePie = data.categoryDistribution
-    .filter((c: any) => c.expense > 0)
-    .map((c: any) => ({ name: `${c.icon} ${c.name}`, value: c.expense, icon: c.icon }));
-
-  const incomePie = data.categoryDistribution
-    .filter((c: any) => c.income > 0)
-    .map((c: any) => ({ name: `${c.icon} ${c.name}`, value: c.income, icon: c.icon }));
 
   return (
     <PageTransition>
@@ -69,6 +79,10 @@ export default function ReportsPage() {
         </div>
       </div>
 
+      {error && <ErrorState message={error} onRetry={() => load(yearMonth)} />}
+      {loading && !error && <LoadingSkeleton rows={5} />}
+
+      {!loading && !error && (<>
       {/* Stats */}
       <div className="flex gap-3 mb-4 flex-wrap">
         <StatCard title="总收入" amount={data.totalIncome} prefix="+" color="green" />
@@ -109,6 +123,7 @@ export default function ReportsPage() {
         <ChannelChart data={data.channelDistribution} />
         <TrendChart data={data.dailyTrend} title="每日收支趋势" compact />
       </div>
+      </>)}
     </PageTransition>
   );
 }
