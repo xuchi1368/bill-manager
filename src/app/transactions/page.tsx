@@ -62,7 +62,7 @@ function TransactionsContent() {
       {loading && !error && <LoadingSkeleton rows={4} />}
 
       {!loading && !error && (<>
-      <div className="flex gap-3 mb-4 flex-wrap items-center">
+      <div className="flex gap-3 mb-4 flex-wrap items-center shrink-0">
         <input
           type="text"
           placeholder="搜索备注..."
@@ -104,7 +104,7 @@ function TransactionsContent() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-4 flex-1 min-h-0">
         <TransactionForm
           onCreated={() => { load(); setEditing(null); }}
           edit={editing ? {
@@ -118,18 +118,20 @@ function TransactionsContent() {
           } : null}
           onCancelEdit={() => setEditing(null)}
         />
-        <div className="overflow-y-auto lg:max-h-[calc(100vh-210px)]">
-          <div className="card overflow-hidden">
-            <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-[#ede6dd]">
+        <div className="overflow-y-auto min-h-0 flex flex-col">
+          <div className="card overflow-hidden flex flex-col flex-1">
+            <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-[#ede6dd] shrink-0">
               <h3 className="text-sm font-semibold text-[#3d342b]">交易记录</h3>
               <span className="text-xs text-[#6b5d52]">{transactions.length} 条</span>
             </div>
-            <TransactionList
-              transactions={transactions}
-              onEdit={(t) => setEditing(t)}
-              onDelete={handleDelete}
-              compact
-            />
+            <div className="flex-1 overflow-y-auto">
+              <TransactionList
+                transactions={transactions}
+                onEdit={(t) => setEditing(t)}
+                onDelete={handleDelete}
+                compact
+              />
+            </div>
           </div>
         </div>
       </div>

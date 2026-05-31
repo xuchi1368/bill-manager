@@ -33,7 +33,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <TitleBar />
       <div className="flex flex-1 min-h-0">
         <LeftRail currentPath={pathname} />
-        <main className="flex-1 px-5 py-3 pb-16 md:pb-3 overflow-auto">
+        <main className="flex-1 px-5 py-3 pb-16 md:pb-3 overflow-auto flex flex-col">
           {children}
         </main>
         <MobileTabBar currentPath={pathname} />
