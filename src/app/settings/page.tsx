@@ -362,7 +362,7 @@ function SettingsContent() {
     <PageTransition>
       <h2 className="text-lg font-bold text-[#3d342b] mb-4">设置</h2>
 
-      <div className="flex gap-0 mb-6 border-b border-[#ede6dd] overflow-x-auto">
+      <div className="flex gap-0 mb-4 border-b border-[#ede6dd] overflow-x-auto">
         {tabBtn('categories', '📂 收支分类')}
         {tabBtn('channels', '💳 渠道管理')}
         {tabBtn('import', '📥 数据导入')}
@@ -478,7 +478,7 @@ function SettingsContent() {
             }} className="px-4 py-2 bg-[#f59e0b] hover:bg-amber-500/90 active:scale-95 text-white font-medium rounded-[10px] text-sm transition-all">添加</button>
           </div>
 
-          <div className="space-y-1 mb-6">
+          <div className="space-y-1 mb-4">
             {channels.map((c: any) => (
               <div key={c.id} className="card p-3 flex items-center justify-between">
                 <span className="text-[#3d342b]">{c.name} <span className="text-xs text-[#6b5d52]">({c.type === 'payment' ? '支付' : '收入'})</span></span>

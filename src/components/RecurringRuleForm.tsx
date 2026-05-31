@@ -55,7 +55,7 @@ export default function RecurringRuleForm({ onCreated }: { onCreated: () => void
   const inputClass = 'bg-[#f5f2ed] border-0 rounded-[10px] px-3.5 py-2 text-sm text-[#3d342b] placeholder-[#6b5d52] focus:outline-none focus:ring-2 focus:ring-amber-500/30';
 
   return (
-    <form onSubmit={handleSubmit} className="card p-5 mb-6">
+    <form onSubmit={handleSubmit} className="card p-4 mb-4">
       <h3 className="text-sm font-semibold text-[#3d342b] mb-4">➕ 新建周期规则</h3>
 
       <div className="flex gap-2 mb-4">

@@ -53,7 +53,7 @@ export default function RecurringPage() {
 
   return (
     <PageTransition>
-      <h2 className="text-lg font-bold text-[#3d342b] mb-6">周期账单</h2>
+      <h2 className="text-lg font-bold text-[#3d342b] mb-4">周期账单</h2>
       <RecurringRuleForm onCreated={load} />
 
       {error && <ErrorState message={error} onRetry={load} />}

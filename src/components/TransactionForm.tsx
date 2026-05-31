@@ -127,7 +127,7 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="card p-5 mb-6">
+    <form onSubmit={handleSubmit} className="card p-4 mb-4">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold text-[#3d342b]">
           {edit ? '编辑记录' : '记一笔'}

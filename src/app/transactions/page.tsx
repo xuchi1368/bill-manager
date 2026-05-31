@@ -56,7 +56,7 @@ function TransactionsContent() {
 
   return (
     <PageTransition>
-      <h2 className="text-lg font-bold text-[#3d342b] mb-6">记账</h2>
+      <h2 className="text-lg font-bold text-[#3d342b] mb-4">记账</h2>
 
       {error && <ErrorState message={error} onRetry={load} />}
       {loading && !error && <LoadingSkeleton rows={4} />}
@@ -105,7 +105,7 @@ function TransactionsContent() {
         <span className="text-xs text-[#6b5d52]">{transactions.length} 条</span>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-4">
         <TransactionForm
           onCreated={() => { load(); setEditing(null); }}
           edit={editing ? {
