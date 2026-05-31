@@ -28,6 +28,16 @@ function TransactionsContent() {
   const [search, setSearch] = useState('');
   const [startDate, setStartDate] = useState(searchParams.get('startDate') || '');
   const [endDate, setEndDate] = useState(searchParams.get('endDate') || '');
+  const [searchHistory, setSearchHistory] = useState<string[]>(() => {
+    try { return JSON.parse(localStorage.getItem('bill-search-history') || '[]'); } catch { return []; }
+  });
+
+  function saveSearch(term: string) {
+    if (!term.trim()) return;
+    const next = [term, ...searchHistory.filter(s => s !== term)].slice(0, 5);
+    setSearchHistory(next);
+    try { localStorage.setItem('bill-search-history', JSON.stringify(next)); } catch {}
+  }
 
   const load = useCallback(() => {
     setLoading(true);
@@ -64,13 +74,29 @@ function TransactionsContent() {
 
       {!loading && !error && (<>
       <div className="flex gap-3 mb-4 flex-wrap items-center shrink-0">
-        <input
-          type="text"
-          placeholder="搜索备注..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className={inputClass}
-        />
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="搜索备注..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') saveSearch(search); }}
+            className={inputClass}
+          />
+          {searchHistory.length > 0 && !search && (
+            <div className="absolute top-full mt-1 left-0 bg-white border border-[#ede6dd] rounded-lg shadow-lg z-50 w-48 py-1">
+              <p className="text-[10px] text-[#6b5d52] px-3 py-1">最近搜索</p>
+              {searchHistory.map((term, i) => (
+                <button key={i} onClick={() => { setSearch(term); saveSearch(term); }}
+                  className="block w-full text-left px-3 py-1.5 text-xs text-[#3d342b] hover:bg-[#f5f2ed] transition-colors cursor-pointer"
+                >{term}</button>
+              ))}
+              <button onClick={() => { setSearchHistory([]); localStorage.removeItem('bill-search-history'); }}
+                className="block w-full text-left px-3 py-1 text-[10px] text-[#6b5d52] hover:text-[#e25c3b] transition-colors cursor-pointer border-t border-[#f5f2ed]"
+              >清除历史</button>
+            </div>
+          )}
+        </div>
         <DatePicker value={startDate} onChange={setStartDate} placeholder="开始日期" />
         <span className="text-xs text-[#6b5d52]">至</span>
         <DatePicker value={endDate} onChange={setEndDate} placeholder="结束日期" />
