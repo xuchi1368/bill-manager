@@ -36,7 +36,7 @@ export default function HomePage() {
   const [zooming, setZooming] = useState<string | null>(null);
   const [hubData, setHubData] = useState<HubSummary | null>(null);
 
-  useEffect(() => {
+  const loadHub = useCallback(() => {
     Promise.all([
       fetch('/api/dashboard').then(r => r.json()),
       fetch('/api/recurring-rules').then(r => r.json()),
@@ -52,6 +52,15 @@ export default function HomePage() {
       });
     });
   }, []);
+
+  useEffect(() => { loadHub(); }, [loadHub]);
+
+  // Refresh hub data when transactions are created elsewhere
+  useEffect(() => {
+    const handler = () => loadHub();
+    window.addEventListener('transaction-created', handler);
+    return () => window.removeEventListener('transaction-created', handler);
+  }, [loadHub]);
 
   // Prefetch linked pages on mount to reduce first-click lag
   useEffect(() => {

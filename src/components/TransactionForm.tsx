@@ -114,7 +114,10 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
       }
     }
 
-    if (!edit) resetForm();
+    if (!edit) {
+      resetForm();
+      window.dispatchEvent(new CustomEvent('transaction-created'));
+    }
     setSubmitting(false);
     onCreated();
   }
