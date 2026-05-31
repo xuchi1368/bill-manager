@@ -187,13 +187,13 @@ export async function POST(req: NextRequest) {
       const row = allRows[i];
       if (row.length < 3) continue;
 
-      const rawType = inoutIdx >= 0 ? row[inoutIdx] : '';
+      const rawType = String(inoutIdx >= 0 ? (row[inoutIdx] ?? '') : '');
       // Skip Alipay "不计收支" (neutral) transactions
       if (rawType.includes('不计收支') || rawType.includes('不计')) continue;
       const type = normalizeType(rawType);
       if (!type) continue;
 
-      const amountStr = row[amountIdx]?.replace(/[¥￥,]/g, '').replace('�', '') || '0';
+      const amountStr = String(row[amountIdx] ?? '').replace(/[¥￥,]/g, '').replace('�', '') || '0';
       const amount = parseFloat(amountStr);
       if (isNaN(amount) || amount === 0) continue;
 
