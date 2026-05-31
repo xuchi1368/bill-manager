@@ -36,6 +36,7 @@ const inputClass = 'bg-[#f5f2ed] border-0 rounded-[10px] px-3.5 py-2 text-sm tex
 
 import PageTransition from '@/components/PageTransition';
 import { useIconTheme } from '@/components/IconProvider';
+import { useAppTheme, THEMES, type ThemeName } from '@/components/ThemeProvider';
 import { useCategoryIcon } from '@/lib/icon-map';
 import { getTitlebarStyle, setTitlebarStyle, type TitlebarStyle } from '@/lib/titlebar-store';
 
@@ -44,6 +45,7 @@ function SettingsContent() {
   const initialTab = (searchParams.get('tab') as 'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance') || 'categories';
   const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance'>(initialTab);
   const { theme, setTheme } = useIconTheme();
+  const { theme: appTheme, setTheme: setAppTheme } = useAppTheme();
   const renderIcon = useCategoryIcon();
   const [categories, setCategories] = useState<Category[]>([]);
   const [channels, setChannels] = useState<Channel[]>([]);
@@ -732,6 +734,31 @@ function SettingsContent() {
 
       {tab === 'appearance' && (
         <div>
+          {/* Theme selector */}
+          <div className="card p-4 mb-4">
+            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">应用主题</h3>
+            <div className="flex flex-wrap gap-2">
+              {([
+                ['warm', '暖纸'], ['dark', '暗夜'], ['mint', '薄荷'], ['bento', '极简'], ['bold', '粗犷'],
+              ] as [ThemeName, string][]).map(([key, label]) => (
+                <button
+                  key={key}
+                  onClick={() => setAppTheme(key)}
+                  className={`px-3 py-2 rounded-[10px] text-xs font-medium transition-all cursor-pointer border-2 ${
+                    appTheme === key ? 'border-[#f59e0b] bg-amber-50' : 'border-transparent bg-[#f5f2ed] text-[#6b5d52] hover:bg-[#ede6dd]'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-4 h-4 rounded-full border" style={{ background: THEMES[key].bg, borderColor: THEMES[key].border }} />
+                    <div className="w-4 h-4 rounded-full border" style={{ background: THEMES[key].card, borderColor: THEMES[key].border }} />
+                    <div className="w-4 h-4 rounded-full" style={{ background: THEMES[key].accent }} />
+                    <span>{label}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="card p-4 mb-4">
             <h3 className="text-sm font-semibold text-[#3d342b] mb-3">标题栏风格</h3>
             <p className="text-xs text-[#6b5d52] mb-3">

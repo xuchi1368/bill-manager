@@ -4,6 +4,7 @@ import { register } from '@/lib/registry';
 import AppShell from '@/components/AppShell';
 import { IconProvider } from '@/components/IconProvider';
 import { ViewTransitionProvider } from '@/components/ViewTransitionProvider';
+import ThemeProvider from '@/components/ThemeProvider';
 import ToastProvider from '@/components/ToastProvider';
 
 register();
@@ -16,7 +17,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN">
-      <body className="bg-[#faf7f2] text-[#3d342b] antialiased">
+      <body className="antialiased">
+        <ThemeProvider>
         <IconProvider>
           <ViewTransitionProvider>
             <ToastProvider>
@@ -24,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </ToastProvider>
           </ViewTransitionProvider>
         </IconProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
