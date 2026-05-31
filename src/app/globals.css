@@ -78,14 +78,14 @@
   .section-title {
     font-size: 14px;
     font-weight: 600;
-    color: #3d342b;
+    color: var(--app-text);
   }
 
   /* Caption / label text */
   .caption {
     font-size: 13px;
     font-weight: 500;
-    color: #6b5d52;
+    color: var(--app-muted);
   }
 }
 
@@ -121,11 +121,27 @@
   .animate-scale-in { animation: scaleIn 0.35s ease-out both; }
 
   .animate-shimmer {
-    background: linear-gradient(90deg, #f5f2ed 25%, #ede6dd 50%, #f5f2ed 75%);
+    background: linear-gradient(90deg, var(--app-input) 25%, var(--app-border) 50%, var(--app-input) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
 }
+
+/* Theme system — map hardcoded colors to CSS variables */
+.bg-\[\#faf7f2\] { background: var(--app-bg) !important; }
+.bg-white { background: var(--app-card) !important; }
+.bg-\[\#f5f2ed\] { background: var(--app-input) !important; }
+.border-\[\#ede6dd\] { border-color: var(--app-border) !important; }
+.border-\[\#f5f2ed\] { border-color: var(--app-border) !important; }
+.text-\[\#3d342b\] { color: var(--app-text) !important; }
+.text-\[\#6b5d52\] { color: var(--app-muted) !important; }
+.text-\[\#f59e0b\] { color: var(--app-accent) !important; }
+.bg-\[\#f59e0b\] { background: var(--app-accent) !important; }
+.bg-\[\#fef3c7\] { background: color-mix(in srgb, var(--app-accent) 15%, var(--app-bg)) !important; }
+.bg-\[\#d1fae5\] { background: color-mix(in srgb, var(--app-accent) 10%, var(--app-bg)) !important; }
+.hover\:bg-\[\#ede6dd\]:hover { background: var(--app-border) !important; }
+.hover\:bg-\[\#f5f2ed\]:hover { background: var(--app-input) !important; }
+.hover\:text-\[\#3d342b\]:hover { color: var(--app-text) !important; }
 
 @layer components {
   .budget-banner {
