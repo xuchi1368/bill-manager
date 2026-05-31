@@ -7,6 +7,27 @@ datasource db {
   provider = "sqlite"
 }
 
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  createdAt DateTime @default(now())
+
+  categories          Category[]
+  channels            Channel[]
+  transactions        Transaction[]
+  transfers           Transfer[]
+  splits              TransactionSplit[]
+  recurringRules      RecurringRule[]
+  categorizationRules CategorizationRule[]
+}
+
+model VerificationCode {
+  id        String   @id @default(cuid())
+  phone     String
+  code      String
+  expiresAt DateTime
+}
+
 model Category {
   id          String    @id @default(cuid())
   name        String
@@ -14,6 +35,8 @@ model Category {
   type        String
   parentId    String?
   budgetLimit Float?
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
   parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
   children    Category[] @relation("CategoryHierarchy")
   transactions Transaction[]
@@ -29,6 +52,8 @@ model Channel {
   name        String
   type        String
   balance     Float                @default(0)
+  userId      String
+  user        User                 @relation(fields: [userId], references: [id])
   transactions Transaction[]
   rules       RecurringRule[]
   catRules    CategorizationRule[]
@@ -39,14 +64,16 @@ model Channel {
 }
 
 model Transfer {
-  id          String   @id @default(cuid())
-  amount      Float
-  note        String?
-  fromId      String
-  toId        String
-  from        Channel  @relation("TransferFrom", fields: [fromId], references: [id])
-  to          Channel  @relation("TransferTo", fields: [toId], references: [id])
-  createdAt   DateTime @default(now())
+  id        String   @id @default(cuid())
+  amount    Float
+  note      String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  fromId    String
+  toId      String
+  from      Channel  @relation("TransferFrom", fields: [fromId], references: [id])
+  to        Channel  @relation("TransferTo", fields: [toId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model Transaction {
@@ -58,6 +85,8 @@ model Transaction {
   categoryId String
   channelId  String
   projectId  String?
+  userId     String
+  user       User               @relation(fields: [userId], references: [id])
   category   Category           @relation(fields: [categoryId], references: [id])
   channel    Channel            @relation(fields: [channelId], references: [id])
   splits     TransactionSplit[]
@@ -70,6 +99,8 @@ model TransactionSplit {
   transactionId String
   categoryId    String
   amount        Float
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   category      Category    @relation(fields: [categoryId], references: [id])
 }
@@ -85,6 +116,8 @@ model RecurringRule {
   isActive    Boolean  @default(true)
   categoryId  String
   channelId   String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
   category    Category @relation(fields: [categoryId], references: [id])
   channel     Channel  @relation(fields: [channelId], references: [id])
   createdAt   DateTime @default(now())
@@ -100,6 +133,8 @@ model CategorizationRule {
   amountMax  Float?
   isActive   Boolean  @default(true)
   priority   Int      @default(0)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
   category   Category @relation(fields: [categoryId], references: [id])
   channel    Channel? @relation(fields: [channelId], references: [id])
   createdAt  DateTime @default(now())
