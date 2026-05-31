@@ -11,7 +11,7 @@ export default function HelpPage() {
 
         {/* 总览 */}
         <div className="card p-4">
-          <h3 className="text-sm font-semibold text-[#3d342b] mb-2"> 关于账单管理</h3>
+          <h3 className="text-sm font-semibold text-[#3d342b] mb-2">📋 关于账单管理</h3>
           <p className="text-[13px] text-[#6b5d52] leading-relaxed">
             账单管理是一款个人财务助手，帮助你记录日常收支、查看消费结构、管理定期账单。
             数据存储在云端，手机电脑都能用同一个账号登录。

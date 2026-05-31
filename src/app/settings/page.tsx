@@ -323,12 +323,12 @@ function SettingsContent() {
       <h2 className="text-lg font-bold text-[#3d342b] mb-4">设置</h2>
 
       <div className="flex gap-0 mb-4 border-b border-[#ede6dd] overflow-x-auto">
-        {tabBtn('categories', '收支分类')}
-        {tabBtn('channels', '渠道管理')}
-        {tabBtn('import', '数据导入')}
-        {tabBtn('rules', '自动分类')}
-        {tabBtn('backup', '数据备份')}
-        {tabBtn('appearance', '外观')}
+        {tabBtn('categories', '📂 收支分类')}
+        {tabBtn('channels', '💳 渠道管理')}
+        {tabBtn('import', '📥 数据导入')}
+        {tabBtn('rules', '📏 自动分类')}
+        {tabBtn('backup', '💾 数据备份')}
+        {tabBtn('appearance', '🎨 外观')}
       </div>
 
       {tab === 'categories' && (
