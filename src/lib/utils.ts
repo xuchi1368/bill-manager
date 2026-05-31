@@ -17,7 +17,9 @@ export function formatDate(date: Date | string): string {
 
 export function getCurrentMonth(): [string, string] {
   const now = new Date();
-  const start = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-  const end = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const start = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-01`;
+  const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const end = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(lastDay)}`;
   return [start, end];
 }
