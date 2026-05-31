@@ -68,6 +68,7 @@ function SettingsContent() {
   const [importError, setImportError] = useState('');
   const [importSubmitting, setImportSubmitting] = useState(false);
   const [importDone, setImportDone] = useState<{ imported: number; skipped: number } | null>(null);
+  const [dragOver, setDragOver] = useState(false);
   const [rules, setRules] = useState<Rule[]>([]);
   const [ruleKeyword, setRuleKeyword] = useState('');
   const [ruleCategoryId, setRuleCategoryId] = useState('');
@@ -195,9 +196,7 @@ function SettingsContent() {
     loadChannels();
   }
 
-  async function handleImportUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  async function processFile(file: File) {
     setImportFile(file);
     setImportResult(null);
     setImportError('');
@@ -219,6 +218,12 @@ function SettingsContent() {
       setImportError('解析请求失败');
     }
     setImportParsing(false);
+  }
+
+  async function handleImportUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    await processFile(file);
   }
 
   function updateImportRow(i: number, field: string, value: string) {
@@ -547,7 +552,19 @@ function SettingsContent() {
                     ? '微信：我 → 服务 → 钱包 → 账单 → 常见问题 → 下载账单 → 用于个人对账'
                     : '支付宝：我的 → 账单 → 右上角筛选 → 开具交易流水证明 → 用于对账'}
                 </p>
-                <label className="block bg-[#faf7f2] border border-dashed border-[#d6cec4] rounded-xl p-6 text-center cursor-pointer hover:border-[#f59e0b] transition-colors">
+                <label
+                  className={`block border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${
+                    dragOver ? 'border-[#f59e0b] bg-amber-50' : 'border-[#d6cec4] bg-[#faf7f2] hover:border-[#f59e0b]'
+                  }`}
+                  onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                  onDragLeave={() => setDragOver(false)}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setDragOver(false);
+                    const file = e.dataTransfer.files?.[0];
+                    if (file) processFile(file);
+                  }}
+                >
                   <input
                     type="file"
                     accept={importPlatform === 'wechat' ? '.xlsx' : '.csv'}
@@ -555,7 +572,7 @@ function SettingsContent() {
                     className="hidden"
                   />
                   <span className="text-[#6b5d52] text-sm">
-                    {importParsing ? '解析中...' : `选择${importPlatform === 'wechat' ? '微信' : '支付宝'}账单${importPlatform === 'wechat' ? ' XLSX' : ' CSV'}文件`}
+                    {importParsing ? '解析中...' : dragOver ? '松开以导入文件' : `选择或拖入${importPlatform === 'wechat' ? '微信' : '支付宝'}账单${importPlatform === 'wechat' ? ' XLSX' : ' CSV'}文件`}
                   </span>
                 </label>
               </div>
