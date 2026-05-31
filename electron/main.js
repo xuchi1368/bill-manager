@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
 const path = require('path');
 const { fork } = require('child_process');
 
@@ -47,7 +47,12 @@ function createWindow() {
     minWidth: 900,
     minHeight: 600,
     title: '账单管理',
-    webPreferences: { nodeIntegration: false, contextIsolation: true },
+    frame: false,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js'),
+    },
   });
 
   mainWindow.loadURL('http://localhost:8888');
@@ -59,7 +64,27 @@ function createWindow() {
       mainWindow.hide();
     }
   });
+
+  // Notify renderer of maximize/unmaximize changes
+  mainWindow.on('maximize', () => {
+    mainWindow.webContents.send('window-maximize-change', true);
+  });
+  mainWindow.on('unmaximize', () => {
+    mainWindow.webContents.send('window-maximize-change', false);
+  });
 }
+
+// IPC handlers for custom titlebar window controls
+ipcMain.on('window-minimize', () => mainWindow?.minimize());
+ipcMain.on('window-maximize', () => {
+  if (mainWindow?.isMaximized()) {
+    mainWindow.unmaximize();
+  } else {
+    mainWindow?.maximize();
+  }
+});
+ipcMain.on('window-close', () => mainWindow?.close());
+ipcMain.handle('window-is-maximized', () => mainWindow?.isMaximized() ?? false);
 
 app.whenReady().then(async () => {
   try {
