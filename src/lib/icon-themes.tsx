@@ -11,23 +11,23 @@ import React from 'react';
 export type IconTheme = 'lucide' | 'emoji' | 'colored';
 
 // ============== Lucide 主题 ==============
-const LUCIDE_MAP: Record<string, { icon: LucideIcon; color?: string }> = {
-  food:          { icon: UtensilsCrossed },
-  transport:     { icon: Car },
-  shopping:      { icon: ShoppingCart },
-  housing:       { icon: Home },
-  entertainment: { icon: Gamepad2 },
-  medical:       { icon: Pill },
-  communication:{ icon: Smartphone },
-  gift:          { icon: Gift },
-  travel:        { icon: Plane },
-  education:     { icon: GraduationCap },
-  income:        { icon: CircleDollarSign },
-  investment:    { icon: Landmark },
-  digital:       { icon: Laptop },
-  beauty:        { icon: Sparkles },
-  pet:           { icon: Cat },
-  other:         { icon: Package },
+const LUCIDE_MAP: Record<string, LucideIcon> = {
+  food:          UtensilsCrossed,
+  transport:     Car,
+  shopping:      ShoppingCart,
+  housing:       Home,
+  entertainment: Gamepad2,
+  medical:       Pill,
+  communication: Smartphone,
+  gift:          Gift,
+  travel:        Plane,
+  education:     GraduationCap,
+  income:        CircleDollarSign,
+  investment:    Landmark,
+  digital:       Laptop,
+  beauty:        Sparkles,
+  pet:           Cat,
+  other:         Package,
 };
 
 // ============== Emoji 主题 ==============
@@ -86,22 +86,25 @@ export function getIconKey(categoryName: string, categoryIcon?: string): string 
 export function renderIcon(theme: IconTheme, key: string, size: number = 16): React.ReactElement {
   switch (theme) {
     case 'lucide': {
-      const entry = LUCIDE_MAP[key] || LUCIDE_MAP['other'];
-      return React.createElement(entry.icon, { size, strokeWidth: 2 });
+      const Icon = LUCIDE_MAP[key] || LUCIDE_MAP['other'];
+      return <Icon size={size} strokeWidth={2} />;
     }
     case 'emoji': {
       const emoji = EMOJI_MAP[key] || EMOJI_MAP['other'];
-      return React.createElement('span', { style: { fontSize: size } }, emoji);
+      return <span style={{ fontSize: size }}>{emoji}</span>;
     }
     case 'colored': {
-      const entry = LUCIDE_MAP[key] || LUCIDE_MAP['other'];
+      const Icon = LUCIDE_MAP[key] || LUCIDE_MAP['other'];
       const bg = COLORED_COLORS[key] || COLORED_COLORS['other'];
-      return React.createElement('div', {
-        style: {
+      const iconSize = size > 16 ? size - 4 : 12;
+      return (
+        <div style={{
           width: size + 8, height: size + 8, borderRadius: 8,
           backgroundColor: bg, display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }
-      }, React.createElement(entry.icon, { size: size > 16 ? size - 4 : 12, strokeWidth: 2, color: 'white' }));
+        }}>
+          <Icon size={iconSize} strokeWidth={2} color="white" />
+        </div>
+      );
     }
   }
 }

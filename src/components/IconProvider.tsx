@@ -2,16 +2,18 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { IconTheme, renderIcon } from '@/lib/icon-themes';
 
+const defaultGetIcon = (key: string, size?: number) => renderIcon('lucide', key, size);
+
 export interface IconContextValue {
   theme: IconTheme;
   setTheme: (t: IconTheme) => void;
-  getIcon: (key: string, size?: number) => React.ReactElement | null;
+  getIcon: (key: string, size?: number) => React.ReactElement;
 }
 
 const IconContext = createContext<IconContextValue>({
   theme: 'lucide',
   setTheme: () => {},
-  getIcon: () => null,
+  getIcon: defaultGetIcon,
 });
 
 export function useIconTheme() {
