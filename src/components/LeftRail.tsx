@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, Home, LogOut } from 'lucide-react';
+import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, Home, LogOut, HelpCircle } from 'lucide-react';
 
 const items = [
   { href: '/dashboard', Icon: LayoutDashboard, label: '仪表盘', activeBg: 'bg-[#fef3c7]' },
@@ -12,7 +12,7 @@ const items = [
   { href: '/recurring', Icon: CalendarDays, label: '周期账单', activeBg: 'bg-[#dbeafe]' },
 ];
 
-const allHrefs = ['/', '/settings', ...items.map(i => i.href)];
+const allHrefs = ['/', '/help', '/settings', ...items.map(i => i.href)];
 
 export default function LeftRail({ currentPath }: { currentPath: string }) {
   const router = useRouter();
@@ -79,6 +79,22 @@ export default function LeftRail({ currentPath }: { currentPath: string }) {
           );
         })}
       </div>
+
+      <Link
+        href="/help"
+        className={`p-2.5 rounded-xl block transition-all cursor-pointer ${
+          isActive('/help')
+            ? 'bg-[#fef3c7]'
+            : hovered === '/help'
+              ? 'bg-[#f5f2ed] opacity-70'
+              : 'opacity-35 hover:opacity-70'
+        }`}
+        onMouseEnter={() => handleMouseEnter('/help')}
+        onMouseLeave={handleMouseLeave}
+        title="帮助"
+      >
+        <HelpCircle size={20} strokeWidth={1.5} />
+      </Link>
 
       <Link
         href="/settings"
