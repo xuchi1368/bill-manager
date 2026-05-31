@@ -3,14 +3,14 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, HelpCircle } from 'lucide-react';
+import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, BookOpen } from 'lucide-react';
 
 const items = [
   { href: '/dashboard', Icon: LayoutDashboard, label: '仪表盘' },
   { href: '/transactions', Icon: PenLine, label: '记账' },
   { href: '/reports', Icon: BarChart3, label: '报表' },
   { href: '/recurring', Icon: CalendarDays, label: '周期' },
-  { href: '/help', Icon: HelpCircle, label: '帮助' },
+  { href: '/help', Icon: BookOpen, label: '帮助' },
   { href: '/settings', Icon: Settings, label: '设置' },
 ];
 

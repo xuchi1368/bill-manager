@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, Home, LogOut, HelpCircle } from 'lucide-react';
+import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, Home, LogOut, BookOpen } from 'lucide-react';
 
 const items = [
   { href: '/dashboard', Icon: LayoutDashboard, label: '仪表盘', activeBg: 'bg-[#fef3c7]' },
@@ -93,7 +93,7 @@ export default function LeftRail({ currentPath }: { currentPath: string }) {
         onMouseLeave={handleMouseLeave}
         title="帮助"
       >
-        <HelpCircle size={20} strokeWidth={1.5} />
+        <BookOpen size={20} strokeWidth={1.5} />
       </Link>
 
       <Link
