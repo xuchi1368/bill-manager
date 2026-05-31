@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { IconTheme, renderIcon } from '@/lib/icon-themes';
 
-interface IconContextValue {
+export interface IconContextValue {
   theme: IconTheme;
   setTheme: (t: IconTheme) => void;
   getIcon: (key: string, size?: number) => React.ReactElement | null;
