@@ -38,7 +38,7 @@ export default function DashboardPage() {
   if (!data) return (
     <PageTransition>
       <div className="mb-4"><h2 className="text-[22px] font-bold text-[#3d342b] tracking-tight">仪表盘</h2></div>
-      <div className="grid grid-cols-3 gap-3 mb-4">{[1,2,3].map(i => <div key={i} className="h-24 rounded-2xl animate-shimmer" />)}</div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">{[1,2,3].map(i => <div key={i} className="h-24 rounded-2xl animate-shimmer" />)}</div>
       <div className="h-48 rounded-2xl animate-shimmer" />
     </PageTransition>
   );
@@ -65,7 +65,7 @@ export default function DashboardPage() {
       {showQuickAdd && <QuickAddPanel onCreated={() => { loadData(); }} onClose={() => setShowQuickAdd(false)} />}
 
       {/* Three stat cards */}
-      <div className="grid grid-cols-3 gap-3 mb-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
         <div className="card p-[18px] animate-slide-up">
           <div className="flex items-center gap-1.5 mb-1">
             <TrendingUp size={16} strokeWidth={2} className="text-[#2ea87a]" />

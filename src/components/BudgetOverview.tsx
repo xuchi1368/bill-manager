@@ -185,7 +185,7 @@ export default function BudgetOverview({ budgets, allExpenseCategories }: Props)
     <div style={{ background: '#faf7f2', borderRadius: 16, padding: 16, marginBottom: 16 }}>
       <BudgetAlertBanner alerts={alerts} />
       {totalLimit > 0 && <TotalBudgetRing totalSpent={totalSpent} totalLimit={totalLimit} />}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+      <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 8 }}>
         {budgets.map(b => (
           <CategoryRingCard key={b.id} budget={b} />
         ))}
