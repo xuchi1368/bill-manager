@@ -39,7 +39,7 @@ function SettingsContent() {
   const initialTab = (searchParams.get('tab') as 'categories' | 'channels' | 'import' | 'rules') || 'categories';
   const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules'>(initialTab);
   const { theme, setTheme } = useIconTheme();
-  const catIcon = useCategoryIcon();
+  const renderIcon = useCategoryIcon();
   const [categories, setCategories] = useState<Category[]>([]);
   const [channels, setChannels] = useState<Channel[]>([]);
   const [catName, setCatName] = useState('');
@@ -400,7 +400,7 @@ function SettingsContent() {
           <div className="space-y-1 mb-4">
             {expenseCategories.map((c) => (
               <div key={c.id} id={`category-${c.id}`} className="card p-3 flex items-center justify-between">
-                <span className="text-[#3d342b]">{catIcon(c.icon, c.name)} {c.name}</span>
+                <span className="text-[#3d342b]">{renderIcon(c.icon, c.name)} {c.name}</span>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-[#6b5d52]">预算:</span>
@@ -422,13 +422,14 @@ function SettingsContent() {
           <div className="space-y-1">
             {incomeCategories.map((c) => (
               <div key={c.id} id={`category-${c.id}`} className="card p-3 flex items-center justify-between">
-                <span className="text-[#3d342b]">{catIcon(c.icon, c.name)} {c.name}</span>
+                <span className="text-[#3d342b]">{renderIcon(c.icon, c.name)} {c.name}</span>
                 <button onClick={() => deleteCategory(c.id)} className="text-[#6b5d52] hover:text-[#e25c3b] text-xs">删除</button>
               </div>
             ))}
           </div>
         </div>
       </>
+      )}
 
       {tab === 'channels' && (
         <div>

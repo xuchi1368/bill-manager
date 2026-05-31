@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, Home } from 'lucide-react';
 
 const items = [
@@ -11,10 +12,18 @@ const items = [
   { href: '/recurring', Icon: CalendarDays, label: '周期账单', activeBg: 'bg-[#dbeafe]' },
 ];
 
+const allHrefs = ['/', '/settings', ...items.map(i => i.href)];
+
 export default function LeftRail({ currentPath }: { currentPath: string }) {
+  const router = useRouter();
   const [hovered, setHovered] = useState<string | null>(null);
   const [tooltip, setTooltip] = useState<string | null>(null);
   const [tooltipTimer, setTooltipTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+
+  // Prefetch all pages on mount to eliminate first-click lag
+  useEffect(() => {
+    allHrefs.forEach(h => router.prefetch(h));
+  }, [router]);
 
   function handleMouseEnter(href: string) {
     setHovered(href);

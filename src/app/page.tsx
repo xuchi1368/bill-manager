@@ -53,17 +53,19 @@ export default function HomePage() {
     });
   }, []);
 
+  // Prefetch linked pages on mount to reduce first-click lag
+  useEffect(() => {
+    entries.forEach(e => router.prefetch(e.href));
+  }, [router]);
+
   const handleClick = useCallback((href: string) => {
     setZooming(href);
+    // Let zoom-out CSS play for 200ms, then navigate with View Transition crossfade
     setTimeout(() => {
-      // Use native View Transition for smooth crossfade between pages
-      const nav = () => router.push(href);
-      if (typeof document !== 'undefined' && 'startViewTransition' in document) {
-        (document as any).startViewTransition(nav);
-      } else {
-        nav();
-      }
-    }, 300);
+      ('startViewTransition' in document)
+        ? (document as any).startViewTransition(() => router.push(href))
+        : router.push(href);
+    }, 200);
   }, [router]);
 
   return (

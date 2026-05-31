@@ -1,6 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings } from 'lucide-react';
 
 const items = [
@@ -12,6 +14,11 @@ const items = [
 ];
 
 export default function MobileTabBar({ currentPath }: { currentPath: string }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    items.forEach(i => router.prefetch(i.href));
+  }, [router]);
   const isActive = (href: string) => {
     if (href === '/dashboard') return currentPath.startsWith('/dashboard');
     return currentPath.startsWith(href);
