@@ -1,15 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-
 export default function LoginPage() {
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState('');
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   async function sendCode() {
     if (!phone) return;
@@ -36,7 +33,7 @@ export default function LoginPage() {
       body: JSON.stringify({ phone, code }),
     });
     const data = await res.json();
-    if (res.ok) router.push('/');
+    if (res.ok) window.location.href = '/';
     else setError(data.error);
     setLoading(false);
   }
