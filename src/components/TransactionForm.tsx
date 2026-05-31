@@ -84,7 +84,9 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!amount || !channelId) return;
+    const amt = parseFloat(amount);
+    if (!amount || isNaN(amt) || amt <= 0) { alert('请输入有效的金额'); return; }
+    if (!channelId) return;
     if (!isSplit && !categoryId) return;
     if (isSplit && splitParts.some(sp => !sp.categoryId || !sp.amount)) return;
     setSubmitting(true);

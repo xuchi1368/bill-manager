@@ -97,7 +97,8 @@ export default function QuickAddPanel({ onCreated, onClose }: { onCreated: () =>
   }, []);
 
   async function submit() {
-    if (!amount || !channelId || !categoryId) return;
+    const amt = parseFloat(amount);
+    if (!amount || isNaN(amt) || amt <= 0 || !channelId || !categoryId) return;
     setSubmitting(true);
 
     const payload = {
