@@ -3,6 +3,7 @@ import './globals.css';
 import { register } from '@/lib/registry';
 import AppShell from '@/components/AppShell';
 import { IconProvider } from '@/components/IconProvider';
+import { ViewTransitionProvider } from '@/components/ViewTransitionProvider';
 
 register();
 
@@ -16,7 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="zh-CN">
       <body className="bg-[#faf7f2] text-[#3d342b] antialiased">
         <IconProvider>
-          <AppShell>{children}</AppShell>
+          <ViewTransitionProvider>
+            <AppShell>{children}</AppShell>
+          </ViewTransitionProvider>
         </IconProvider>
       </body>
     </html>
