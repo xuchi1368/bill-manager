@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import PageTransition from '@/components/PageTransition';
 import TransactionForm from '@/components/TransactionForm';
 import TransactionList from '@/components/TransactionList';
@@ -17,14 +18,15 @@ interface Transaction {
   splits?: { id: string; categoryId: string; amount: number; category: { name: string; icon: string } }[];
 }
 
-export default function TransactionsPage() {
+function TransactionsContent() {
+  const searchParams = useSearchParams();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [editing, setEditing] = useState<Transaction | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(searchParams.get('startDate') || '');
+  const [endDate, setEndDate] = useState(searchParams.get('endDate') || '');
 
   const load = useCallback(() => {
     setLoading(true);
@@ -128,5 +130,13 @@ export default function TransactionsPage() {
       )}
       </>)}
     </PageTransition>
+  );
+}
+
+export default function TransactionsPage() {
+  return (
+    <Suspense fallback={<PageTransition><LoadingSkeleton rows={4} /></PageTransition>}>
+      <TransactionsContent />
+    </Suspense>
   );
 }

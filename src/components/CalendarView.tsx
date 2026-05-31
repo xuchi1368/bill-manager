@@ -172,6 +172,9 @@ export default function CalendarView() {
                 </div>
               ))}
           </div>
+          <a href={`/transactions?startDate=${selected}&endDate=${selected}`}
+            className="inline-block mt-2 text-[11px] text-[#f59e0b] font-medium hover:underline cursor-pointer"
+          >查看当天全部流水 →</a>
         </div>
       )}
     </div>
