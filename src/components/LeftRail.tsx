@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, PenLine, BarChart3, CalendarDays, Settings, Home, LogOut, BookOpen } from 'lucide-react';
+import AppIcon from './AppIcon';
 
 const items = [
-  { href: '/dashboard', Icon: LayoutDashboard, label: '仪表盘', activeBg: 'bg-[#fef3c7]' },
-  { href: '/transactions', Icon: PenLine, label: '记账', activeBg: 'bg-[#ffe4e6]' },
-  { href: '/reports', Icon: BarChart3, label: '报表', activeBg: 'bg-[#d1fae5]' },
-  { href: '/recurring', Icon: CalendarDays, label: '周期账单', activeBg: 'bg-[#dbeafe]' },
+  { href: '/dashboard', icon: 'dashboard' as const, label: '仪表盘', activeBg: 'bg-[#fef3c7]' },
+  { href: '/transactions', icon: 'transactions' as const, label: '记账', activeBg: 'bg-[#ffe4e6]' },
+  { href: '/reports', icon: 'reports' as const, label: '报表', activeBg: 'bg-[#d1fae5]' },
+  { href: '/recurring', icon: 'recurring' as const, label: '周期账单', activeBg: 'bg-[#dbeafe]' },
 ];
 
 const allHrefs = ['/', '/help', '/settings', ...items.map(i => i.href)];
@@ -46,13 +46,12 @@ export default function LeftRail({ currentPath }: { currentPath: string }) {
         className="p-2 hover:scale-110 transition-transform cursor-pointer"
         title="首页"
       >
-        <Home size={22} className="text-[#3d342b]" strokeWidth={1.5} />
+        <AppIcon name="home" size={22} />
       </Link>
 
       <div className="flex-1 flex flex-col items-center gap-1 pt-3">
         {items.map((item) => {
           const active = isActive(item.href);
-          const Icon = item.Icon;
           return (
             <div key={item.href} className="relative">
               <Link
@@ -68,7 +67,7 @@ export default function LeftRail({ currentPath }: { currentPath: string }) {
                 }`}
                 title={item.label}
               >
-                <Icon size={20} strokeWidth={1.5} />
+                <AppIcon name={item.icon} size={20} />
               </Link>
               {tooltip === item.href && (
                 <span className="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-[#3d342b] text-white text-xs px-2 py-1 rounded-md whitespace-nowrap z-50 pointer-events-none">
@@ -93,7 +92,7 @@ export default function LeftRail({ currentPath }: { currentPath: string }) {
         onMouseLeave={handleMouseLeave}
         title="帮助"
       >
-        <BookOpen size={20} strokeWidth={1.5} />
+        <AppIcon name="help" size={20} />
       </Link>
 
       <Link
@@ -109,7 +108,7 @@ export default function LeftRail({ currentPath }: { currentPath: string }) {
         onMouseLeave={handleMouseLeave}
         title="设置"
       >
-        <Settings size={20} strokeWidth={1.5} />
+        <AppIcon name="settings" size={20} />
       </Link>
 
       <button
@@ -120,7 +119,7 @@ export default function LeftRail({ currentPath }: { currentPath: string }) {
         className="p-2.5 rounded-xl block transition-all cursor-pointer opacity-35 hover:opacity-70 hover:bg-rose-50 mt-1"
         title="退出登录"
       >
-        <LogOut size={20} strokeWidth={1.5} />
+        <AppIcon name="logout" size={20} />
       </button>
     </nav>
   );
