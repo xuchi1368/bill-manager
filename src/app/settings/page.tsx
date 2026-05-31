@@ -345,7 +345,7 @@ function SettingsContent() {
     <PageTransition>
       <h2 className="text-lg font-bold text-[#3d342b] mb-6">设置</h2>
 
-      <div className="flex gap-0 mb-6 border-b border-[#ede6dd]">
+      <div className="flex gap-0 mb-6 border-b border-[#ede6dd] overflow-x-auto">
         {tabBtn('categories', '📂 收支分类')}
         {tabBtn('channels', '💳 渠道管理')}
         {tabBtn('import', '📥 数据导入')}
