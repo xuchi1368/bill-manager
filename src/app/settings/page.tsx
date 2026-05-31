@@ -36,7 +36,6 @@ const inputClass = 'bg-[#f5f2ed] border-0 rounded-[10px] px-3.5 py-2 text-sm tex
 
 import PageTransition from '@/components/PageTransition';
 import { useIconTheme } from '@/components/IconProvider';
-import { useTheme } from '@/components/ThemeProvider';
 import { useCategoryIcon } from '@/lib/icon-map';
 import { getTitlebarStyle, setTitlebarStyle, type TitlebarStyle } from '@/lib/titlebar-store';
 
@@ -45,7 +44,6 @@ function SettingsContent() {
   const initialTab = (searchParams.get('tab') as 'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance') || 'categories';
   const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance'>(initialTab);
   const { theme, setTheme } = useIconTheme();
-  const { theme: appTheme, setTheme: setAppTheme } = useTheme();
   const renderIcon = useCategoryIcon();
   const [categories, setCategories] = useState<Category[]>([]);
   const [channels, setChannels] = useState<Channel[]>([]);
@@ -817,16 +815,6 @@ function SettingsContent() {
 
       {tab === 'appearance' && (
         <div>
-          <div className="card p-4 mb-4">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-sm text-[#3d342b] font-medium">🌙 深色模式</span>
-              <button onClick={() => setAppTheme(appTheme === 'dark' ? 'light' : 'dark')}
-                className={`w-12 h-6 rounded-full transition-colors ${appTheme === 'dark' ? 'bg-[#f59e0b]' : 'bg-[#d6cec4]'} relative cursor-pointer`}>
-                <div className={`w-5 h-5 bg-white rounded-full shadow-sm absolute top-0.5 transition-transform ${appTheme === 'dark' ? 'translate-x-6' : 'translate-x-0.5'}`} />
-              </button>
-            </div>
-          </div>
-
           <div className="card p-4 mb-4">
             <h3 className="text-sm font-semibold text-[#3d342b] mb-3">🪟 标题栏风格</h3>
             <p className="text-xs text-[#6b5d52] mb-3">
