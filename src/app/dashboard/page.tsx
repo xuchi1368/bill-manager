@@ -77,6 +77,17 @@ export default function DashboardPage() {
 
       {showQuickAdd && <QuickAddPanel onCreated={() => { loadData(); }} onClose={() => setShowQuickAdd(false)} />}
 
+      {/* Empty state onboarding */}
+      {!error && data.recent.length === 0 && (
+        <div className="card p-4 mb-4 bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200/60 text-center">
+          <p className="text-sm text-[#3d342b] font-medium mb-2">👋 欢迎使用账单管理</p>
+          <p className="text-xs text-[#6b5d52] mb-3">你还没有任何交易记录，开始记第一笔吧</p>
+          <a href="/transactions" className="inline-block px-4 py-2 bg-[#f59e0b] text-white text-sm font-medium rounded-[10px] hover:bg-amber-500 transition-colors cursor-pointer no-underline">
+            ✏️ 记一笔
+          </a>
+        </div>
+      )}
+
       {/* Three stat cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
         <div className="card p-[18px] animate-slide-up">
@@ -111,6 +122,17 @@ export default function DashboardPage() {
           </p>
         </div>
       </div>
+
+      {/* Budget overspend alert */}
+      {data.budgets?.some((b: any) => b.spent > b.budgetLimit) && (
+        <div className="budget-banner bg-rose-50 border border-rose-200 text-[#e25c3b] text-xs px-4 py-2.5 rounded-xl mb-4 flex items-center gap-2">
+          <span>⚠️</span>
+          <span>
+            {data.budgets.filter((b: any) => b.spent > b.budgetLimit).map((b: any) => `${b.icon} ${b.name}`).join('、')}
+            已超支，建议控制消费
+          </span>
+        </div>
+      )}
 
       {/* Budget Overview */}
       {data.budgets && data.allExpenseCategories && (

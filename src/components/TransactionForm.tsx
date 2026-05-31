@@ -56,6 +56,10 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
   }, [edit?.id]);
 
   useEffect(() => {
+    if (edit) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [edit]);
+
+  useEffect(() => {
     fetch(`/api/categories?type=${type}`).then((r) => r.json()).then(setCategories);
   }, [type]);
 
@@ -125,6 +129,7 @@ export default function TransactionForm({ onCreated, edit, onCancelEdit }: {
     }
     setSubmitting(false);
     onCreated();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   return (

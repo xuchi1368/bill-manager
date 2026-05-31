@@ -13,12 +13,12 @@ interface HubSummary {
 }
 
 const entries = [
-  { href: '/dashboard', Icon: LayoutDashboard, title: '仪表盘', desc: '收支概览、账户余额与预算进度', color: 'from-amber-50 to-orange-50 border-amber-200/60' },
-  { href: '/transactions', Icon: PenLine, title: '记账', desc: '记录日常收支与分类管理', color: 'from-rose-50 to-pink-50 border-rose-200/60' },
-  { href: '/reports', Icon: BarChart3, title: '报表', desc: '支出结构、趋势与环比对比', color: 'from-emerald-50 to-teal-50 border-emerald-200/60' },
-  { href: '/recurring', Icon: CalendarDays, title: '周期账单', desc: '定期付款与订阅服务管理', color: 'from-sky-50 to-blue-50 border-sky-200/60' },
-  { href: '/settings?tab=import', Icon: Download, title: '导入账单', desc: '微信 / 支付宝账单导入', color: 'from-violet-50 to-purple-50 border-violet-200/60' },
-  { href: '/settings', Icon: Settings, title: '设置', desc: '分类、渠道、规则管理', color: 'from-stone-50 to-neutral-50 border-stone-200/60' },
+  { href: '/dashboard', Icon: LayoutDashboard, title: '仪表盘', desc: '收支概览、账户余额与预算进度 →', color: 'from-amber-50 to-orange-50 border-amber-200/60' },
+  { href: '/transactions', Icon: PenLine, title: '记账', desc: '日常记录收支与分类管理 →', color: 'from-rose-50 to-pink-50 border-rose-200/60' },
+  { href: '/reports', Icon: BarChart3, title: '报表', desc: '支出结构、趋势与环比对比 →', color: 'from-emerald-50 to-teal-50 border-emerald-200/60' },
+  { href: '/recurring', Icon: CalendarDays, title: '周期账单', desc: '定期付款与订阅服务管理 →', color: 'from-sky-50 to-blue-50 border-sky-200/60' },
+  { href: '/settings?tab=import', Icon: Download, title: '导入账单', desc: '微信 / 支付宝账单导入 →', color: 'from-violet-50 to-purple-50 border-violet-200/60' },
+  { href: '/settings', Icon: Settings, title: '设置', desc: '分类、渠道、规则管理 →', color: 'from-stone-50 to-neutral-50 border-stone-200/60' },
 ];
 
 function summaryLine(href: string, d: HubSummary) {
