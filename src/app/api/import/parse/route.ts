@@ -115,10 +115,12 @@ export async function POST(req: NextRequest) {
         return encoding === 'utf-8' ? buffer.toString('utf-8') : iconv.decode(buffer, 'gbk');
       };
 
+      // Try UTF-8 first, then GBK (Alipay CSV is often GBK-encoded)
       let text = tryDecode('utf-8');
       allRows = parseCSV(text);
-
-      if (allRows.length < 2) {
+      // If UTF-8 didn't produce valid data, retry with GBK
+      const hasHeader = allRows.some(r => r.join(',').includes('交易时间'));
+      if (!hasHeader) {
         text = tryDecode('gbk');
         allRows = parseCSV(text);
       }
@@ -131,8 +133,7 @@ export async function POST(req: NextRequest) {
     for (let i = 0; i < allRows.length; i++) {
       const r = allRows[i].join(',');
       if (r.includes('交易时间') && (r.includes('金额') || r.includes('收/支'))) {
-        headerRowIdx = i;
-        break;
+        headerRowIdx = i; break;
       }
     }
 
