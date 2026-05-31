@@ -2,12 +2,12 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { Plus } from 'lucide-react';
 import LeftRail from './LeftRail';
 import MobileTabBar from './MobileTabBar';
 import QuickAddPanel from './QuickAddPanel';
 import TitleBar from './TitleBar';
 import KeyboardShortcuts from './KeyboardShortcuts';
+import DraggableFAB from './DraggableFAB';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -47,14 +47,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <MobileTabBar currentPath={pathname} />
       </div>
 
-      {/* Global FAB */}
-      <button
-        onClick={() => setShowQuickAdd(true)}
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#f59e0b] hover:bg-amber-500 active:scale-95 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center cursor-pointer"
-        title="快速记账"
-      >
-        <Plus size={28} strokeWidth={2.5} />
-      </button>
+      {/* Draggable FAB */}
+      <DraggableFAB onClick={() => setShowQuickAdd(true)} />
 
       {/* QuickAdd modal */}
       {showQuickAdd && (
