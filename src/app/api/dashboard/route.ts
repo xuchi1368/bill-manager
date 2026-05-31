@@ -5,19 +5,15 @@ import { getCurrentMonth } from '@/lib/utils';
 export async function GET() {
   const [monthStart, monthEnd] = getCurrentMonth();
 
-  const [incomeResult, expenseResult] = await Promise.all([
-    db.transaction.aggregate({
-      where: { type: 'income', date: { gte: monthStart, lte: monthEnd } },
-      _sum: { amount: true },
-    }),
-    db.transaction.aggregate({
-      where: { type: 'expense', date: { gte: monthStart, lte: monthEnd } },
-      _sum: { amount: true },
-    }),
-  ]);
+  // Use findMany + manual sum — Prisma 7.x aggregate() is broken with SQLite
+  const sums = (rows: { amount: number }[]) => rows.reduce((s, r) => s + r.amount, 0);
 
-  const totalIncome = incomeResult._sum.amount || 0;
-  const totalExpense = expenseResult._sum.amount || 0;
+  const [incomeRows, expenseRows] = await Promise.all([
+    db.transaction.findMany({ where: { type: 'income', date: { gte: monthStart, lte: monthEnd } }, select: { amount: true } }),
+    db.transaction.findMany({ where: { type: 'expense', date: { gte: monthStart, lte: monthEnd } }, select: { amount: true } }),
+  ]);
+  const totalIncome = sums(incomeRows);
+  const totalExpense = sums(expenseRows);
 
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
@@ -48,28 +44,28 @@ export async function GET() {
   const expenseCategories = await db.category.findMany({
     where: { type: 'expense', budgetLimit: { not: null } },
   });
+
+  // Last month range
+  const now = new Date();
+  const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  const lastMonthStart = lastMonth.toISOString().split('T')[0];
+  const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0).toISOString().split('T')[0];
+
   const budgets = await Promise.all(
     expenseCategories.map(async (cat) => {
-      const result = await db.transaction.aggregate({
-        where: { categoryId: cat.id, type: 'expense', date: { gte: monthStart, lte: monthEnd } },
-        _sum: { amount: true },
-      });
-      // 上月对比
-      const now = new Date();
-      const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-      const lastMonthStart = lastMonth.toISOString().split('T')[0];
-      const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0).toISOString().split('T')[0];
-      const lastResult = await db.transaction.aggregate({
-        where: { categoryId: cat.id, type: 'expense', date: { gte: lastMonthStart, lte: lastMonthEnd } },
-        _sum: { amount: true },
-      });
+      const [rows, lastRows] = await Promise.all([
+        db.transaction.findMany({ where: { categoryId: cat.id, type: 'expense', date: { gte: monthStart, lte: monthEnd } }, select: { amount: true } }),
+        db.transaction.findMany({ where: { categoryId: cat.id, type: 'expense', date: { gte: lastMonthStart, lte: lastMonthEnd } }, select: { amount: true } }),
+      ]);
+      const spent = sums(rows);
+      const lastMonthSpent = sums(lastRows);
       return {
         id: cat.id,
         name: cat.name,
         icon: cat.icon,
         budgetLimit: cat.budgetLimit!,
-        spent: result._sum.amount || 0,
-        lastMonthSpent: lastResult._sum.amount || 0,
+        spent,
+        lastMonthSpent,
       };
     })
   );
