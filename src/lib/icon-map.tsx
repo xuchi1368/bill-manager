@@ -1,40 +1,35 @@
+// src/lib/icon-map.tsx
+'use client';
+import React from 'react';
+import { useIconTheme } from '@/components/IconProvider';
+import { getIconKey } from '@/lib/icon-themes';
 import {
-  UtensilsCrossed, Car, ShoppingCart, Home, Gamepad2, Pill, Smartphone,
-  Gift, Plane, GraduationCap, Briefcase, Wrench, Package, Heart, Star,
-  Flame, Coffee, Sandwich, Pizza, CupSoda, Bus, Fuel, Shirt, Sparkles,
-  Film, Music, Laptop, Lightbulb, Droplets, BookOpen, Cat, CreditCard,
-  Brush, Cake, Dumbbell, Scissors, Building2, Banknote, Landmark,
-  MessageCircle, CircleDollarSign, Bitcoin, type LucideIcon
+  Package, CreditCard, MessageCircle, CircleDollarSign, Banknote, Building2,
+  type LucideIcon
 } from 'lucide-react';
 
-// Category emoji → Lucide icon
-const CATEGORY_ICON_MAP: Record<string, LucideIcon> = {
-  '🍜': UtensilsCrossed, '🍔': Sandwich, '🍕': Pizza, '🥤': CupSoda, '☕': Coffee,
-  '🚗': Car, '🚌': Bus, '⛽': Fuel,
-  '🛒': ShoppingCart, '👗': Shirt, '💄': Sparkles,
-  '🎮': Gamepad2, '🎬': Film, '🎵': Music,
-  '📱': Smartphone, '💻': Laptop,
-  '🏠': Home, '💡': Lightbulb, '💧': Droplets,
-  '📚': BookOpen, '💊': Pill, '🐱': Cat,
-  '🎁': Gift, '✈️': Plane, '🏥': Building2, '🎓': GraduationCap,
-  '💰': CircleDollarSign, '📈': Star, '💼': Briefcase, '🏦': Building2,
-  '🧾': CreditCard, '💳': CreditCard, '🧹': Brush,
-  '🎂': Cake, '⚽': Star, '🏋️': Dumbbell, '🧘': Sparkles, '💇': Scissors,
-  '🔧': Wrench, '📦': Package, '❤️': Heart, '🌟': Star, '🔥': Flame,
-};
-
-// Channel name → Lucide icon
 const CHANNEL_ICON_MAP: Record<string, LucideIcon> = {
   '微信': MessageCircle, '支付宝': CircleDollarSign,
   '银行卡': CreditCard, '现金': Banknote, '工资卡': Building2,
 };
 
-export function getCategoryIcon(emoji: string): LucideIcon {
-  return CATEGORY_ICON_MAP[emoji] || Package;
+// 分类图标 hook — 返回 (emoji, categoryName) → ReactElement（直接嵌入 JSX）
+export function useCategoryIcon() {
+  const { getIcon } = useIconTheme();
+  return (emoji: string, categoryName?: string): React.ReactElement => {
+    const key = getIconKey(categoryName || '', emoji);
+    return getIcon(key, 16) || React.createElement(Package, { size: 16 });
+  };
 }
 
+// 渠道图标 hook — 返回 LucideIcon 组件（不随主题变化）
+export function useChannelIcon() {
+  return (name: string): LucideIcon => CHANNEL_ICON_MAP[name] || CreditCard;
+}
+
+// 保留旧函数签名给非 React 代码（如 API 路由）
 export function getChannelIcon(name: string): LucideIcon {
   return CHANNEL_ICON_MAP[name] || CreditCard;
 }
 
-export { CATEGORY_ICON_MAP, CHANNEL_ICON_MAP };
+export { CHANNEL_ICON_MAP };
