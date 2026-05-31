@@ -264,7 +264,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    return NextResponse.json({ format, transactions });
+    return NextResponse.json({ format: finalFormat, transactions });
   } catch (e) {
     return NextResponse.json({ error: `解析失败: ${(e as Error).message}` }, { status: 500 });
   }
