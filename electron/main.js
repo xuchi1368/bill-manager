@@ -124,8 +124,9 @@ ipcMain.on('window-maximize', () => {
 ipcMain.on('window-close', () => mainWindow?.close());
 ipcMain.handle('window-is-maximized', () => mainWindow?.isMaximized() ?? false);
 
-// Only skip built-in server when explicitly told (dev mode via npm run electron:dev)
-const SKIP_SERVER = process.env.ELECTRON_SKIP_SERVER === '1';
+// Skip built-in server when no production .next build exists (dev mode)
+const SKIP_SERVER = process.env.ELECTRON_SKIP_SERVER === '1'
+  || !fs.existsSync(path.join(__dirname, '..', '.next', 'BUILD_ID'));
 
 app.whenReady().then(async () => {
   if (!SKIP_SERVER) {
