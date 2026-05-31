@@ -37,11 +37,12 @@ const inputClass = 'bg-[#f5f2ed] border-0 rounded-[10px] px-3.5 py-2 text-sm tex
 import PageTransition from '@/components/PageTransition';
 import { useIconTheme } from '@/components/IconProvider';
 import { useCategoryIcon } from '@/lib/icon-map';
+import { getTitlebarStyle, setTitlebarStyle, type TitlebarStyle } from '@/lib/titlebar-store';
 
 function SettingsContent() {
   const searchParams = useSearchParams();
-  const initialTab = (searchParams.get('tab') as 'categories' | 'channels' | 'import' | 'rules' | 'backup') || 'categories';
-  const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules' | 'backup'>(initialTab);
+  const initialTab = (searchParams.get('tab') as 'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance') || 'categories';
+  const [tab, setTab] = useState<'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance'>(initialTab);
   const { theme, setTheme } = useIconTheme();
   const renderIcon = useCategoryIcon();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -77,6 +78,19 @@ function SettingsContent() {
   const [ruleAmountMin, setRuleAmountMin] = useState('');
   const [ruleAmountMax, setRuleAmountMax] = useState('');
   const [rulePriority, setRulePriority] = useState('0');
+
+  const [titlebarStyle, setTitlebarStyleState] = useState<TitlebarStyle>('auto');
+
+  useEffect(() => {
+    setTitlebarStyleState(getTitlebarStyle());
+  }, []);
+
+  function handleTitlebarChange(s: TitlebarStyle) {
+    setTitlebarStyleState(s);
+    setTitlebarStyle(s);
+    // 触发 storage 事件让 TitleBar 组件感知变化
+    window.dispatchEvent(new Event('storage'));
+  }
 
   const loadCategories = useCallback(() => {
     fetch('/api/categories').then((r) => r.json()).then(setCategories);
@@ -335,7 +349,7 @@ function SettingsContent() {
   const expenseCategories = categories.filter((c) => c.type === 'expense');
   const incomeCategories = categories.filter((c) => c.type === 'income');
 
-  const tabBtn = (t: 'categories' | 'channels' | 'import' | 'rules' | 'backup', label: string) => (
+  const tabBtn = (t: 'categories' | 'channels' | 'import' | 'rules' | 'backup' | 'appearance', label: string) => (
     <button
       className={`px-4 py-2.5 text-sm font-medium transition-colors ${tab === t ? 'border-b-2 border-[#f59e0b] text-[#3d342b]' : 'text-[#6b5d52] hover:text-[#3d342b]'}`}
       onClick={() => setTab(t)}
@@ -354,26 +368,11 @@ function SettingsContent() {
         {tabBtn('import', '📥 数据导入')}
         {tabBtn('rules', '📏 自动分类')}
         {tabBtn('backup', '💾 数据备份')}
+        {tabBtn('appearance', '🎨 外观')}
       </div>
 
       {tab === 'categories' && (
         <>
-          <div className="card p-3 mb-4 flex items-center gap-3">
-            <span className="text-xs text-[#6b5d52] font-medium">图标风格：</span>
-            {(['lucide', 'emoji', 'colored'] as const).map(t => (
-              <button
-                key={t}
-                onClick={() => setTheme(t)}
-                className={`px-3 py-1.5 text-xs rounded-[8px] font-medium transition-all cursor-pointer ${
-                  theme === t
-                    ? 'bg-[#f59e0b] text-white shadow-sm'
-                    : 'bg-[#f5f2ed] text-[#6b5d52] hover:bg-[#ede6dd]'
-                }`}
-              >
-                {t === 'lucide' ? '🔲 Lucide 线性' : t === 'emoji' ? '😀 Emoji' : '🎨 色块图标'}
-              </button>
-            ))}
-          </div>
           <div>
             <div className="card p-4 mb-4 flex gap-3 flex-wrap items-end">
             <div>
@@ -809,6 +808,80 @@ function SettingsContent() {
                   <button onClick={() => deleteRule(rule.id)} className="text-[#6b5d52] hover:text-[#e25c3b] text-xs">删除</button>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {tab === 'appearance' && (
+        <div>
+          <div className="card p-4 mb-4">
+            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">🪟 标题栏风格</h3>
+            <p className="text-xs text-[#6b5d52] mb-3">
+              仅 Electron 桌面版生效。切换后立即应用。
+            </p>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {(['auto', 'windows', 'mac'] as const).map(s => (
+                <button
+                  key={s}
+                  onClick={() => handleTitlebarChange(s)}
+                  className={`px-4 py-2 rounded-[10px] text-sm font-medium transition-all cursor-pointer ${
+                    titlebarStyle === s
+                      ? 'bg-[#f59e0b] text-white shadow-sm'
+                      : 'bg-[#f5f2ed] text-[#6b5d52] hover:bg-[#ede6dd]'
+                  }`}
+                >
+                  {s === 'auto' ? '💻 跟随系统' : s === 'windows' ? '🪟 Windows 风格' : '🍎 Mac 风格'}
+                </button>
+              ))}
+            </div>
+            {/* 实时预览 */}
+            <div className="p-3 bg-[#faf7f2] rounded-xl border border-[#ede6dd]">
+              <p className="text-xs text-[#6b5d52] mb-2">预览效果：</p>
+              <div style={{
+                height: 36, background: '#faf7f2',
+                borderBottom: '2px solid #f59e0b',
+                display: 'flex', alignItems: 'center',
+                padding: '0 14px', borderRadius: '6px 6px 0 0',
+              }}>
+                {titlebarStyle === 'mac' ? (
+                  <>
+                    <div style={{ display: 'flex', gap: 5, marginRight: 12 }}>
+                      <div style={{ width: 9, height: 9, borderRadius: '50%', background: '#ee6b5b' }} />
+                      <div style={{ width: 9, height: 9, borderRadius: '50%', background: '#f0c14b' }} />
+                      <div style={{ width: 9, height: 9, borderRadius: '50%', background: '#63c556' }} />
+                    </div>
+                    <span style={{ fontSize: 11, color: '#6b5d52' }}>账单管理</span>
+                  </>
+                ) : (
+                  <>
+                    <div style={{ width: 5, height: 5, background: '#f59e0b', borderRadius: '50%', marginRight: 6 }} />
+                    <span style={{ fontSize: 11, color: '#3d342b', fontWeight: 600, flex: 1 }}>账单管理</span>
+                    <div style={{ display: 'flex', gap: 1 }}>
+                      <svg width="8" height="8"><line x1="1" y1="4" x2="7" y2="4" stroke="#6b5d52" strokeWidth="1"/></svg>
+                      <svg width="8" height="8"><rect x="1" y="1" width="6" height="6" fill="none" stroke="#6b5d52" strokeWidth="1"/></svg>
+                      <svg width="8" height="8"><line x1="1.5" y1="1.5" x2="6.5" y2="6.5" stroke="#c97d60" strokeWidth="1"/><line x1="6.5" y1="1.5" x2="1.5" y2="6.5" stroke="#c97d60" strokeWidth="1"/></svg>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="card p-4">
+            <h3 className="text-sm font-semibold text-[#3d342b] mb-3">😀 图标风格</h3>
+            {(['lucide', 'emoji', 'colored'] as const).map(t => (
+              <button
+                key={t}
+                onClick={() => setTheme(t)}
+                className={`px-3 py-1.5 mr-2 text-xs rounded-[8px] font-medium transition-all cursor-pointer ${
+                  theme === t
+                    ? 'bg-[#f59e0b] text-white shadow-sm'
+                    : 'bg-[#f5f2ed] text-[#6b5d52] hover:bg-[#ede6dd]'
+                }`}
+              >
+                {t === 'lucide' ? '🔲 Lucide 线性' : t === 'emoji' ? '😀 Emoji' : '🎨 色块图标'}
+              </button>
             ))}
           </div>
         </div>

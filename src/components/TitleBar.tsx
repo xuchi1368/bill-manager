@@ -18,7 +18,8 @@ declare global {
 }
 
 // ---- 样式常量 ----
-const winBtnBase: React.CSSProperties = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const winBtnBase: Record<string, any> = {
   width: 28,
   height: 28,
   display: 'flex',
@@ -31,7 +32,8 @@ const winBtnBase: React.CSSProperties = {
   WebkitAppRegion: 'no-drag',
 };
 
-function macDot(color: string): React.CSSProperties {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function macDot(color: string): Record<string, any> {
   return {
     width: 11,
     height: 11,
@@ -147,9 +149,9 @@ export default function TitleBar() {
         display: 'flex',
         alignItems: 'center',
         padding: '0 14px',
-        WebkitAppRegion: 'drag',
         userSelect: 'none',
         flexShrink: 0,
+        ...({ WebkitAppRegion: 'drag' } as any),
       }}
     >
       {/* 左侧：Mac 按钮或 Windows 风格 */}
@@ -172,7 +174,7 @@ export default function TitleBar() {
 
       {/* 右侧：Windows 按钮 */}
       {effectiveStyle === 'windows' && (
-        <div style={{ marginLeft: 'auto', WebkitAppRegion: 'no-drag' }}>
+        <div style={{ marginLeft: 'auto', ...({ WebkitAppRegion: 'no-drag' } as any) }}>
           <WinButtons isMaximized={isMaximized} />
         </div>
       )}
