@@ -119,11 +119,13 @@ function TransactionsContent() {
           } : null}
           onCancelEdit={() => setEditing(null)}
         />
-        <TransactionList
-          transactions={transactions}
-          onEdit={(t) => setEditing(t)}
-          onDelete={handleDelete}
-        />
+        <div className="overflow-y-auto lg:max-h-[calc(100vh-210px)]">
+          <TransactionList
+            transactions={transactions}
+            onEdit={(t) => setEditing(t)}
+            onDelete={handleDelete}
+          />
+        </div>
       </div>
       {transactions.length === 0 && (
         <EmptyState icon={<PenLine size={40} strokeWidth={1.5} />} title="暂无交易记录" desc="点击左侧表单添加第一笔收支" />
